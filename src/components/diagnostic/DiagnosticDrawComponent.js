@@ -1,0 +1,94 @@
+import { Group, Div, Spacing } from '@vkontakte/vkui';
+import { Icon48ArrowLeftOutline, Icon28ClearDataOutline } from "@vkontakte/icons";
+import { Fragment, useEffect, useRef, useState } from 'react';
+
+export default function DiagnosticDrawComponent(props) {
+    const [
+        state, , , , , , changeShowActivePanel
+    ] = props.data;
+
+    const canvasRef = useRef(null);
+    const contextRef = useRef(null);
+
+    const [isDrawing, setIsDrawing] = useState(false)
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        canvas.width = document.body.offsetWidth * 2;
+        canvas.style.width = `${document.body.offsetWidth}px`;
+        canvas.height = document.body.offsetHeight * 2;
+        canvas.style.height = `${document.body.offsetHeight}px`;
+
+        const context = canvas.getContext("2d");
+        context.scale(2, 2);
+        context.lineCap = "round";
+        context.strokeStyle = "black";
+        context.lineWidth = 1;
+        contextRef.current = context;
+    }, [])
+
+    const startDrawing = function ({ nativeEvent }) {
+        const { offsetX, offsetY } = nativeEvent;
+        contextRef.current.beginPath();
+        contextRef.current.moveTo(offsetX, offsetY);
+        setIsDrawing(true);
+    }
+
+    const finishDrawing = function () {
+        contextRef.current.closePath();
+        setIsDrawing(false);
+    }
+
+    const draw = function ({ nativeEvent }) {
+        if (!isDrawing) return
+        const { offsetX, offsetY } = nativeEvent;
+        contextRef.current.lineTo(offsetX, offsetY);
+        contextRef.current.stroke();
+    }
+
+    const drawTouch = function ({ nativeEvent }) {
+        var touch = nativeEvent.touches[0],
+            mouseEvent = new MouseEvent("mousemove", {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+        if (!isDrawing) return
+        contextRef.current.lineTo(mouseEvent.clientX, mouseEvent.clientY);
+        contextRef.current.stroke();
+    }
+
+    const clearDraw = function () {
+        contextRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    }
+
+    return (
+        <Fragment>
+            <Group mode="plain" style={{
+                height: "100vh",
+                overflow: "hidden",
+                position: "relative"
+            }}>
+                <Div style={{
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    display: 'flex',
+                }}>
+                    <Icon48ArrowLeftOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                    <Spacing size={10} />
+                    <Icon28ClearDataOutline width={48} height={48} onClick={clearDraw} />
+                </Div>
+
+                <canvas
+                    onMouseDown={startDrawing}
+                    onMouseUp={finishDrawing}
+                    onMouseMove={draw}
+                    onTouchStart={startDrawing}
+                    onTouchEnd={finishDrawing}
+                    onTouchMove={drawTouch}
+                    ref={canvasRef}
+                />
+            </Group>
+        </Fragment>
+    );
+}

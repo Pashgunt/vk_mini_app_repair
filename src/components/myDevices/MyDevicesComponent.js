@@ -1,0 +1,224 @@
+import { Div, Group, Spacing, CardGrid, Title, Search, CardScroll, Card, Headline, Alert } from "@vkontakte/vkui";
+import { Icon28ChevronBack } from '@vkontakte/icons';
+import React, { Fragment, useEffect, useRef, useState } from "react";
+import { Icon20AddSquareOutline, Icon20DeleteOutline } from '@vkontakte/icons';
+import MainFixedHeader from "../MainFixedHeader";
+
+export default function MyDevicesComponents(props) {
+    const [deviceList, setDeviceList] = useState([]);
+    const [searchDeviceList, setSearchDeviceList] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
+    const [searchCategory, setSearchCategory] = useState('');
+    const [isScroll, setIsScroll] = useState(false);
+
+    const headerRef = useRef(null);
+
+    let [
+        state,
+        userData,
+        myDeviceList,
+        setChooseDevice,
+        setChooseDeviceType,
+        changeShowActiveModal,
+        changeShowActivePanel,
+        confirmAdd,
+        confirmDelete,
+        actionsLog,
+        setProblem,
+        chooseProblemType,
+        chooseProblemText,
+        chooseDevice,
+        chooseDeviceType,
+        setChooseProblemType,
+        setChooseProblemText,
+        userPhone,
+        problem,
+        setMyDeviceList,
+        addActionLogItem,
+        requestsForRepair,
+        setRequestsForRepair,
+        chooseActiveRequestRepairItem,
+        setChooseActiveRequestRepairItem
+    ] = props.data;
+
+    useEffect(async () => {
+        const res = await state.api.getDeviceList();
+        setDeviceList(res.data);
+        setSearchDeviceList(res.data);
+    }, []);
+
+
+    const searchDevice = function (event) {
+        setSearchDeviceList(deviceList);
+        let value = event.target.value;
+        setSearchValue(value);
+        if (!value) return;
+        value = value.toLowerCase();
+        if (searchCategory) {
+            let data = {};
+            data[searchCategory] = deviceList[searchCategory].filter(device => device.toLowerCase().includes(value));
+            setSearchDeviceList(data)
+        } else {
+            setSearchDeviceList(Object.values(deviceList).map(deviceItems => {
+                return deviceItems.filter(device => device.toLowerCase().includes(value))
+            }));
+        }
+    }
+
+    const chooseCategory = function (_, key) {
+        if (key) {
+            setSearchCategory(key);
+        }
+        if (key === searchCategory) {
+            setSearchCategory('')
+        }
+    }
+
+    const deciderForAddOrRemove = (device, deviceType) => {
+        return myDeviceList[deviceType]?.includes(device) ? confirmDelete(userData.id, device, deviceType) : confirmAdd(userData.id, device, deviceType);
+    }
+
+    window.addEventListener("scroll", function () {
+        let scrollTop = window.scrollY,
+            headerHeight = +headerRef.current?.offsetHeight;
+        if (scrollTop > headerHeight) {
+            setIsScroll(true);
+        }
+        if (scrollTop < 10) {
+            setIsScroll(false);
+        }
+    })
+
+    return (
+        <Fragment>
+            {isScroll && <MainFixedHeader
+                state={state}
+                title={"Добавить устройство"}
+                changeShowActiveModal={null}
+                showProfile={false}
+            />}
+            <Group mode="plain" separator="hide" >
+                <Div>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center'
+                    }}
+                        ref={headerRef}>
+                        <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                        <Spacing size={12} />
+                        <Title>
+                            Добавить устройство
+                        </Title>
+                    </div>
+                </Div>
+            </Group>
+            <Search style={{
+                paddingBottom: "0"
+            }}
+                before=""
+                placeholder={state.components.addDeviceHeader.placeholder}
+                onKeyUp={searchDevice}
+            />
+            <Spacing size={15} />
+            <CardScroll size={false}>
+                {
+                    Object.keys(state.components.addDeviceHeader.deviceCards.types).map((title) => {
+                        return (
+                            <Card onClick={event => chooseCategory(event, state.components.addDeviceHeader.deviceCards.types[title]['img'])} key={state.components.addDeviceHeader.deviceCards.types[title]['img']}
+                                style={state.components.addDeviceHeader.deviceCards.types[title]['img'] === searchCategory ? {
+                                    background: '#666',
+                                    color: "white"
+                                } : {}}
+                            >
+                                <Div style={state.components.addDeviceHeader.deviceCards.cardStyle}>
+                                    <img src={state.images[state.components.addDeviceHeader.deviceCards.types[title]['img']]} width={state.components.addDeviceHeader.deviceCards.types[title]['width']} height={state.components.addDeviceHeader.deviceCards.types[title]['height']} alt="image" />
+                                    <Headline weight="regular" style={state.components.addDeviceHeader.deviceCards.cardHeaderStyle}>
+                                        {title}
+                                    </Headline>
+                                </Div>
+                            </Card>
+                        );
+                    })
+                }
+            </CardScroll>
+            <Spacing size={10} />
+            {
+                actionsLog.length ?
+                    <Fragment>
+                        <Div>
+                            <Headline weight="regular" style={{
+                                color: "#666"
+                            }}>
+                                {actionsLog}
+                            </Headline>
+                        </Div>
+                    </Fragment> : ''
+            }
+            <Div>
+                <Title level="3">
+                    Список устройств:
+                </Title>
+            </Div>
+            <Div>
+                {searchDeviceList ?
+                    searchCategory ?
+                        searchDeviceList[searchCategory].map((device, index) => {
+                            return (<>
+                                <Card key={index}>
+                                    <Div style={!myDeviceList[searchCategory]?.includes(device) ? {
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        color: "#888",
+                                    } : {
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        color: "white",
+                                        background: "#666",
+                                        borderRadius: "8px"
+                                    }}>
+                                        <div
+                                            dangerouslySetInnerHTML={{ __html: device.replace(searchValue, `<span style="color: black">${searchValue}</span>`) }}>
+                                        </div>
+                                        {myDeviceList[searchCategory]?.includes(device) ? <Icon20DeleteOutline onClick={() => deciderForAddOrRemove(device, searchCategory)} /> : <Icon20AddSquareOutline onClick={() => deciderForAddOrRemove(device, searchCategory)} />}
+                                    </Div>
+                                </Card>
+                                <Spacing size={10} />
+                            </>
+                            );
+                        })
+                        : Object.keys(searchDeviceList).map(typeDevice => {
+                            return searchDeviceList[typeDevice].map((device, index) => {
+                                return (
+                                    <><Card key={index}>
+                                        <Div style={!myDeviceList[typeDevice]?.includes(device) ? {
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            color: "#888",
+                                        } : {
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            color: "white",
+                                            background: "#666",
+                                            borderRadius: "8px"
+                                        }}>
+                                            <div
+                                                dangerouslySetInnerHTML={{ __html: device.replace(searchValue, `<span style="color: black">${searchValue}</span>`) }}>
+                                            </div>
+                                            {myDeviceList[typeDevice]?.includes(device) ? <Icon20DeleteOutline onClick={() => deciderForAddOrRemove(device, typeDevice)} /> : <Icon20AddSquareOutline onClick={() => deciderForAddOrRemove(device, typeDevice)} />}
+                                        </Div>
+                                    </Card>
+                                        <Spacing size={10} />
+                                    </>
+                                );
+                            })
+                        })
+                    : ''}
+            </Div>
+            <Spacing size={40} />
+        </Fragment>
+    );
+}

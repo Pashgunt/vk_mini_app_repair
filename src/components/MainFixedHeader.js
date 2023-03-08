@@ -1,0 +1,37 @@
+import React from "react";
+import { FixedLayout, Group, Headline, Spacing } from "@vkontakte/vkui";
+import { Icon28Profile } from '@vkontakte/icons';
+
+export default function MainFixedHeader({ state, title, changeShowActiveModal, showProfile = true }) {
+    return (
+        <FixedLayout vertical="top" style={{
+            background: "white",
+            borderBottom: "1px solid #ccc"
+        }}>
+            <Group mode="plain">
+                <div style={{
+                    position: "relative",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                }}>
+                    {showProfile && <Icon28Profile
+                        fill='#2688eb'
+                        style={{
+                            position: "absolute",
+                            left: "20px"
+                        }}
+                        onClick={() => changeShowActiveModal(state.panels.modal_profile, state)}
+                    />}
+                    <Headline level="2" style={{
+                        textAlign: "center"
+                    }} weight="3">
+                        <Spacing size={5} />
+                        {title}
+                        <Spacing size={5} />
+                    </Headline>
+                </div>
+            </Group>
+        </FixedLayout>
+    );
+}
