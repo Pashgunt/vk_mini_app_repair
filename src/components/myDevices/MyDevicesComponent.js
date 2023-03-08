@@ -1,6 +1,6 @@
-import { Div, Group, Spacing, CardGrid, Title, Search, CardScroll, Card, Headline, Alert } from "@vkontakte/vkui";
+import { Div, Group, Spacing, Title, Search, CardScroll, Card, Headline } from "@vkontakte/vkui";
 import { Icon28ChevronBack } from '@vkontakte/icons';
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Icon20AddSquareOutline, Icon20DeleteOutline } from '@vkontakte/icons';
 import MainFixedHeader from "../MainFixedHeader";
 
@@ -17,28 +17,28 @@ export default function MyDevicesComponents(props) {
         state,
         userData,
         myDeviceList,
-        setChooseDevice,
-        setChooseDeviceType,
-        changeShowActiveModal,
+        ,
+        ,
+        ,
         changeShowActivePanel,
         confirmAdd,
         confirmDelete,
         actionsLog,
-        setProblem,
-        chooseProblemType,
-        chooseProblemText,
-        chooseDevice,
-        chooseDeviceType,
-        setChooseProblemType,
-        setChooseProblemText,
-        userPhone,
-        problem,
-        setMyDeviceList,
-        addActionLogItem,
-        requestsForRepair,
-        setRequestsForRepair,
-        chooseActiveRequestRepairItem,
-        setChooseActiveRequestRepairItem
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        ,
+        
     ] = props.data;
 
     useEffect(async () => {

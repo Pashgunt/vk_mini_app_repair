@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import { useState, Fragment } from 'react';
 import MainHeader from "./MainHeader";
 import MainDevices from "./MainDevices";
 import MainSupportTools from "./MainSupportTools";
@@ -17,24 +17,8 @@ export default function MainPanel(props) {
         setChooseDevice,
         setChooseDeviceType,
         changeShowActiveModal,
-        changeShowActivePanel,
-        confirmAdd,
-        confirmDelete,
-        actionsLog,
-        setProblem,
-        chooseProblemType,
-        chooseProblemText,
-        chooseDevice,
-        chooseDeviceType,
-        setChooseProblemType,
-        setChooseProblemText,
-        userPhone,
-        problem,
-        setMyDeviceList,
-        addActionLogItem,
-        requestsForRepair,
-        setRequestsForRepair,
-        chooseActiveRequestRepairItem,
+        changeShowActivePanel,,,,,,,,,,,,,,,
+        requestsForRepair,,,
         setChooseActiveRequestRepairItem
     ] = props.data;
 

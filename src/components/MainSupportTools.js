@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import {
-    CardGrid,
     Group,
     Header,
     Link,

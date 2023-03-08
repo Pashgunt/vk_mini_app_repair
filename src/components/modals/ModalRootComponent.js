@@ -1,5 +1,4 @@
-import { ModalPage, ModalRoot, ModalPageHeader, PanelHeaderClose, Div, Group } from "@vkontakte/vkui";
-import React, { useEffect, useState } from "react";
+import { ModalPage, ModalRoot, ModalPageHeader} from "@vkontakte/vkui";
 import ModalSearchProblemPage from "./ModalSearchProblemPage";
 import ModalPageCreateRequestRepair from "./ModalPageCreateRequestRepair";
 import ModalPageChooseDevice from "./ModalPageChooseDevice";

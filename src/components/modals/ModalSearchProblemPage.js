@@ -20,6 +20,7 @@ export default function ModalSearchProblemPage({ state, changeShowActiveModal, p
                 try {
                     return item?.toLowerCase().includes(value);
                 } catch (e) {
+                    console.log(e);
                 }
             });
         }
@@ -34,7 +35,6 @@ export default function ModalSearchProblemPage({ state, changeShowActiveModal, p
 
     const clickForNextModalWithCorrectInput = () => {
         setIsErrorInput(false);
-        let value = problemRef.current.value;
         changeShowActiveModal(state.panels.modal_chooseDevice, state)
     }
 

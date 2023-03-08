@@ -1,5 +1,5 @@
-import { Fragment, useEffect, useState } from "react";
-import { Group, Header, Title, Link, Spacing, Tabs, TabsItem, CardGrid, Card, Div, SimpleCell, Headline } from "@vkontakte/vkui";
+import { Fragment, useState } from "react";
+import { Group, Header, Title, Link, Spacing, Tabs, TabsItem, Card, Div, SimpleCell, Headline } from "@vkontakte/vkui";
 import { Icon20ChevronRightOutline } from "@vkontakte/icons";
 
 export default function MainRepairComponent({
@@ -64,7 +64,7 @@ export default function MainRepairComponent({
                                                 </SimpleCell>
                                             </Div>
                                         </Card>
-                                        {requestsForRepair?.current?.slice(0, 3).length - 1 != index && <Spacing size={10} />}
+                                        {requestsForRepair?.current?.slice(0, 3).length - 1 !== index && <Spacing size={10} />}
                                     </>
                                     );
                                 })}
@@ -102,7 +102,7 @@ export default function MainRepairComponent({
                                                 </SimpleCell>
                                             </Div>
                                         </Card>
-                                        {requestsForRepair?.current?.slice(0, 3).length - 1 != index && <Spacing size={10} />}
+                                        {requestsForRepair?.current?.slice(0, 3).length - 1 !== index && <Spacing size={10} />}
                                     </>
                                     );
                                 })}

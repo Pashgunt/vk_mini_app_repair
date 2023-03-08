@@ -57,7 +57,7 @@ export default function DiagnosticDisplayComponent(props) {
                     left: "0"
                 }}>
                     <Icon48ArrowLeftOutline fill="white" onClick={() => {
-                        stopToggle
+                        stopToggle()
                         changeShowActivePanel(state.panels.panel_mainScreen, state)
                     }} />
                     {isPlayed ? <Icon48Pause fill="white" onClick={stopToggle} /> : <Icon48Play fill="white" onClick={startToggle} />}

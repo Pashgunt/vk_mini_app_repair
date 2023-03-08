@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import {
     Card,
     CardScroll,

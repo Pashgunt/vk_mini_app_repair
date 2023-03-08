@@ -38,7 +38,7 @@ export default function DiagnosticCameraComponent(props) {
         navigator.mediaDevices.getUserMedia(options)
             .then(function (stream) {
                 videoRef.current.srcObject = stream;
-                video.play();
+                videoRef.current.play();
             })
             .catch(function (err) {
                 console.log("An error occurred: " + err);
