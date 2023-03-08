@@ -40,9 +40,7 @@ export default function ModalPageFormForCallback({ state, changeShowActiveModal,
                     <Input
                         type="text"
                         defaultValue={userData.first_name}
-                        style={{
-                            border: !correctUsername ? "1px solid red" : ''
-                        }}
+                        status={!correctUsername ? 'error' : 'valid'}
                         onKeyUp={changeUsername}
                     />
                     {!correctUsername && <Fragment>
@@ -63,9 +61,7 @@ export default function ModalPageFormForCallback({ state, changeShowActiveModal,
                         type="tel"
                         pattern="[0-9]{3}-[0-09]{3}-[0-9]{2}-[0-9]{2}"
                         defaultValue={userPhone}
-                        style={{
-                            border: !userPhone || !correctPhone ? "1px solid red" : ''
-                        }}
+                        status={!userPhone || !correctPhone ? 'error' : 'valid'}
                         onKeyUp={changePhoneNumberForUser}
                     />
                     <Spacing size={5} />

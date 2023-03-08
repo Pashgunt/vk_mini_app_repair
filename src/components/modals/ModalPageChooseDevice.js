@@ -14,9 +14,12 @@ export default function ModalPageChooseDevice({
 
     const [devices, setDevices] = useState(false);
 
-    useEffect(async () => {
-        const res = await state.api.getAllDeviceListForUser(userData.id);
-        setDevices(res.data);
+    useEffect(() => {
+        const startAsyncFunc = async () => {
+            const res = await state.api.getAllDeviceListForUser(userData.id);
+            setDevices(res.data);
+        }
+        startAsyncFunc();
     }, [])
 
     const cards = state.modal.chooseDevice.cardDevice;

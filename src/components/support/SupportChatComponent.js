@@ -4,7 +4,7 @@ import { Fragment, useEffect, useRef, useState } from "react";
 export default function SupportChatComponent(props) {
     const [
         state,
-        userData,,
+        userData, ,
         setChooseDevice,
         setChooseDeviceType,
         changeShowActiveModal,
@@ -36,9 +36,12 @@ export default function SupportChatComponent(props) {
         }
     }
 
-    useEffect(async () => {
-        let messagesForUserID = await state.api.getMessagesForUser(userData.id);
-        setMessages([...messages, ...messagesForUserID.data])
+    useEffect(() => {
+        const startAsyncFunc = async () => {
+            let messagesForUserID = await state.api.getMessagesForUser(userData.id);
+            setMessages([...messages, ...messagesForUserID.data])
+        }
+        startAsyncFunc();
     }, [setMessages])
 
     return (<Fragment>
@@ -49,10 +52,10 @@ export default function SupportChatComponent(props) {
             <Group mode="plain" separator="hide">
                 <Div style={{
                     display: 'flex',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    gap: "15px"
                 }}>
                     <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
-                    <Spacing size={10} />
                     <Icon24Help fill="#2688eb" width={36} height={36} />
                     <Title style={{
                         marginLeft: "10px"
@@ -63,8 +66,8 @@ export default function SupportChatComponent(props) {
             </Group>
             <Group mode="plain" separator="hide">
                 <Div style={{
-                    overflowY:"scroll",
-                    height:"calc(100vh - 200px)"
+                    overflowY: "scroll",
+                    height: "calc(100vh - 200px)"
                 }}>
                     {messages?.length ?
                         messages?.map((message, index) => {

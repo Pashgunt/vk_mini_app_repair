@@ -32,9 +32,7 @@ export default function ModalPageFeedBackForm({ state, changeShowActiveModal }) 
                         getRef={feedbackInput}
                         placeholder="Опишите свою проблему или желание, включая сведения о том, как воспроизвести её"
                         rows={5}
-                        style={{
-                            border: !correctInput ? "1px solid red" : ''
-                        }}
+                        status={!correctInput ? 'error' : 'valid'}
                     />
                     <Spacing size={5} />
                     <Subhead weight="3" style={{

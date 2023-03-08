@@ -48,10 +48,10 @@ export default function DevicePageComponent(props) {
                 <Group mode="plain" separator="hide">
                     <Div style={{
                         display: 'flex',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        gap: "15px"
                     }}>
                         <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
-                        <Spacing size={12} />
                         <Title>
                             {chooseDevice}
                         </Title>

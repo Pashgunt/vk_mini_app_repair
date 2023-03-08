@@ -38,13 +38,16 @@ export default function MyDevicesComponents(props) {
         ,
         ,
         ,
-        
+
     ] = props.data;
 
-    useEffect(async () => {
-        const res = await state.api.getDeviceList();
-        setDeviceList(res.data);
-        setSearchDeviceList(res.data);
+    useEffect(() => {
+        const startAsyncFunc = async () => {
+            const res = await state.api.getDeviceList();
+            setDeviceList(res.data);
+            setSearchDeviceList(res.data);
+        }
+        startAsyncFunc();
     }, []);
 
 
@@ -91,108 +94,84 @@ export default function MyDevicesComponents(props) {
 
     return (
         <Fragment>
-            {isScroll && <MainFixedHeader
-                state={state}
-                title={"Добавить устройство"}
-                changeShowActiveModal={null}
-                showProfile={false}
-            />}
-            <Group mode="plain" separator="hide" >
-                <Div>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center'
-                    }}
-                        ref={headerRef}>
-                        <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
-                        <Spacing size={12} />
-                        <Title>
-                            Добавить устройство
-                        </Title>
-                    </div>
-                </Div>
-            </Group>
-            <Search style={{
-                paddingBottom: "0"
-            }}
-                before=""
-                placeholder={state.components.addDeviceHeader.placeholder}
-                onKeyUp={searchDevice}
-            />
-            <Spacing size={15} />
-            <CardScroll size={false}>
-                {
-                    Object.keys(state.components.addDeviceHeader.deviceCards.types).map((title) => {
-                        return (
-                            <Card onClick={event => chooseCategory(event, state.components.addDeviceHeader.deviceCards.types[title]['img'])} key={state.components.addDeviceHeader.deviceCards.types[title]['img']}
-                                style={state.components.addDeviceHeader.deviceCards.types[title]['img'] === searchCategory ? {
-                                    background: '#666',
-                                    color: "white"
-                                } : {}}
-                            >
-                                <Div style={state.components.addDeviceHeader.deviceCards.cardStyle}>
-                                    <img src={state.images[state.components.addDeviceHeader.deviceCards.types[title]['img']]} width={state.components.addDeviceHeader.deviceCards.types[title]['width']} height={state.components.addDeviceHeader.deviceCards.types[title]['height']} alt="image" />
-                                    <Headline weight="regular" style={state.components.addDeviceHeader.deviceCards.cardHeaderStyle}>
-                                        {title}
-                                    </Headline>
-                                </Div>
-                            </Card>
-                        );
-                    })
-                }
-            </CardScroll>
-            <Spacing size={10} />
-            {
-                actionsLog.length ?
-                    <Fragment>
-                        <Div>
-                            <Headline weight="regular" style={{
-                                color: "#666"
-                            }}>
-                                {actionsLog}
-                            </Headline>
-                        </Div>
-                    </Fragment> : ''
-            }
-            <Div>
-                <Title level="3">
-                    Список устройств:
-                </Title>
-            </Div>
-            <Div>
-                {searchDeviceList ?
-                    searchCategory ?
-                        searchDeviceList[searchCategory].map((device, index) => {
-                            return (<>
-                                <Card key={index}>
-                                    <Div style={!myDeviceList[searchCategory]?.includes(device) ? {
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        color: "#888",
-                                    } : {
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        color: "white",
-                                        background: "#666",
-                                        borderRadius: "8px"
-                                    }}>
-                                        <div
-                                            dangerouslySetInnerHTML={{ __html: device.replace(searchValue, `<span style="color: black">${searchValue}</span>`) }}>
-                                        </div>
-                                        {myDeviceList[searchCategory]?.includes(device) ? <Icon20DeleteOutline onClick={() => deciderForAddOrRemove(device, searchCategory)} /> : <Icon20AddSquareOutline onClick={() => deciderForAddOrRemove(device, searchCategory)} />}
+            <Group mode="plain" style={{
+                minHeight: "100vh"
+            }}>
+                {isScroll && <MainFixedHeader
+                    state={state}
+                    title={"Добавить устройство"}
+                    changeShowActiveModal={null}
+                    showProfile={false}
+                />}
+                <Group mode="plain" separator="hide" >
+                    <Div>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: "15px"
+                        }}
+                            ref={headerRef}>
+                            <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                            <Title>
+                                Добавить устройство
+                            </Title>
+                        </div>
+                    </Div>
+                </Group>
+                <Search style={{
+                    paddingBottom: "0"
+                }}
+                    before=""
+                    placeholder={state.components.addDeviceHeader.placeholder}
+                    onKeyUp={searchDevice}
+                />
+                <Spacing size={15} />
+                <CardScroll size={false}>
+                    {
+                        Object.keys(state.components.addDeviceHeader.deviceCards.types).map((title) => {
+                            return (
+                                <Card onClick={event => chooseCategory(event, state.components.addDeviceHeader.deviceCards.types[title]['img'])} key={state.components.addDeviceHeader.deviceCards.types[title]['img']}
+                                    style={state.components.addDeviceHeader.deviceCards.types[title]['img'] === searchCategory ? {
+                                        background: '#666',
+                                        color: "white"
+                                    } : {}}
+                                >
+                                    <Div style={state.components.addDeviceHeader.deviceCards.cardStyle}>
+                                        <img src={state.images[state.components.addDeviceHeader.deviceCards.types[title]['img']]} width={state.components.addDeviceHeader.deviceCards.types[title]['width']} height={state.components.addDeviceHeader.deviceCards.types[title]['height']} alt="image" />
+                                        <Headline weight="regular" style={state.components.addDeviceHeader.deviceCards.cardHeaderStyle}>
+                                            {title}
+                                        </Headline>
                                     </Div>
                                 </Card>
-                                <Spacing size={10} />
-                            </>
                             );
                         })
-                        : Object.keys(searchDeviceList).map(typeDevice => {
-                            return searchDeviceList[typeDevice].map((device, index) => {
-                                return (
-                                    <><Card key={index}>
-                                        <Div style={!myDeviceList[typeDevice]?.includes(device) ? {
+                    }
+                </CardScroll>
+                <Spacing size={10} />
+                {
+                    actionsLog.length ?
+                        <Fragment>
+                            <Div>
+                                <Headline weight="regular" style={{
+                                    color: "#666"
+                                }}>
+                                    {actionsLog}
+                                </Headline>
+                            </Div>
+                        </Fragment> : ''
+                }
+                <Div>
+                    <Title level="3">
+                        Список устройств:
+                    </Title>
+                </Div>
+                <Div>
+                    {searchDeviceList ?
+                        searchCategory ?
+                            searchDeviceList[searchCategory].map((device, index) => {
+                                return (<>
+                                    <Card key={index}>
+                                        <Div style={!myDeviceList[searchCategory]?.includes(device) ? {
                                             display: "flex",
                                             alignItems: "center",
                                             justifyContent: "space-between",
@@ -208,17 +187,45 @@ export default function MyDevicesComponents(props) {
                                             <div
                                                 dangerouslySetInnerHTML={{ __html: device.replace(searchValue, `<span style="color: black">${searchValue}</span>`) }}>
                                             </div>
-                                            {myDeviceList[typeDevice]?.includes(device) ? <Icon20DeleteOutline onClick={() => deciderForAddOrRemove(device, typeDevice)} /> : <Icon20AddSquareOutline onClick={() => deciderForAddOrRemove(device, typeDevice)} />}
+                                            {myDeviceList[searchCategory]?.includes(device) ? <Icon20DeleteOutline onClick={() => deciderForAddOrRemove(device, searchCategory)} /> : <Icon20AddSquareOutline onClick={() => deciderForAddOrRemove(device, searchCategory)} />}
                                         </Div>
                                     </Card>
-                                        <Spacing size={10} />
-                                    </>
+                                    <Spacing size={10} />
+                                </>
                                 );
                             })
-                        })
-                    : ''}
-            </Div>
-            <Spacing size={40} />
+                            : Object.keys(searchDeviceList).map(typeDevice => {
+                                return searchDeviceList[typeDevice].map((device, index) => {
+                                    return (
+                                        <><Card key={index}>
+                                            <Div style={!myDeviceList[typeDevice]?.includes(device) ? {
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "space-between",
+                                                color: "#888",
+                                            } : {
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "space-between",
+                                                color: "white",
+                                                background: "#666",
+                                                borderRadius: "8px"
+                                            }}>
+                                                <div
+                                                    dangerouslySetInnerHTML={{ __html: device.replace(searchValue, `<span style="color: black">${searchValue}</span>`) }}>
+                                                </div>
+                                                {myDeviceList[typeDevice]?.includes(device) ? <Icon20DeleteOutline onClick={() => deciderForAddOrRemove(device, typeDevice)} /> : <Icon20AddSquareOutline onClick={() => deciderForAddOrRemove(device, typeDevice)} />}
+                                            </Div>
+                                        </Card>
+                                            <Spacing size={10} />
+                                        </>
+                                    );
+                                })
+                            })
+                        : ''}
+                </Div>
+                <Spacing size={40} />
+            </Group>
         </Fragment>
     );
 }

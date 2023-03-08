@@ -141,7 +141,7 @@ const App = () => {
         );
     }
 
-    useEffect(async () => {
+    useEffect(() => {
         bridge.send('VKWebAppGetUserInfo')
             .then(async response => {
                 const resMyDevice = await state.api.getAllDeviceListForUser(response.id);

@@ -49,9 +49,7 @@ export default function ModalSearchProblemPage({ state, changeShowActiveModal, p
             <Spacing size={0} />
             <FormItem>
                 <Textarea
-                    style={{
-                        border: isErrorInput ? "1px solid red" : ''
-                    }}
+                    status={isErrorInput ? 'error' : 'valid'}
                     getRef={problemRef}
                     placeholder="Например: забыли пароль"
                     defaultValue={problem}

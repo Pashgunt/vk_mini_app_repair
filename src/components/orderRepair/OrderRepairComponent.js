@@ -64,9 +64,12 @@ export default function OrderRepairComponent(props) {
         state.validator.isMobilePhone(userPhone, ['ru-RU'])
     );
 
-    useEffect(async () => {
-        const res = await state.api.getAllDeviceListForUser(userData.id);
-        setDevices(res.data);
+    useEffect(() => {
+        const startAsyncFunc = async () => {
+            const res = await state.api.getAllDeviceListForUser(userData.id);
+            setDevices(res.data);
+        }
+        startAsyncFunc();
     }, [])
 
     const cards = state.modal.chooseDevice.cardDevice,
@@ -271,10 +274,10 @@ export default function OrderRepairComponent(props) {
                     top: "0",
                     left: "0",
                     display: 'flex',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    gap: "15px"
                 }} ref={headerRef}>
                     <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
-                    <Spacing size={10} />
                     <Title>
                         Заказать ремонт
                     </Title>
@@ -289,7 +292,8 @@ export default function OrderRepairComponent(props) {
                         position: "absolute",
                         padding: "0 10px",
                         top: "-12px",
-                        left: "20px"
+                        left: "20px",
+                        zIndex: "1"
                     }}>Устройство</Title>
                     <Div>
                         <FormItem top="Выберите устройство" bottom="Поиск по устройствам">
@@ -308,7 +312,8 @@ export default function OrderRepairComponent(props) {
                         position: "absolute",
                         padding: "0 10px",
                         top: "-12px",
-                        left: "20px"
+                        left: "20px",
+                        zIndex: "1"
                     }}>Проблема</Title>
                     <Div>
                         <FormItem top="Укажите проблему">
@@ -318,9 +323,7 @@ export default function OrderRepairComponent(props) {
                                 onKeyUp={state.throttle(onChangeTextareaProblem, 300)}
                                 getRef={problemRef}
                                 defaultValue={problem}
-                                style={{
-                                    border: !isCorrectProblem ? "1px solid red" : ''
-                                }}
+                                status={!isCorrectProblem ? 'error' : 'valid'}
                             />
                             {matchWordsList && <><Spacing size={12} /><Group mode={"card"}>
                                 {
@@ -368,7 +371,8 @@ export default function OrderRepairComponent(props) {
                         position: "absolute",
                         padding: "0 10px",
                         top: "-12px",
-                        left: "20px"
+                        left: "20px",
+                        zIndex: "1"
                     }}>Адрес</Title>
                     <Div>
                         <FormItem top="Укажите адрес">
@@ -377,9 +381,7 @@ export default function OrderRepairComponent(props) {
                                 placeholder="Укажите адрес"
                                 getRef={fullAdressRef}
                                 onKeyUp={onChangeFullAdressRefValue}
-                                style={{
-                                    border: !isCorrectFullAdress ? "1px solid red" : ''
-                                }}
+                                status={!isCorrectFullAdress ? 'error' : 'valid'}
                             />
                         </FormItem>
                         <Spacing size={10} />
@@ -393,9 +395,7 @@ export default function OrderRepairComponent(props) {
                                     placeholder="Квартира"
                                     onKeyUp={onChangeFlatRefValue}
                                     getRef={flatRef}
-                                    style={{
-                                        border: !isCorrectFlat ? "1px solid red" : ''
-                                    }}
+                                    status={!isCorrectFlat ? 'error' : 'valid'}
                                 />
                             </Card>
                             <Card>
@@ -404,9 +404,7 @@ export default function OrderRepairComponent(props) {
                                     placeholder="Подъезд"
                                     onKeyUp={onChangeEntranceRefValue}
                                     getRef={intercomRef}
-                                    style={{
-                                        border: !isCorrectEnterance ? "1px solid red" : ''
-                                    }}
+                                    status={!isCorrectEnterance ? 'error' : 'valid'}
                                 />
                             </Card>
                             <Card>
@@ -415,9 +413,7 @@ export default function OrderRepairComponent(props) {
                                     placeholder="Этаж"
                                     onKeyUp={onChangeFloorRefValue}
                                     getRef={floorRef}
-                                    style={{
-                                        border: !isCorrectFloor ? "1px solid red" : ''
-                                    }}
+                                    status={!isCorrectFloor ? 'error' : 'valid'}
                                 />
                             </Card>
                             <Card>
@@ -426,9 +422,7 @@ export default function OrderRepairComponent(props) {
                                     placeholder="Домофон"
                                     onKeyUp={onChangeIntercomRefValue}
                                     getRef={entranceRef}
-                                    style={{
-                                        border: !isCorrectIntercome ? "1px solid red" : ''
-                                    }}
+                                    status={!isCorrectIntercome ? 'error' : 'valid'}
                                 />
                             </Card>
                         </CardGrid>
@@ -444,7 +438,8 @@ export default function OrderRepairComponent(props) {
                         position: "absolute",
                         padding: "0 10px",
                         top: "-12px",
-                        left: "20px"
+                        left: "20px",
+                        zIndex: "1"
                     }}>Контактные данные</Title>
                     <Div>
                         <FormItem top="Укажите имя">
@@ -454,9 +449,7 @@ export default function OrderRepairComponent(props) {
                                 placeholder="Имя"
                                 onKeyUp={onChangeNameRefValue}
                                 defaultValue={userData.first_name ?? ''}
-                                style={{
-                                    border: !isCorrectName ? "1px solid red" : ''
-                                }}
+                                status={!isCorrectName ? 'error' : 'valid'}
                             />
                         </FormItem>
                         <FormItem top="Укажите номер телефона">
@@ -466,9 +459,7 @@ export default function OrderRepairComponent(props) {
                                 placeholder="Номер телефона"
                                 onKeyUp={onChangePhoneRefValue}
                                 defaultValue={userPhone ?? ''}
-                                style={{
-                                    border: !isCorrectPhone ? "1px solid red" : ''
-                                }}
+                                status={!isCorrectPhone ? 'error' : 'valid'}
                             />
                         </FormItem>
                     </Div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { FixedLayout, Group, Headline, Spacing } from "@vkontakte/vkui";
+import { FixedLayout, Group, Headline, Spacing, Title } from "@vkontakte/vkui";
 import { Icon28Profile } from '@vkontakte/icons';
 
 export default function MainFixedHeader({ state, title, changeShowActiveModal, showProfile = true }) {
@@ -27,7 +27,9 @@ export default function MainFixedHeader({ state, title, changeShowActiveModal, s
                         textAlign: "center"
                     }} weight="3">
                         <Spacing size={5} />
-                        {title}
+                        <Title level="3">
+                            {title}
+                        </Title>
                         <Spacing size={5} />
                     </Headline>
                 </div>
