@@ -7,7 +7,7 @@ const getAllDeviceListForUser = async function (userID) {
 
 const getDeviceList = async function () {
     return await axios.get(`https://sca-tech.ru/erp-22251/react_app_api/v1/get_devices/?key=1GipmudsZ2`)
-        .then(promise => promise.data); ``
+        .then(promise => promise.data); 
 }
 
 const addDeviceForUser = async function (userID, device) {
