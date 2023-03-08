@@ -1,4 +1,4 @@
-import { ModalPage, ModalRoot, ModalPageHeader} from "@vkontakte/vkui";
+import { ModalPage, ModalRoot, ModalPageHeader, PanelHeaderButton, PanelHeaderClose } from "@vkontakte/vkui";
 import ModalSearchProblemPage from "./ModalSearchProblemPage";
 import ModalPageCreateRequestRepair from "./ModalPageCreateRequestRepair";
 import ModalPageChooseDevice from "./ModalPageChooseDevice";
@@ -6,6 +6,7 @@ import ModalPageFeedBack from "./ModalPageFeedBack";
 import ModalPageFormForCallback from "./ModalPageFormForCallback";
 import ModalPageFeedBackForm from "./ModalPageFeedBackForm";
 import ModalPageProfile from "./ModalPageProfile";
+import { useState } from "react";
 
 export default function ModalRootComponent(props) {
     const [
@@ -20,6 +21,11 @@ export default function ModalRootComponent(props) {
         setChooseDevice,
         setUserPhone,
     ] = props.data;
+
+    const [isCorrectDataForConnect, setIsCorrectDataForConnect] = useState(true);
+    const [isCorrectDataForSendFeedback, setIsCorrectDataForSendFeedback] = useState(false);
+    const [isCorrectDataForProblem, setIsCorrectDataForProblem] = useState(false);
+
     return (
         <ModalRoot activeModal={state.activeModal}>
             <ModalPage
@@ -28,7 +34,15 @@ export default function ModalRootComponent(props) {
                 settlingHeight={100}
                 size={"m"}
                 header={
-                    <ModalPageHeader>
+                    <ModalPageHeader before={<PanelHeaderButton onClick={() => changeShowActiveModal(state.panels.modal_chooseDevice, state)}>
+                        Назад
+                    </PanelHeaderButton>}
+                        after={<PanelHeaderButton onClick={() => {
+                            isCorrectDataForConnect && changeShowActiveModal(state.panels.modal_sendRequestForRepair, state)
+                        }}>
+                            Далее
+                        </PanelHeaderButton>}
+                    >
                         Данные для связи
                     </ModalPageHeader>
                 }
@@ -39,15 +53,29 @@ export default function ModalRootComponent(props) {
                     userData={userData}
                     userPhone={userPhone}
                     setUserPhone={setUserPhone}
+                    setIsCorrectDataForConnect={setIsCorrectDataForConnect}
                 />
-            </ModalPage>
+            </ModalPage >
             <ModalPage
                 id={state.panels.modal_feedbackForm}
                 onClose={() => changeShowActiveModal(null, state)}
                 settlingHeight={100}
                 size={"m"}
                 header={
-                    <ModalPageHeader>
+                    <ModalPageHeader
+                        before={
+                            <PanelHeaderButton onClick={() => changeShowActiveModal(state.panels.modal_feedback, state)}>
+                                Назад
+                            </PanelHeaderButton>
+                        }
+                        after={
+                            <PanelHeaderButton onClick={() => {
+                                isCorrectDataForSendFeedback && changeShowActiveModal(null, state)
+                            }}>
+                                Отправить
+                            </PanelHeaderButton>
+                        }
+                    >
                         Форма отзыва
                     </ModalPageHeader>
                 }
@@ -55,6 +83,33 @@ export default function ModalRootComponent(props) {
                 <ModalPageFeedBackForm
                     state={state}
                     changeShowActiveModal={changeShowActiveModal}
+                    setIsCorrectDataForSendFeedback={setIsCorrectDataForSendFeedback}
+                />
+            </ModalPage>
+            <ModalPage
+                id={state.panels.modal_searchProblem}
+                onClose={() => changeShowActiveModal(null, state)}
+                settlingHeight={100}
+                size={"l"}
+                header={
+                    <ModalPageHeader
+                        before={<PanelHeaderClose onClick={() => changeShowActiveModal(null, state)} />}
+                        after={<PanelHeaderButton onClick={() => {
+                            isCorrectDataForProblem && changeShowActiveModal(state.panels.modal_chooseDevice, state)
+                        }}>
+                            Далее
+                        </PanelHeaderButton>}
+                    >
+                        Проблема
+                    </ModalPageHeader>
+                }
+            >
+                <ModalSearchProblemPage
+                    state={state}
+                    changeShowActiveModal={changeShowActiveModal}
+                    problem={problem}
+                    setProblem={setProblem}
+                    setIsCorrectDataForProblem={setIsCorrectDataForProblem}
                 />
             </ModalPage>
             <ModalPage
@@ -63,7 +118,11 @@ export default function ModalRootComponent(props) {
                 settlingHeight={100}
                 size={"m"}
                 header={
-                    <ModalPageHeader>
+                    <ModalPageHeader
+                        before={<PanelHeaderButton onClick={() => changeShowActiveModal(state.panels.modal_profile, state)}>
+                            Назад
+                        </PanelHeaderButton>}
+                    >
                         Отзыв о приложении
                     </ModalPageHeader>
                 }
@@ -79,7 +138,9 @@ export default function ModalRootComponent(props) {
                 settlingHeight={100}
                 size={"m"}
                 header={
-                    <ModalPageHeader>
+                    <ModalPageHeader
+                        before={<PanelHeaderClose onClick={() => changeShowActiveModal(null, state)} />}
+                    >
                         Профиль
                     </ModalPageHeader>
                 }
@@ -93,30 +154,16 @@ export default function ModalRootComponent(props) {
                 />
             </ModalPage>
             <ModalPage
-                id={state.panels.modal_searchProblem}
-                onClose={() => changeShowActiveModal(null, state)}
-                settlingHeight={100}
-                size={"l"}
-                header={
-                    <ModalPageHeader>
-                        Проблема
-                    </ModalPageHeader>
-                }
-            >
-                <ModalSearchProblemPage
-                    state={state}
-                    changeShowActiveModal={changeShowActiveModal}
-                    problem={problem}
-                    setProblem={setProblem}
-                />
-            </ModalPage>
-            <ModalPage
                 id={state.panels.modal_chooseDevice}
                 onClose={() => changeShowActiveModal(null, state)}
                 settlingHeight={100}
                 size={"m"}
                 header={
-                    <ModalPageHeader>
+                    <ModalPageHeader before={
+                        <PanelHeaderButton onClick={() => changeShowActiveModal(state.panels.modal_searchProblem, state)}>
+                            Назад
+                        </PanelHeaderButton>
+                    }>
                         Устройство
                     </ModalPageHeader>
                 }
@@ -139,7 +186,9 @@ export default function ModalRootComponent(props) {
                 settlingHeight={100}
                 size={"m"}
                 header={
-                    <ModalPageHeader>
+                    <ModalPageHeader
+                        before={<PanelHeaderClose onClick={() => changeShowActiveModal(null, state)} />}
+                    >
                         Помощь
                     </ModalPageHeader>
                 }
@@ -152,6 +201,6 @@ export default function ModalRootComponent(props) {
                     changeShowActivePanel={changeShowActivePanel}
                 />
             </ModalPage>
-        </ModalRoot>
+        </ModalRoot >
     );
 }

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { Div } from "@vkontakte/vkui";
 import { Icon20ChevronRightOutline } from "@vkontakte/icons";
 

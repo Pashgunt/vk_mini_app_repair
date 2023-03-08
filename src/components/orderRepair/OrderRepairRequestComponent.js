@@ -39,10 +39,10 @@ export default function OrderRepairRequestComponent(props) {
                 top: "0",
                 left: "0",
                 display: 'flex',
-                alignItems: 'center'
+                alignItems: 'center',
+                gap:"15px"
             }}>
                 <Icon28CancelAltOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
-                <Spacing size={10} />
                 <Title>
                     Заказ на ремонт {chooseActiveRequestRepairItem.device} {chooseActiveRequestRepairItem.problem}
                 </Title>

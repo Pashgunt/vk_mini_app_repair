@@ -94,14 +94,6 @@ export default function ModalPageFeedBack({ state, changeShowActiveModal }) {
                         <Icon20ChevronRightOutline />
                     </Div>
                 </Group>
-                <Spacing size={10} />
-                <Button style={{
-                    marginRight: "10px"
-                }}
-                    onClick={() => changeShowActiveModal(state.panels.modal_profile, state)}
-                >
-                    Назад
-                </Button>
             </Div>
         </Fragment>
     );

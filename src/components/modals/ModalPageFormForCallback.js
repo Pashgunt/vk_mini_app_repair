@@ -1,13 +1,23 @@
 import { Div, Group, Title, Spacing, Input, Subhead, Button } from "@vkontakte/vkui";
 import React, { Fragment, useEffect, useState } from "react";
 
-export default function ModalPageFormForCallback({ state, changeShowActiveModal, userData, userPhone, setUserPhone }) {
+export default function ModalPageFormForCallback({ state, changeShowActiveModal, userData, userPhone, setUserPhone, setIsCorrectDataForConnect }) {
     const [correctPhone, setCorrectPhone] = useState(false);
     const [correctUsername, setCorrectUsername] = useState(false);
 
     useEffect(() => {
-        userPhone ? setCorrectPhone(true) : setCorrectPhone(false);
-        userData.first_name ? setCorrectUsername(true) : setCorrectUsername(false);
+        if (userPhone) {
+            setCorrectPhone(true)
+        } else {
+            setCorrectPhone(false);
+            setIsCorrectDataForConnect(false);
+        }
+        if (userData.first_name) {
+            setCorrectUsername(true)
+        } else {
+            setCorrectUsername(false);
+            setIsCorrectDataForConnect(false);
+        }
     }, [])
 
     const changePhoneNumberForUser = function (event) {
@@ -17,16 +27,25 @@ export default function ModalPageFormForCallback({ state, changeShowActiveModal,
             setUserPhone(value)
         } else {
             setCorrectPhone(false);
+            setIsCorrectDataForConnect(false);
         }
     }
 
     const changeUsername = function (event) {
         let value = event.target.value;
-        state.validator.isAlpha(value, ['ru-RU']) || state.validator.isAlpha(value, ['en-US']) ? setCorrectUsername(true) : setCorrectUsername(false);
+        if (state.validator.isAlpha(value, ['ru-RU']) || state.validator.isAlpha(value, ['en-US'])) {
+            setCorrectUsername(true)
+        } else {
+            setCorrectUsername(false);
+            setIsCorrectDataForConnect(false);
+        }
     }
 
     const clickForNextModalWithCorrectInput = () => {
-        if (correctPhone && correctUsername) changeShowActiveModal(state.panels.modal_sendRequestForRepair, state);
+        if (correctPhone && correctUsername) {
+            changeShowActiveModal(state.panels.modal_sendRequestForRepair, state);
+            setIsCorrectDataForConnect(true);
+        }
     }
 
     return (
@@ -79,21 +98,6 @@ export default function ModalPageFormForCallback({ state, changeShowActiveModal,
                         </Subhead>
                     }
                 </Group>
-                <Spacing size={5} />
-                <div>
-                    <Button style={{
-                        marginRight: "10px"
-                    }}
-                        onClick={() => changeShowActiveModal(state.panels.modal_chooseDevice, state)}
-                    >
-                        Назад
-                    </Button>
-                    {correctPhone && correctUsername && <Button
-                        onClick={clickForNextModalWithCorrectInput}
-                    >
-                        Далее
-                    </Button>}
-                </div>
             </Div>
         </Fragment>
     );

@@ -2,10 +2,10 @@ import { Fragment, useRef, useState } from "react";
 import { Button, Div, FormItem, Group, Separator, Spacing, Textarea, Title } from "@vkontakte/vkui";
 import { Icon20ChevronRightOutline } from "@vkontakte/icons";
 
-export default function ModalSearchProblemPage({ state, changeShowActiveModal, problem, setProblem }) {
+export default function ModalSearchProblemPage({ state, changeShowActiveModal, problem, setProblem, setIsCorrectDataForProblem }) {
 
     const [matchWordsList, setMatchWords] = useState(false);
-    const [isErrorInput, setIsErrorInput] = useState(false);
+    const [isErrorInput, setIsErrorInput] = useState(true);
     const problemRef = useRef(null);
 
     const onChangeTextareaProblem = function (event) {
@@ -16,6 +16,8 @@ export default function ModalSearchProblemPage({ state, changeShowActiveModal, p
         setProblem(event.target.value);
 
         if (value && value.length >= 3) {
+            setIsCorrectDataForProblem(true);
+            setIsErrorInput(false);
             matchWords = searchItems.filter(function (item) {
                 try {
                     return item?.toLowerCase().includes(value);
@@ -23,6 +25,9 @@ export default function ModalSearchProblemPage({ state, changeShowActiveModal, p
                     console.log(e);
                 }
             });
+        } else {
+            setIsErrorInput(false);
+            setIsCorrectDataForProblem(false);
         }
         setMatchWords(matchWords);
     }
@@ -34,7 +39,7 @@ export default function ModalSearchProblemPage({ state, changeShowActiveModal, p
     }
 
     const clickForNextModalWithCorrectInput = () => {
-        setIsErrorInput(false);
+        setIsErrorInput(true);
         changeShowActiveModal(state.panels.modal_chooseDevice, state)
     }
 
@@ -78,12 +83,6 @@ export default function ModalSearchProblemPage({ state, changeShowActiveModal, p
                     }
                 </Group>
                 }
-                <Spacing size={10} />
-                {problem && <Button
-                    onClick={clickForNextModalWithCorrectInput}
-                >
-                    {state.modal.searchProblem.button}
-                </Button>}
             </FormItem>
         </Group>
     );
