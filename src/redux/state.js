@@ -43,7 +43,7 @@ export const state = {
     panels: GlobalEnums,
     images: Images,
     validator: validator,
-    schema: "bright_light",
+    schema: "light",
     activePanel: GlobalEnums.panel_mainScreen,
     activeModal: null,
     problem: '',
@@ -664,12 +664,12 @@ export const state = {
             cardStyle: settingsStyles.cardStyle,
             cardHeaderStyle: settingsStyles.cardHeaderStyle,
             productCards: {
-                'Страховка': {
-                    'img': 'insurance',
-                    'panel': ''
-                },
                 'Подарки': {
                     'img': 'gifts',
+                    'panel': GlobalEnums.modal_gifts
+                },
+                'Страховка': {
+                    'img': 'insurance',
                     'panel': ''
                 },
                 'Подписки': {
@@ -679,6 +679,58 @@ export const state = {
             }
         }
     },
+    gifts: [
+        {
+            'title': 'Подарок 1',
+            'img': 'gifts',
+            'access': false
+        },
+        {
+            'title': 'Подарок 1',
+            'img': 'gifts',
+            'access': false
+        },
+        {
+            'title': 'Подарок 1',
+            'img': 'gifts',
+            'access': false
+        },
+        {
+            'title': 'Подарок 1',
+            'img': 'gifts',
+            'access': false
+        },
+        {
+            'title': 'Подарок 1',
+            'img': 'gifts',
+            'access': false
+        },
+        {
+            'title': 'Подарок 1',
+            'img': 'gifts',
+            'access': false
+        },
+        {
+            'title': 'Подарок 1',
+            'img': 'gifts',
+            'access': false
+        },
+        {
+            'title': 'Подарок 1',
+            'img': 'gifts',
+            'access': false
+        },
+        {
+            'title': 'Подарок 1',
+            'img': 'gifts',
+            'access': false
+        },
+        {
+            'title': 'Подарок 1',
+            'img': 'gifts',
+            'access': false
+        },
+    ],
     themesOfSupport: {
         'iphone': {
             'repair': 'Ремонт и физические повреждения',

@@ -51,7 +51,7 @@ export default function RepairPageComponent(props) {
             }}>
                 <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
                 <Title>
-                    Ремонты
+                    Сервисное обслуживание
                 </Title>
             </Div>
             <Tabs>

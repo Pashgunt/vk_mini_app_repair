@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { CardScroll, Group, Header, Link, Spacing, Title } from "@vkontakte/vkui";
 import { Icon20ChevronRightOutline } from "@vkontakte/icons";
 import MainCardAnotherProduct from "./MainCardAnotherProduct";
-export default function MainAnotherProducts({ state, changeShowActivePanel }) {
+export default function MainAnotherProducts({ state, changeShowActivePanel, changeShowActiveModal }) {
     const cards = state.components.mainAnotherProducts.productCards;
     return (
         <Group mode="plain">
@@ -18,13 +18,14 @@ export default function MainAnotherProducts({ state, changeShowActivePanel }) {
                 {
                     Object.keys(cards).map((title, index) => {
                         return (
-                        <Fragment key={index}><MainCardAnotherProduct
-                            state={state}
-                            title={title}
-                            image={state.images}
-                            imageName={cards[title]['img']}
-                            panel={cards[title]['panel']}
-                        /></Fragment>)
+                            <Fragment key={index}><MainCardAnotherProduct
+                                state={state}
+                                title={title}
+                                image={state.images}
+                                imageName={cards[title]['img']}
+                                panel={cards[title]['panel']}
+                                changeShowActiveModal={changeShowActiveModal}
+                            /></Fragment>)
                     })
                 }
             </CardScroll>

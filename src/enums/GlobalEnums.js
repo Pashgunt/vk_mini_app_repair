@@ -10,6 +10,7 @@ var GlobalEnums;
     GlobalEnums["modal_feedbackForm"] = "modalFeedbackForm";
     GlobalEnums["modal_chooseDevice"] = "modalChooseDevice";
     GlobalEnums["modal_sendRequestForRepair"] = "modalCreateRequestRepair";
+    GlobalEnums["modal_gifts"] = "modalGifts";
     GlobalEnums["panel_mainScreen"] = "main";
     GlobalEnums["panel_deviceScreen"] = "devices";
     GlobalEnums["panel_deviceInnerPage"] = "innerDevicePage";

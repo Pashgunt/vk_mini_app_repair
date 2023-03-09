@@ -6,6 +6,7 @@ import ModalPageFeedBack from "./ModalPageFeedBack";
 import ModalPageFormForCallback from "./ModalPageFormForCallback";
 import ModalPageFeedBackForm from "./ModalPageFeedBackForm";
 import ModalPageProfile from "./ModalPageProfile";
+import ModalPageGifts from "./ModalPageGifts";
 import { useState } from "react";
 
 export default function ModalRootComponent(props) {
@@ -20,6 +21,7 @@ export default function ModalRootComponent(props) {
         changeShowActivePanel,
         setChooseDevice,
         setUserPhone,
+        requestsForRepair
     ] = props.data;
 
     const [isCorrectDataForConnect, setIsCorrectDataForConnect] = useState(true);
@@ -199,6 +201,24 @@ export default function ModalRootComponent(props) {
                     chooseDevice={chooseDevice}
                     changeShowActiveModal={changeShowActiveModal}
                     changeShowActivePanel={changeShowActivePanel}
+                />
+            </ModalPage>
+            <ModalPage
+                id={state.panels.modal_gifts}
+                onClose={() => changeShowActiveModal(null, state)}
+                settlingHeight={100}
+                size={"l"}
+                header={
+                    <ModalPageHeader
+                        before={<PanelHeaderClose onClick={() => changeShowActiveModal(null, state)} />}
+                    >
+                        Подарки
+                    </ModalPageHeader>
+                }
+            >
+                <ModalPageGifts
+                    state={state}
+                    requestsForRepair={requestsForRepair}
                 />
             </ModalPage>
         </ModalRoot >

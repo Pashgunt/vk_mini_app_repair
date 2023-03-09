@@ -19,6 +19,7 @@ export const settingsStyles = {
     cardStyle: {
         display: "flex",
         flexDirection: "column",
+        margin: "0 auto",
         alignItems: "center",
         justifyContent: "center",
         gap: "10px",

@@ -15,10 +15,10 @@ export default function DevicePageDetailProblemsItem(props) {
             }}>
                 <Div style={{
                     display: 'flex',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    gap: '15px'
                 }}>
                     <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_deviceInnerPage, state)} />
-                    <Spacing size={12} />
                     <Title>
                         {chooseProblemText}
                     </Title>

@@ -58,6 +58,7 @@ export default function MainPanel(props) {
             <MainAnotherProducts
                 state={state}
                 changeShowActivePanel={changeShowActivePanel}
+                changeShowActiveModal={changeShowActiveModal}
             />
         </Fragment>
     );

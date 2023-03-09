@@ -5,7 +5,7 @@ import { Icon28ChevronBack } from "@vkontakte/icons";
 
 export default function AnotherProductsItemsComponents(props) {
     const [
-        state, , , , , , changeShowActivePanel
+        state, , , , , changeShowActiveModal, changeShowActivePanel
     ] = props.data;
 
     const cards = state.components.mainAnotherProducts.productCards;
@@ -38,6 +38,7 @@ export default function AnotherProductsItemsComponents(props) {
                                 image={state.images}
                                 imageName={cards[title]['img']}
                                 panel={cards[title]['panel']}
+                                changeShowActiveModal={changeShowActiveModal}
                             /></Fragment>);
                         })
                     }

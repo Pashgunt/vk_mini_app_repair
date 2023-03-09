@@ -21,7 +21,7 @@ export default function MainRepairComponent({
             <Header>
                 <Title level="2" weight="2">
                     <Link href="" style={{ color: "black" }}>
-                        Ремонты
+                        Сервисное обслуживание
                     </Link>
                 </Title>
             </Header>
