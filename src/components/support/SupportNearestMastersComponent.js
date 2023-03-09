@@ -69,16 +69,21 @@ export default function SupportNearestMastersComponent(props) {
                         width: "100%",
                         height: "85vh"
                     }} defaultState={{
-                        center: [GPSdata.latitude, GPSdata.longitude],
-                        zoom: 5
+                        center: [59.935243, 30.327481],
+                        zoom: 10
                     }}>
-                        <Placemark
-                            geometry={[GPSdata.latitude, GPSdata.longitude]}
-                            properties={{
-                                hintContent: 'Собственный значок метки',
-                                balloonContent: 'Это красивая метка'
-                            }}
-                        />
+                        {state.servicePlacemarks.map(item => {
+                            return (
+                                <Placemark
+                                    geometry={item.coords}
+                                    properties={item.properties}
+                                    options={item.options}
+                                    modules={
+                                        ['geoObject.addon.balloon', 'geoObject.addon.hint']
+                                    }
+                                />
+                            );
+                        })}
                         <FullscreenControl options={{
                             float: "left"
                         }} />

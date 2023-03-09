@@ -38,7 +38,7 @@ export default function DiagnosticGPSComponent(props) {
                         left: "0",
                         display: 'flex',
                         alignItems: 'center',
-                        gap:"15px"
+                        gap: "15px"
                     }}>
                         <Icon48ArrowLeftOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
                         <Title>

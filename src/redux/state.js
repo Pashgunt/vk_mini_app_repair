@@ -66,6 +66,252 @@ export const state = {
 
         return wrapper;
     },
+    servicePlacemarks: [
+        {
+            coords: [59.935243, 30.327481],
+            properties: {
+                balloonContentHeader: "Центральный сервисный центр",
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>',
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.956586392534284, 30.32652402687611],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Горьковская',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.900201477457585, 30.272335358149004],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Нарвская',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.88052047756017, 30.262888617998716],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Кировский завод',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.842907805171436, 30.247683175093606],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Просп. Ветеранов',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.99010084249568, 30.25691533852327],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Старая деревня',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.98695090127238, 30.203989990241528],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Беговая',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.84935771686988, 30.320491959922677],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Московская',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.931524766221344, 30.3597000833899],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Площадь Восстания',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.961532929704504, 30.292204801349516],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Чкаловская',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.92139268421546, 30.329778948356914],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Пушкинская',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.92139268421546, 30.329778948356914],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Международная',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.884170, 30.369374],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Бухарестская',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.852367, 30.398301],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Проспект Славы',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.892969, 30.318437],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Московские ворота',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.825368, 30.380875],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Купчино',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.999030, 30.366009],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Площадь Мужества',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [60.011783, 30.398035],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Академическая',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.918572, 30.469614],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Просп. Большевиков',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+        {
+            coords: [59.932708, 30.437390],
+            properties: {
+                balloonContentHeader: 'СЦ на м. Ладожская',
+                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+            },
+            options: {
+                iconLayout: 'default#image',
+                iconImageHref: Images.placeholderForEng,
+                iconImageSize: [40, 40]
+            }
+        },
+    ],
+    engineerPlacemarks: [
+        {
+        },
+    ],
     sizes: {
         'mac': {
             'sm': {

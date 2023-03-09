@@ -18,6 +18,7 @@ import ipad from "../img/devices/iPad.png";
 import iphone from "../img/devices/iPhone.png";
 import applewatch from "../img/devices/AppleWatch.png";
 import pods from "../img/devices/pods.png";
+import placeholderForEng from "../img/map/placeholder.svg";
 
 export const Images = {
     'repair': repair,
@@ -39,5 +40,6 @@ export const Images = {
     'ipad': ipad,
     'iphone': iphone,
     'watch': applewatch,
-    'pods': pods
+    'pods': pods,
+    'placeholderForEng': placeholderForEng
 }
