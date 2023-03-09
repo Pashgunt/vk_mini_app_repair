@@ -11,7 +11,6 @@ import {
     WebviewType
 } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
-// import DeviceDetector from "node-device-detector";
 import MainPanel from "./components/MainPanel";
 import ModalRootComponent from "./components/modals/ModalRootComponent";
 import MyDevicesComponents from './components/myDevices/MyDevicesComponent';
@@ -148,6 +147,9 @@ const App = () => {
         bridge.send('VKWebAppGetUserInfo')
             .then(async response => {
                 const resMyDevice = await state.api.getAllDeviceListForUser(response.id);
+                if (Array.isArray(resMyDevice.data)) {
+                    changeShowActivePanel(state.panels.panel_deviceScreen, state)
+                }
                 setMyDeviceList(resMyDevice.data);
                 const resMyRequestsRepair = await state.api.getRequestsForRepairDevice(response.id);
                 setRequestsForRepair(resMyRequestsRepair.data);
@@ -209,15 +211,6 @@ const App = () => {
         chooseActiveRequestRepairItem,
         setChooseActiveRequestRepairItem
     ];
-
-    // const detector = new DeviceDetector({
-    //     clientIndexes: true,
-    //     deviceIndexes: true,
-    //     deviceAliasCode: false,
-    // });
-    // const userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/110.0.0.0";
-    // const result = detector.detect(userAgent);
-    // console.log('result parse', result);
 
     return (
         <ConfigProvider

@@ -12,7 +12,6 @@ export default function MyDevicesComponents(props) {
     const [isScroll, setIsScroll] = useState(false);
 
     const headerRef = useRef(null);
-
     let [
         state,
         userData,
@@ -194,35 +193,12 @@ export default function MyDevicesComponents(props) {
                                 </>
                                 );
                             })
-                            : Object.keys(searchDeviceList).map(typeDevice => {
-                                return searchDeviceList[typeDevice].map((device, index) => {
-                                    return (
-                                        <><Card key={index}>
-                                            <Div style={!myDeviceList[typeDevice]?.includes(device) ? {
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "space-between",
-                                                color: "#888",
-                                            } : {
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "space-between",
-                                                color: "white",
-                                                background: "#666",
-                                                borderRadius: "8px"
-                                            }}>
-                                                <div
-                                                    dangerouslySetInnerHTML={{ __html: device.replace(searchValue, `<span style="color: black">${searchValue}</span>`) }}>
-                                                </div>
-                                                {myDeviceList[typeDevice]?.includes(device) ? <Icon20DeleteOutline onClick={() => deciderForAddOrRemove(device, typeDevice)} /> : <Icon20AddSquareOutline onClick={() => deciderForAddOrRemove(device, typeDevice)} />}
-                                            </Div>
-                                        </Card>
-                                            <Spacing size={10} />
-                                        </>
-                                    );
-                                })
-                            })
-                        : ''}
+                            : <Headline style={{
+                                color: "#999"
+                            }}>
+                                Для получения списка, выберите группу, интересующих устройств
+                            </Headline>
+                        : ""}
                 </Div>
                 <Spacing size={40} />
             </Group>
