@@ -84,6 +84,18 @@ export default function SupportNearestMastersComponent(props) {
                                 />
                             );
                         })}
+                        {state.engineerPlacemarks.map(item => {
+                            return (
+                                <Placemark
+                                    geometry={item.coords}
+                                    properties={item.properties}
+                                    options={item.options}
+                                    modules={
+                                        ['geoObject.addon.balloon', 'geoObject.addon.hint']
+                                    }
+                                />
+                            );
+                        })}
                         <FullscreenControl options={{
                             float: "left"
                         }} />

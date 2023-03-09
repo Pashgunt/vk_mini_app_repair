@@ -33,6 +33,8 @@ import RepairPageComponent from './components/orderRepair/RepairPageComponent';
 import OrderRepairRequestComponent from './components/orderRepair/OrderRepairRequestComponent';
 import AnotherProductsItemsComponents from './components/anotherProducts/AnotherProductsItemsComponents';
 import { state } from "./redux/state";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/css/main.css';
 
 const App = () => {
 

@@ -5,6 +5,39 @@ import { localStorage } from "@vkontakte/vkjs";
 import * as API from "../server/main";
 import validator from 'validator';
 
+const insertballoonMarkup = (path, title, address) => {
+    return (`<div id="balloon-markup">
+    <div class="balloon">
+        <div class="balloon__col">
+            <img class="balloon__img" src=${path} alt="СЦ">
+        </div>
+        <div class="balloon__col">
+            <h2 class="balloon__title balloon__title_desktop">
+                ${title}
+                <span class="text_accent line-break">${address}</span>
+            </h2>
+            <div>
+                <button class="btn btn-lg btn-primary">
+                    Оставить заявку
+                </button>
+            </div>
+        </div>
+    </div>
+</div>`);
+}
+
+const insertBaloonHeaderForServices = (title) => {
+    return (
+        `<div class="fs-5">${title}</div>`
+    );
+}
+
+const insertBaloonBodyForServices = (body, button) => {
+    return (
+        `<div class="fs-6 mt-2">${body}<div> <div class="btn btn-lg btn-primary mt-3">${button}</div>`
+    );
+}
+
 export const state = {
     styles: settingsStyles,
     panels: GlobalEnums,
@@ -70,8 +103,8 @@ export const state = {
         {
             coords: [59.935243, 30.327481],
             properties: {
-                balloonContentHeader: "Центральный сервисный центр",
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>',
+                balloonContentHeader: insertBaloonHeaderForServices("Центральный сервисный центр"),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку',)
             },
             options: {
                 iconLayout: 'default#image',
@@ -82,8 +115,8 @@ export const state = {
         {
             coords: [59.956586392534284, 30.32652402687611],
             properties: {
-                balloonContentHeader: 'СЦ на м. Горьковская',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Горьковская'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -94,8 +127,8 @@ export const state = {
         {
             coords: [59.900201477457585, 30.272335358149004],
             properties: {
-                balloonContentHeader: 'СЦ на м. Нарвская',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Нарвская'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -106,8 +139,8 @@ export const state = {
         {
             coords: [59.88052047756017, 30.262888617998716],
             properties: {
-                balloonContentHeader: 'СЦ на м. Кировский завод',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Кировский завод'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -118,8 +151,8 @@ export const state = {
         {
             coords: [59.842907805171436, 30.247683175093606],
             properties: {
-                balloonContentHeader: 'СЦ на м. Просп. Ветеранов',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Просп. Ветеранов'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -130,8 +163,8 @@ export const state = {
         {
             coords: [59.99010084249568, 30.25691533852327],
             properties: {
-                balloonContentHeader: 'СЦ на м. Старая деревня',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Старая деревня'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -142,8 +175,8 @@ export const state = {
         {
             coords: [59.98695090127238, 30.203989990241528],
             properties: {
-                balloonContentHeader: 'СЦ на м. Беговая',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('<div class="fs-5">СЦ на м. Беговая</div>'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -154,8 +187,8 @@ export const state = {
         {
             coords: [59.84935771686988, 30.320491959922677],
             properties: {
-                balloonContentHeader: 'СЦ на м. Московская',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Московская'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -166,8 +199,8 @@ export const state = {
         {
             coords: [59.931524766221344, 30.3597000833899],
             properties: {
-                balloonContentHeader: 'СЦ на м. Площадь Восстания',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Площадь Восстания'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -178,8 +211,8 @@ export const state = {
         {
             coords: [59.961532929704504, 30.292204801349516],
             properties: {
-                balloonContentHeader: 'СЦ на м. Чкаловская',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Чкаловская'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -190,8 +223,8 @@ export const state = {
         {
             coords: [59.92139268421546, 30.329778948356914],
             properties: {
-                balloonContentHeader: 'СЦ на м. Пушкинская',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Пушкинская'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -202,8 +235,8 @@ export const state = {
         {
             coords: [59.92139268421546, 30.329778948356914],
             properties: {
-                balloonContentHeader: 'СЦ на м. Международная',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Международная'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -214,8 +247,8 @@ export const state = {
         {
             coords: [59.884170, 30.369374],
             properties: {
-                balloonContentHeader: 'СЦ на м. Бухарестская',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Бухарестская'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -226,8 +259,8 @@ export const state = {
         {
             coords: [59.852367, 30.398301],
             properties: {
-                balloonContentHeader: 'СЦ на м. Проспект Славы',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Проспект Славы'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -238,8 +271,8 @@ export const state = {
         {
             coords: [59.892969, 30.318437],
             properties: {
-                balloonContentHeader: 'СЦ на м. Московские ворота',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Московские ворота'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -250,8 +283,8 @@ export const state = {
         {
             coords: [59.825368, 30.380875],
             properties: {
-                balloonContentHeader: 'СЦ на м. Купчино',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Купчино'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -262,8 +295,8 @@ export const state = {
         {
             coords: [59.999030, 30.366009],
             properties: {
-                balloonContentHeader: 'СЦ на м. Площадь Мужества',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Площадь Мужества'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -274,8 +307,8 @@ export const state = {
         {
             coords: [60.011783, 30.398035],
             properties: {
-                balloonContentHeader: 'СЦ на м. Академическая',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Академическая'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -286,8 +319,8 @@ export const state = {
         {
             coords: [59.918572, 30.469614],
             properties: {
-                balloonContentHeader: 'СЦ на м. Просп. Большевиков',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Просп. Большевиков'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -298,8 +331,8 @@ export const state = {
         {
             coords: [59.932708, 30.437390],
             properties: {
-                balloonContentHeader: 'СЦ на м. Ладожская',
-                balloonContentBody: 'Для записи на ремонт оставьте заявку: <div class="btn popup-show">Оставить заявку</div>'
+                balloonContentHeader: insertBaloonHeaderForServices('СЦ на м. Ладожская'),
+                balloonContentBody: insertBaloonBodyForServices('Для записи на ремонт оставьте заявку:', 'Оставить заявку')
             },
             options: {
                 iconLayout: 'default#image',
@@ -310,6 +343,144 @@ export const state = {
     ],
     engineerPlacemarks: [
         {
+            coords: [59.848935286473356, 30.14567876625752],
+            properties: {
+                balloonContentBody: insertballoonMarkup(Images.eng1, 'Сервис-инженер на', 'Петергофском ш.')
+            },
+            options: {
+                preset: "islands#blueCircleDotIcon",
+                hasBalloon: true
+            }
+        },
+        {
+            coords: [59.867300, 30.319490],
+            properties: {
+                balloonContentBody: insertballoonMarkup(Images.eng2, 'Сервис-инженер у', 'м. Парк Победы')
+            },
+            options: {
+                preset: "islands#blueCircleDotIcon",
+                hasBalloon: true
+            }
+        },
+        {
+            coords: [59.91114645698265, 30.317654942875347],
+            properties: {
+                balloonContentBody: insertballoonMarkup(Images.eng3, 'Сервис-инженер у', 'м. Фрунзенская')
+            },
+            options: {
+                preset: "islands#blueCircleDotIcon",
+                hasBalloon: true
+            }
+        },
+        {
+            coords: [59.875333, 30.394455],
+            properties: {
+                balloonContentBody: insertballoonMarkup(Images.eng4, 'Сервис-инженер у', 'м. Международная')
+            },
+            options: {
+                preset: "islands#blueCircleDotIcon",
+                hasBalloon: true
+            }
+        },
+        {
+            coords: [59.925530, 30.380857],
+            properties: {
+                balloonContentBody: insertballoonMarkup(Images.eng5, 'Сервис-инженер у', 'м. Международная')
+            },
+            options: {
+                preset: "islands#blueCircleDotIcon",
+                hasBalloon: true
+            }
+        },
+        {
+            coords: [59.949352, 30.381090],
+            properties: {
+                balloonContentBody: insertballoonMarkup(Images.eng6, 'Сервис-инженер на', 'Шпалерной ул.')
+            },
+            options: {
+                preset: "islands#blueCircleDotIcon",
+                hasBalloon: true
+            }
+        },
+        {
+            coords: [59.938885, 30.283712],
+            properties: {
+                balloonContentBody: insertballoonMarkup(Images.eng7, 'Сервис-инженер у', 'м. Василеостровская')
+            },
+            options: {
+                preset: "islands#blueCircleDotIcon",
+                hasBalloon: true
+            }
+        },
+        {
+            coords: [59.937840, 30.240944],
+            properties: {
+                balloonContentBody: insertballoonMarkup(Images.eng8, 'Сервис-инженер на', 'ул. Беринга')
+            },
+            options: {
+                preset: "islands#blueCircleDotIcon",
+                hasBalloon: true
+            }
+        },
+        {
+            coords: [59.986597, 30.354759],
+            properties: {
+                balloonContentBody: insertballoonMarkup(Images.eng9, 'Сервис-инженер у', 'м. Лесная')
+            },
+            options: {
+                preset: "islands#blueCircleDotIcon",
+                hasBalloon: true
+            }
+        },
+        {
+            coords: [59.959756, 30.352992],
+            properties: {
+                balloonContentBody: insertballoonMarkup(Images.eng10, 'Сервис-инженер у', 'м. Лесная')
+            },
+            options: {
+                preset: "islands#blueCircleDotIcon",
+                hasBalloon: true
+            }
+        },
+        {
+            coords: [59.880745, 30.481268],
+            properties: {
+                balloonContentBody: insertballoonMarkup(Images.eng11, 'Сервис-инженер на', 'пр. Большевиков')
+            },
+            options: {
+                preset: "islands#blueCircleDotIcon",
+                hasBalloon: true
+            }
+        },
+        {
+            coords: [59.942186, 30.480932],
+            properties: {
+                balloonContentBody: insertballoonMarkup(Images.eng12, 'Сервис-инженер на', 'Индустриальном пр.')
+            },
+            options: {
+                preset: "islands#blueCircleDotIcon",
+                hasBalloon: true
+            }
+        },
+        {
+            coords: [59.984218, 30.421080],
+            properties: {
+                balloonContentBody: insertballoonMarkup(Images.eng13, 'Сервис-инженер на', 'Пискаревском пр.')
+            },
+            options: {
+                preset: "islands#blueCircleDotIcon",
+                hasBalloon: true
+            }
+        },
+        {
+            coords: [60.051799, 30.332212],
+            properties: {
+                balloonContentBody: insertballoonMarkup(Images.eng14, 'Сервис-инженер у', 'м. пр. Просвещения')
+            },
+            options: {
+                preset: "islands#blueCircleDotIcon",
+                hasBalloon: true
+            }
         },
     ],
     sizes: {
