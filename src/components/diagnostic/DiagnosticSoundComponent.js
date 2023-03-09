@@ -41,10 +41,10 @@ export default function DiagnosticSoundComponent(props) {
                     top: "0",
                     left: "0",
                     display: 'flex',
+                    gap:"15px",
                     alignItems: 'center'
                 }}>
                     <Icon48ArrowLeftOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
-                    <Spacing size={10} />
                     <Title>
                         Звук
                     </Title>

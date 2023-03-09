@@ -73,9 +73,9 @@ export default function DiagnosticDrawComponent(props) {
                     top: "0",
                     left: "0",
                     display: 'flex',
+                    gap:"15px"
                 }}>
                     <Icon48ArrowLeftOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
-                    <Spacing size={10} />
                     <Icon28ClearDataOutline width={48} height={48} onClick={clearDraw} />
                 </Div>
 

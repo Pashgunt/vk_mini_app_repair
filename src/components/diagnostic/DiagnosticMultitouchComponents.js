@@ -60,6 +60,7 @@ export default function DiagnosticMultitouchComponents(props) {
                     gap: "10px",
                     position: "absolute",
                     top: "0",
+                    gap:"15px",
                     left: "0"
                 }}>
                     <Icon48ArrowLeftOutline fill="white" onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />

@@ -54,10 +54,10 @@ export default function DiagnosticCameraComponent(props) {
                     top: "0",
                     left: "0",
                     display: 'flex',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    gap: "15px"
                 }}>
                     <Icon48ArrowLeftOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
-                    <Spacing size={10} />
                     <Title>
                         Камера
                     </Title>

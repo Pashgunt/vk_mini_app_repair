@@ -51,7 +51,7 @@ export default function DiagnosticDisplayComponent(props) {
                 }}>
                 <Div style={{
                     display: "flex",
-                    gap: "10px",
+                    gap: "15px",
                     position: "absolute",
                     top: "0",
                     left: "0"
