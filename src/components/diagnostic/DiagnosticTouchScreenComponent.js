@@ -24,7 +24,7 @@ export default function DiagnosticTouchScreenComponent(props) {
                     width: "100%",
                     height: "100%",
                     borderRadius: "3px",
-                    background: "white"
+                    background: state.scheme != 'dark' ? '#19191A' : '#fff'
                 }}></div>
         );
     }

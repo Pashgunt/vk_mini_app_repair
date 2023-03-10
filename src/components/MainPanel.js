@@ -17,8 +17,8 @@ export default function MainPanel(props) {
         setChooseDevice,
         setChooseDeviceType,
         changeShowActiveModal,
-        changeShowActivePanel,,,,,,,,,,,,,,,
-        requestsForRepair,,,
+        changeShowActivePanel, , , , , , , , , , , , , , ,
+        requestsForRepair, , ,
         setChooseActiveRequestRepairItem
     ] = props.data;
 

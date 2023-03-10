@@ -38,12 +38,12 @@ const insertBaloonBodyForServices = (body, button) => {
     );
 }
 
-export const state = {
+const state = {
     styles: settingsStyles,
     panels: GlobalEnums,
     images: Images,
     validator: validator,
-    schema: "light",
+    schema: "dark",
     activePanel: GlobalEnums.panel_mainScreen,
     activeModal: null,
     problem: '',
@@ -625,10 +625,10 @@ export const state = {
                     'img': 'display',
                     'panel': GlobalEnums.panel_deiagnosticDisplay,
                 },
-                'Мультитач': {
-                    'img': 'multiTouch',
-                    'panel': GlobalEnums.panel_deiagnosticMultitouch,
-                },
+                // 'Мультитач': {
+                //     'img': 'multiTouch',
+                //     'panel': GlobalEnums.panel_deiagnosticMultitouch,
+                // },
                 'Линии': {
                     'img': 'lines',
                     'panel': GlobalEnums.panel_deiagnosticLines,
@@ -850,3 +850,5 @@ export const state = {
         }
     }
 }
+
+export {state};

@@ -1,11 +1,13 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { Group, Div, Spacing, Title } from "@vkontakte/vkui";
+import { Group, Div, Spacing, Title, Headline } from "@vkontakte/vkui";
 import { Icon48ArrowLeftOutline, Icon28CameraOutline } from "@vkontakte/icons";
 
 export default function DiagnosticCameraComponent(props) {
     const [
         state, , , , , , changeShowActivePanel
     ] = props.data;
+
+    const [issetCamera, setIssetCamera] = useState(true);
     const [chooseCameraType, setChooseCameraType] = useState('user')
 
     const changeChooseCameraType = function () {
@@ -37,16 +39,19 @@ export default function DiagnosticCameraComponent(props) {
         }
         navigator.mediaDevices.getUserMedia(options)
             .then(function (stream) {
+                setIssetCamera(true);
                 videoRef.current.srcObject = stream;
                 videoRef.current.play();
             })
             .catch(function (err) {
-                console.log("An error occurred: " + err);
+                setIssetCamera(false);
             });
     }, [chooseCameraType])
 
     return (<Fragment>
-        <Div>
+        <Div style={{
+            minHeight: "100vh"
+        }}>
             <Group mode="plain" style={{
                 position: "relative"
             }}>
@@ -66,6 +71,9 @@ export default function DiagnosticCameraComponent(props) {
             <Spacing size={20} />
             <Icon28CameraOutline onClick={changeChooseCameraType} />
             <Spacing size={20} />
+            {!issetCamera && <Headline>
+                Не удалось получить доступ к камере
+            </Headline>}
             <video style={{
                 width: "100%"
             }} ref={videoRef} autoPlay={true}></video>

@@ -105,7 +105,7 @@ export default function SupportChatComponent(props) {
                 </Div>
             </Group>
             <Group mode="plain" style={{
-                background: "white",
+                background: state.scheme != 'dark' ? '#19191A' : '#fff',
                 position: "absolute",
                 left: "0",
                 bottom: "0",

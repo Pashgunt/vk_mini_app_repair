@@ -33,7 +33,9 @@ export default function DiagnosticSoundComponent(props) {
     }, false);
 
     return (<Fragment>
-        <Div>
+        <Div style={{
+            minHeight: "100vh"
+        }}>
             <Group mode="plain" style={{
                 position: "relative"
             }}>

@@ -19,10 +19,8 @@ export default function MainRepairComponent({
     return (<Fragment>
         <Group mode="plain">
             <Header>
-                <Title level="2" weight="2">
-                    <Link href="" style={{ color: "black" }}>
-                        Сервисное обслуживание
-                    </Link>
+                <Title level="2" weight="2" onClick={() => changeShowActivePanel(state.panels.panel_diagnosticItems, state)}>
+                    Сервисное обслуживание
                 </Title>
             </Header>
             <Spacing size={0} />

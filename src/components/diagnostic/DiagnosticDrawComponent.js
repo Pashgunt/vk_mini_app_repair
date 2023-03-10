@@ -22,7 +22,7 @@ export default function DiagnosticDrawComponent(props) {
         const context = canvas.getContext("2d");
         context.scale(2, 2);
         context.lineCap = "round";
-        context.strokeStyle = "black";
+        context.strokeStyle = state.scheme != 'dark' ? "white" : "black";
         context.lineWidth = 1;
         contextRef.current = context;
     }, [])

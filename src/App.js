@@ -37,7 +37,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/main.css';
 
 const App = () => {
-
     const [activePanelView, setActivePanelVew] = useState(state.activePanelState);
     const [userData, setUserData] = useState({});
     const [userPhone, setUserPhone] = useState('');

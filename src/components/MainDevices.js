@@ -15,10 +15,12 @@ export default function MainDevices({ state, userData, myDeviceList, changeShowA
         <Fragment>
             <Group mode="plain">
                 <Header>
-                    <Title level="2" weight="2">
-                        <Link href="" style={{ color: "black" }} onClick={() => changeShowActivePanel(state.panels.panel_deviceScreen, state)}>
-                            {state.components.mainDevices.title} <Icon20ChevronRightOutline />
-                        </Link>
+                    <Title level="2" weight="2" style={{
+                        display: "flex",
+                        alignItems: "end",
+                        gap: "5px"
+                    }} onClick={() => changeShowActivePanel(state.panels.panel_deviceScreen, state)}>
+                        {state.components.mainDevices.title} <Icon20ChevronRightOutline />
                     </Title>
                 </Header>
                 <Spacing size={10} />

@@ -14,7 +14,9 @@ export default function DiagnosticMicroComponent(props) {
     const { audio } = recorderState;
 
     return (<Fragment>
-        <Div>
+        <Div style={{
+            minHeight: "100vh"
+        }}>
             <Group mode="plain" style={{
                 position: "relative"
             }}>

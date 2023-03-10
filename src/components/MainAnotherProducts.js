@@ -7,10 +7,12 @@ export default function MainAnotherProducts({ state, changeShowActivePanel, chan
     return (
         <Group mode="plain">
             <Header>
-                <Title level="2" weight="2">
-                    <Link href="" style={{ color: "black" }} onClick={() => changeShowActivePanel(state.panels.panel_anotherProductItems, state)}>
-                        {state.components.mainAnotherProducts.title} <Icon20ChevronRightOutline />
-                    </Link>
+                <Title level="2" weight="2" onClick={() => changeShowActivePanel(state.panels.panel_anotherProductItems, state)} style={{
+                    display: "flex",
+                    alignItems: "end",
+                    gap: "5px"
+                }}>
+                    {state.components.mainAnotherProducts.title} <Icon20ChevronRightOutline />
                 </Title>
             </Header>
             <Spacing size={10} />

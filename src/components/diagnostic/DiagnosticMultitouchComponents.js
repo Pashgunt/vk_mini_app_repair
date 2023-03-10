@@ -73,7 +73,7 @@ export default function DiagnosticMultitouchComponents(props) {
                                 width: "100px",
                                 height: "100px",
                                 borderRadius: "50%",
-                                background: "white",
+                                background: state.scheme != 'dark' ? '#19191A' : '#fff',
                                 position: "absolute",
                                 transform: `translate(${position})`
                             }}></div>

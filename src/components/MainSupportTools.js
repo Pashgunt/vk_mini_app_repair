@@ -15,10 +15,12 @@ export default function MainSupportTools({ state, changeShowActivePanel, }) {
         <Fragment>
             <Group mode="plain">
                 <Header>
-                    <Title level="2" weight="2">
-                        <Link href="" style={{ color: "black" }}>
-                            {state.components.mainSupportTools.title}
-                        </Link>
+                    <Title level="2" weight="2" style={{
+                        display: "flex",
+                        alignItems: "end",
+                        gap: "5px"
+                    }}>
+                        {state.components.mainSupportTools.title}
                     </Title>
                 </Header>
                 <Div>

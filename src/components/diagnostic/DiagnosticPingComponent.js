@@ -68,7 +68,9 @@ export default function DiagnosticPingComponent(props) {
     }
 
     return (<Fragment>
-        <Div>
+        <Div style={{
+            minHeight: "100vh"
+        }}>
             <Group mode="plain" style={{
                 position: "relative"
             }}>
@@ -76,7 +78,7 @@ export default function DiagnosticPingComponent(props) {
                     top: "0",
                     left: "0",
                     display: 'flex',
-                    gap:"15px",
+                    gap: "15px",
                     alignItems: 'center'
                 }}>
                     <Icon48ArrowLeftOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />

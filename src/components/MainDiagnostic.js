@@ -3,15 +3,17 @@ import { CardScroll, Group, Header, Link, Spacing, Title } from "@vkontakte/vkui
 import { Icon20ChevronRightOutline } from "@vkontakte/icons";
 import MainCardDiagnostic from "./MainCardDiagnostic";
 
-export default function MainDiagnostic({state, changeShowActivePanel}) {
+export default function MainDiagnostic({ state, changeShowActivePanel }) {
     const cards = state.components.diagnostics.tools;
     return (
         <Group mode="plain">
             <Header>
-                <Title level="2" weight="2">
-                    <Link href="" style={{ color: "black" }} onClick={() => changeShowActivePanel(state.panels.panel_diagnosticItems, state)}>
-                        {state.components.diagnostics.title} <Icon20ChevronRightOutline />
-                    </Link>
+                <Title level="2" weight="2" style={{
+                    display: "flex",
+                    alignItems: "end",
+                    gap: "5px"
+                }} onClick={() => changeShowActivePanel(state.panels.panel_diagnosticItems, state)}>
+                    {state.components.diagnostics.title} <Icon20ChevronRightOutline />
                 </Title>
             </Header>
             <Spacing size={10} />
