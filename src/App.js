@@ -49,7 +49,7 @@ const App = () => {
     const [chooseProblemType, setChooseProblemType] = useState(null);
     const [chooseProblemText, setChooseProblemText] = useState(null);
     const [problem, setProblem] = useState('');
-    const [myDeviceList, setMyDeviceList] = useState([]);
+    const [myDeviceList, setMyDeviceList] = useState({});
     const [requestsForRepair, setRequestsForRepair] = useState([]);
     const [chooseActiveRequestRepairItem, setChooseActiveRequestRepairItem] = useState(null);
 
@@ -85,7 +85,11 @@ const App = () => {
                             if (result.data.data === "success" && (result.status >= 200 || result.status < 400)) {
                                 addActionLogItem(`Устройство ${device} добавлено в Ваш список.`);
                                 let copyOfMyDeviceList = Object.assign({}, myDeviceList);
-                                copyOfMyDeviceList[deviceType].push(device);
+                                if (deviceType in copyOfMyDeviceList) {
+                                    copyOfMyDeviceList[deviceType].push(device);
+                                } else {
+                                    copyOfMyDeviceList[deviceType] = [device];
+                                }
                                 setMyDeviceList(copyOfMyDeviceList);
                             } else {
                                 addActionLogItem(`При добавлении устройства ${device} в Ваш список произошла ошибка`);

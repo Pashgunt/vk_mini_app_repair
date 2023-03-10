@@ -23,16 +23,6 @@ export default function MainDevices({ state, userData, myDeviceList, changeShowA
                 </Header>
                 <Spacing size={10} />
                 <CardScroll size={false}>
-                    <Card onClick={() => changeShowActivePanel(state.panels.panel_deviceScreen, state)} style={state.components.mainDevices.styleButton}>
-                        <div style={{
-                            textAlign: "center"
-                        }}>
-                            <Link href="">
-                                <Icon36Add /><br />
-                                {state.components.mainDevices.button}
-                            </Link>
-                        </div>
-                    </Card>
                     {
                         myDeviceList && Object.keys(myDeviceList).map(deviceType => {
                             return myDeviceList[deviceType].map(deviceName => {
@@ -56,6 +46,16 @@ export default function MainDevices({ state, userData, myDeviceList, changeShowA
                             })
                         })
                     }
+                    <Card onClick={() => changeShowActivePanel(state.panels.panel_deviceScreen, state)} style={state.components.mainDevices.styleButton}>
+                        <div style={{
+                            textAlign: "center"
+                        }}>
+                            <Link href="">
+                                <Icon36Add /><br />
+                                {state.components.mainDevices.button}
+                            </Link>
+                        </div>
+                    </Card>
                 </CardScroll>
                 <Spacing size={2} />
             </Group>
