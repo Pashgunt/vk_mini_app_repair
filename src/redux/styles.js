@@ -1,8 +1,4 @@
 export const settingsStyles = {
-    mainColor: {
-        background: "#FFF",
-        height: "max-content"
-    },
     styleButtonAddDevice: {
         padding: "6%",
         display: "flex",

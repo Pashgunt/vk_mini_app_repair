@@ -40,7 +40,7 @@ export default function RepairPageComponent(props) {
     return (<Fragment>
         <Group mode="plain" style={{
             minHeight: "100vh",
-            background: state.scheme != 'dark' ? '#19191A' : '#fff'
+            background: state.schema == 'dark' ? '#19191A' : '#fff'
         }}>
             <Div style={{
                 top: "0",

@@ -77,7 +77,7 @@ export default function SupportChatComponent(props) {
                                     borderRadius: "15px",
                                     width: "max-content",
                                     marginLeft: "auto",
-                                    background: "#ECF6FD",
+                                    background: state.schema == 'dark' ? '#454648' : "#ECF6FD",
                                     marginBottom: "5px"
                                 }}>
                                     {message.text}
@@ -88,7 +88,7 @@ export default function SupportChatComponent(props) {
                                 borderRadius: "15px",
                                 width: "max-content",
                                 marginRight: "auto",
-                                background: "#eee",
+                                background: state.schema == 'dark' ? '#2C2D2F' : "#eee",
                                 marginBottom: "5px"
                             }}>
                                 {message.text}
@@ -105,7 +105,7 @@ export default function SupportChatComponent(props) {
                 </Div>
             </Group>
             <Group mode="plain" style={{
-                background: state.scheme != 'dark' ? '#19191A' : '#fff',
+                background: state.schema == 'dark' ? '#19191A' : '#fff',
                 position: "absolute",
                 left: "0",
                 bottom: "0",

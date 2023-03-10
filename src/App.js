@@ -225,8 +225,14 @@ const App = () => {
                     <SplitLayout
                         popout={popout}
                         modal={<ModalRootComponent data={propsForModal} />}
-                        style={state.styles.mainColor}>
-                        <View activePanel={activePanelView} style={state.styles.mainColor}>
+                        style={{
+                            background: state.schema == 'dark' ? '#19191A' : "#ECF6FD",
+                            height: "max-content"
+                        }}>
+                        <View activePanel={activePanelView} style={{
+                            background: state.schema == 'dark' ? '#19191A' : "#ECF6FD",
+                            height: "max-content"
+                        }}>
                             <Panel id={state.panels.panel_mainScreen}>
                                 <MainPanel data={propsForPanel} />
                             </Panel>

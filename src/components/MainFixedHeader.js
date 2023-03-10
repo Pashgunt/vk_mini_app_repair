@@ -5,12 +5,12 @@ import { Icon28Profile } from '@vkontakte/icons';
 export default function MainFixedHeader({ state, title, changeShowActiveModal, showProfile = true }) {
     return (
         <FixedLayout vertical="top" style={{
-            background: state.scheme != 'dark' ? '#19191A' : '#fff',
-            borderBottom: state.scheme != 'dark' ? '#19191A' : '#fff'
+            background: state.schema == 'dark' ? '#19191A' : '#fff',
+            borderBottom: state.schema == 'dark' ? '#19191A' : '#fff'
         }}>
             <Group mode="plain"
                 style={{
-                    background: state.scheme != 'dark' ? '#19191A' : '#fff'
+                    background: state.schema == 'dark' ? '#19191A' : '#fff'
                 }}>
                 <div style={{
                     position: "relative",
