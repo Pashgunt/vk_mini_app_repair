@@ -48,7 +48,7 @@ export default function SupportNearestMastersComponent(props) {
     return (<Fragment>
         <Group mode="plain" separator="hide" style={{
             minHeight: "100vh",
-            background: state.schema == 'dark' ? '#19191A' : '#fff'
+            background: state.setBgColor()
         }}>
             <Div style={{
                 display: 'flex',

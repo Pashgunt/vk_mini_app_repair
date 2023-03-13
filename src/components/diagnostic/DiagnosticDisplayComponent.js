@@ -1,6 +1,6 @@
 import { Group, Div } from "@vkontakte/vkui";
 import React, { Fragment, useState } from "react";
-import { Icon48Play, Icon48Pause, Icon48ArrowLeftOutline } from '@vkontakte/icons';
+import { Icon48Play, Icon48Pause, Icon28ChevronBack } from '@vkontakte/icons';
 
 export default function DiagnosticDisplayComponent(props) {
     const [
@@ -49,6 +49,7 @@ export default function DiagnosticDisplayComponent(props) {
                     justifyContent: "center",
                     alignItems: "center"
                 }}>
+                {isPlayed ? <Icon48Pause fill="white" onClick={stopToggle} width={96} height={96} /> : <Icon48Play fill="white" onClick={startToggle} width={96} height={96} />}
                 <Div style={{
                     display: "flex",
                     gap: "15px",
@@ -56,11 +57,10 @@ export default function DiagnosticDisplayComponent(props) {
                     top: "0",
                     left: "0"
                 }}>
-                    <Icon48ArrowLeftOutline fill="white" onClick={() => {
+                    <Icon28ChevronBack fill="white" onClick={() => {
                         stopToggle()
                         changeShowActivePanel(state.panels.panel_mainScreen, state)
                     }} />
-                    {isPlayed ? <Icon48Pause fill="white" onClick={stopToggle} /> : <Icon48Play fill="white" onClick={startToggle} />}
                 </Div>
             </Group>
         </Fragment>

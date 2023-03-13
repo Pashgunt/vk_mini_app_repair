@@ -1,5 +1,5 @@
-import { Group, Div, Spacing } from '@vkontakte/vkui';
-import { Icon48ArrowLeftOutline, Icon28ClearDataOutline } from "@vkontakte/icons";
+import { Group, Div } from '@vkontakte/vkui';
+import { Icon28ChevronBack, Icon28ClearDataOutline } from "@vkontakte/icons";
 import { Fragment, useEffect, useRef, useState } from 'react';
 
 export default function DiagnosticDrawComponent(props) {
@@ -75,8 +75,8 @@ export default function DiagnosticDrawComponent(props) {
                     display: 'flex',
                     gap:"15px"
                 }}>
-                    <Icon48ArrowLeftOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
-                    <Icon28ClearDataOutline width={48} height={48} onClick={clearDraw} />
+                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                    <Icon28ClearDataOutline onClick={clearDraw} />
                 </Div>
 
                 <canvas

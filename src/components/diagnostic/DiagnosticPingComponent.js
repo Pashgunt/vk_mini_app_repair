@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { Group, Div, Spacing, Title, Subhead, Card, Link } from "@vkontakte/vkui";
-import { Icon48ArrowLeftOutline, Icon28PlaySpeedOutline, Icon28SpeedometerMaxOutline } from "@vkontakte/icons";
+import { Icon28ChevronBack, Icon28PlaySpeedOutline, Icon28SpeedometerMaxOutline } from "@vkontakte/icons";
 import PacmanLoader from "react-spinners/PacmanLoader";
 
 export default function DiagnosticPingComponent(props) {
@@ -81,7 +81,7 @@ export default function DiagnosticPingComponent(props) {
                     gap: "15px",
                     alignItems: 'center'
                 }}>
-                    <Icon48ArrowLeftOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
                     <Title>
                         Пинг
                     </Title>

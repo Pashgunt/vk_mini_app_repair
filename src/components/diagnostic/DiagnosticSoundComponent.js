@@ -1,6 +1,6 @@
 import { Fragment, useRef, useState } from "react";
 import { Group, Div, Spacing, Title } from "@vkontakte/vkui";
-import { Icon48ArrowLeftOutline, Icon48Play, Icon48Pause } from "@vkontakte/icons";
+import { Icon28ChevronBack, Icon48Play, Icon48Pause } from "@vkontakte/icons";
 
 export default function DiagnosticSoundComponent(props) {
     const [
@@ -46,7 +46,7 @@ export default function DiagnosticSoundComponent(props) {
                     gap:"15px",
                     alignItems: 'center'
                 }}>
-                    <Icon48ArrowLeftOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
                     <Title>
                         Звук
                     </Title>

@@ -308,7 +308,7 @@ export default function OrderRepairComponent(props) {
                     position: "relative"
                 }}>
                     <Title level="2" style={{
-                        background: state.schema == 'dark' ? '#19191A' : '#fff',
+                        background: state.setBgColor(),
                         position: "absolute",
                         padding: "0 10px",
                         top: "-12px",
@@ -367,7 +367,7 @@ export default function OrderRepairComponent(props) {
                     position: "relative"
                 }}>
                     <Title level="2" style={{
-                        background: state.schema == 'dark' ? '#19191A' : '#fff',
+                        background: state.setBgColor(),
                         position: "absolute",
                         padding: "0 10px",
                         top: "-12px",
@@ -434,7 +434,7 @@ export default function OrderRepairComponent(props) {
                     position: "relative"
                 }}>
                     <Title level="2" style={{
-                        background: state.schema == 'dark' ? '#19191A' : '#fff',
+                        background: state.setBgColor(),
                         position: "absolute",
                         padding: "0 10px",
                         top: "-12px",

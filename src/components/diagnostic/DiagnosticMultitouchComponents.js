@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Group, Div, platform, Platform } from "@vkontakte/vkui";
-import { Icon48ArrowLeftOutline } from "@vkontakte/icons";
+import { Icon28ChevronBack } from "@vkontakte/icons";
 
 export default function DiagnosticMultitouchComponents(props) {
     const [
@@ -63,7 +63,7 @@ export default function DiagnosticMultitouchComponents(props) {
                     gap:"15px",
                     left: "0"
                 }}>
-                    <Icon48ArrowLeftOutline fill="white" onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                    <Icon28ChevronBack fill="white" onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
                 </Div>
                 {
                     Object.values(pointerIDs).map(position => {
@@ -73,7 +73,7 @@ export default function DiagnosticMultitouchComponents(props) {
                                 width: "100px",
                                 height: "100px",
                                 borderRadius: "50%",
-                                background: state.schema == 'dark' ? '#19191A' : '#fff',
+                                background: state.setBgColor(),
                                 position: "absolute",
                                 transform: `translate(${position})`
                             }}></div>

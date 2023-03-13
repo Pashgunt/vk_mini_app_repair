@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { Group, Div, Spacing, Title, Card, Link } from "@vkontakte/vkui";
-import { Icon48ArrowLeftOutline } from "@vkontakte/icons";
+import { Icon28ChevronBack } from "@vkontakte/icons";
 import { YMaps, Map, Placemark, FullscreenControl, GeolocationControl, ZoomControl } from "@pbe/react-yandex-maps";
 
 export default function DiagnosticGPSComponent(props) {
@@ -40,7 +40,7 @@ export default function DiagnosticGPSComponent(props) {
                         alignItems: 'center',
                         gap: "15px"
                     }}>
-                        <Icon48ArrowLeftOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                        <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
                         <Title>
                             GPS
                         </Title>

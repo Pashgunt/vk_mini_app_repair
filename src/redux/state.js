@@ -68,6 +68,9 @@ const state = {
     set activeModalState(newActiveModalState) {
         this.activeModal = newActiveModalState;
     },
+    setBgColor() {
+        return this.schema === "dark" ? '#19191A' : '#fff';
+    },
     pick(source, ...props) {
         const obj = {};
         for (const prop of props) {
@@ -851,4 +854,4 @@ const state = {
     }
 }
 
-export {state};
+export { state };

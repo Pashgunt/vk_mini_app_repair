@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import { Icon48ArrowLeftOutline } from "@vkontakte/icons";
+import { Icon28ChevronBack } from "@vkontakte/icons";
 
 export default function DiagnosticTouchScreenComponent(props) {
 
@@ -24,7 +24,7 @@ export default function DiagnosticTouchScreenComponent(props) {
                     width: "100%",
                     height: "100%",
                     borderRadius: "3px",
-                    background: state.schema == 'dark' ? '#19191A' : '#fff'
+                    background: state.setBgColor()
                 }}></div>
         );
     }
@@ -95,11 +95,9 @@ export default function DiagnosticTouchScreenComponent(props) {
                         position: "absolute",
                         top: "10px",
                         left: "10px",
-                        borderRadius: "50%",
-                        background: "#999"
                     }}
                 >
-                    <Icon48ArrowLeftOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} fill="white" />
+                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} fill="white" />
                 </div>
                 {countOfCell ? [...Array(countOfCell).keys()].map(item => blockForDraw(item)) : ''}
             </div>

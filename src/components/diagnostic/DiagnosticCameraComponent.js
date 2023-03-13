@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Group, Div, Spacing, Title, Headline } from "@vkontakte/vkui";
-import { Icon48ArrowLeftOutline, Icon28CameraOutline } from "@vkontakte/icons";
+import { Icon28ChevronBack, Icon28CameraOutline } from "@vkontakte/icons";
 
 export default function DiagnosticCameraComponent(props) {
     const [
@@ -62,7 +62,7 @@ export default function DiagnosticCameraComponent(props) {
                     alignItems: 'center',
                     gap: "15px"
                 }}>
-                    <Icon48ArrowLeftOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
                     <Title>
                         Камера
                     </Title>

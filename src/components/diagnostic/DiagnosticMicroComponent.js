@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Group, Div, Spacing, Title } from "@vkontakte/vkui";
-import { Icon48ArrowLeftOutline } from "@vkontakte/icons";
+import { Icon28ChevronBack } from "@vkontakte/icons";
 import RecorderControls from "../recorder/RecorderControls";
 import RecordingsList from "../recorder/RecordingsList";
 import useRecorder from "../../hooks/useRecorder";
@@ -27,7 +27,7 @@ export default function DiagnosticMicroComponent(props) {
                     alignItems: 'center',
                     gap:"15px"
                 }}>
-                    <Icon48ArrowLeftOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
                     <Title>
                         Микрофон
                     </Title>
