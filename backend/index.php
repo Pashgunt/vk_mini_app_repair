@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 require_once __DIR__ . "/functions/functions.php";
 
 header('Content-Type: application/json');
@@ -6,7 +10,6 @@ header('Content-Type: application/json');
 $postData = json_decode(file_get_contents("php://input"), 1);
 
 if (empty($postData['secret'])) echo json_encode(['result' => 'error']);
-
 switch ($postData['action']) {
     case "get_user_devices":
         echo getUserDevices($postData);
