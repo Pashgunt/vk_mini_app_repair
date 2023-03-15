@@ -97,7 +97,7 @@ export default function DiagnosticTouchScreenComponent(props) {
                         left: "10px",
                     }}
                 >
-                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} fill="white" />
+                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
                 </div>
                 {countOfCell ? [...Array(countOfCell).keys()].map(item => blockForDraw(item)) : ''}
             </div>

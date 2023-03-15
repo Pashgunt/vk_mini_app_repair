@@ -43,7 +43,7 @@ const state = {
     panels: GlobalEnums,
     images: Images,
     validator: validator,
-    schema: "dark",
+    schema: "light",
     activePanel: GlobalEnums.panel_mainScreen,
     activeModal: null,
     problem: '',
