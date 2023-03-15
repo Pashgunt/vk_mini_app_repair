@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const getAllDeviceListForUser = async function (userID) {
-    return await axios.get(`https://sca-tech.ru/erp-22251/react_app_api/v1/get_user_devices/?key=1GipmudsZ2&user_id=${userID}`)
+    return await axios.post(`https://sca-tech.ru/erp-22251/react_app_api/v1/get_user_devices/?key=1GipmudsZ2&user_id=${userID}`)
         .then(promise => promise.data)
 }
 
