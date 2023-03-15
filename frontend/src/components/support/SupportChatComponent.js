@@ -39,7 +39,9 @@ export default function SupportChatComponent(props) {
     useEffect(() => {
         const startAsyncFunc = async () => {
             let messagesForUserID = await state.api.getMessagesForUser(userData.id);
-            setMessages([...messages, ...messagesForUserID.data])
+            if (messagesForUserID.data) {
+                setMessages([...messages, ...messagesForUserID.data])
+            }
         }
         startAsyncFunc();
     }, [setMessages])
