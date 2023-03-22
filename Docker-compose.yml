@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  php:
+    build: ./docker/php
+    volumes:
+      - './project:/var/www/vk-mini-app'
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 8888:8888
+    volumes:
+      - './project:/var/www/vk-mini-app'
+      - './docker/nginx/conf.d:/etc/nginx/conf.d'
+
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=beboss_trial
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - "dbdata:/var/lib/mysql"
+      
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - 1500:80
+    environment:
+      - VIRTUAL_HOST=phpmyadmin.local
+      - PMA_HOST=mysql
+volumes:
+  dbdata:
+    driver: local

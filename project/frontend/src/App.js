@@ -81,7 +81,7 @@ const App = () => {
                         autoClose: true,
                         action: async () => {
                             let result = await state.api.addDeviceForUser(userID, device);
-                            if (result.data === "success" && (result.status >= 200 || result.status < 400)) {
+                            if (result.data === "success") {
                                 addActionLogItem(`Устройство ${device} добавлено в Ваш список.`);
                                 let copyOfMyDeviceList = Object.assign({}, myDeviceList);
                                 if (deviceType in copyOfMyDeviceList) {
@@ -121,7 +121,7 @@ const App = () => {
                         action: async () => {
                             addActionLogItem('Устройство удалено из списка Ваших устройств.');
                             let result = await state.api.removeDeviceForUser(userID, device);
-                            if (result.data === "success" && (result.status >= 200 || result.status < 400)) {
+                            if (result.data === "success") {
                                 addActionLogItem(`Устройство ${device} удалено из Вашего списка.`);
                                 let copyOfMyDeviceList = Object.assign({}, myDeviceList);
                                 copyOfMyDeviceList[deviceType] = copyOfMyDeviceList[deviceType].filter(myDeviceItem => myDeviceItem !== device)
@@ -146,7 +146,19 @@ const App = () => {
         );
     }
 
-    useEffect(() => {
+    useEffect(async () => {
+        const resMyDevice = await state.api.getAllDeviceListForUser(161450796);
+        if (Array.isArray(resMyDevice.data)) {
+            changeShowActivePanel(state.panels.panel_deviceScreen, state)
+        }
+        setMyDeviceList(resMyDevice.data);
+        const resMyRequestsRepair = await state.api.getRequestsForRepairDevice(161450796);
+        setRequestsForRepair(resMyRequestsRepair.data);
+        setUserData({
+            id: 161450796,
+            first_name: "Pavel"
+        });
+
         bridge.send('VKWebAppGetUserInfo')
             .then(async response => {
                 const resMyDevice = await state.api.getAllDeviceListForUser(response.id);

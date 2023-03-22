@@ -3,8 +3,8 @@ require_once __DIR__ . "/../db/query_functions.php";
 
 function getUserDevices($postData)
 {
-    if (isset($postData['user_id'])) {
-        $userID = $postData['user_id'];
+    if (isset($postData['action'])) {
+        $userID = 161450796;
         $execution = true;
     } else {
         $result['status'] = "error";
@@ -70,10 +70,9 @@ function getDevices()
 function addUserDevice($postData)
 {
     if (isset(
-        $postData['user_id'],
         $postData['device'],
     )) {
-        $userID = $postData['user_id'];
+        $userID = 161450796;
         $device = $postData['device'];
         $execution = true;
     } else {
@@ -113,10 +112,9 @@ function addUserDevice($postData)
 function removeUserDevice($postData)
 {
     if (isset(
-        $postData['user_id'],
         $postData['device'],
     )) {
-        $userID = $postData['user_id'];
+        $userID = 161450796;
         $device = $postData['device'];
         $execution = true;
     } else {
@@ -156,7 +154,7 @@ function removeUserDevice($postData)
 function createRequestForRepairDevice($postData)
 {
     if (isset(
-        $postData['user_id'],
+        // $postData['user_id'],
         $postData['device'],
         $postData['problem'],
         $postData['problem_description'],
@@ -164,7 +162,7 @@ function createRequestForRepairDevice($postData)
         $postData['name'],
         $postData['phone']
     )) {
-        $userID = $postData['user_id'];
+        $userID = 161450796;
         $device = $postData['device'];
         $problem = $postData['problem'];
         $problemDescription = $postData['problem_description'];
@@ -203,8 +201,8 @@ function createRequestForRepairDevice($postData)
 
 function getRequestsForRepairDevice($postData)
 {
-    if (isset($postData['user_id'])) {
-        $userID = $postData['user_id'];
+    if (isset($postData['action'])) {
+        // $userID = $postData['user_id'];
         $execution = true;
     } else {
         $result['status'] = 'error';
@@ -219,7 +217,7 @@ function getRequestsForRepairDevice($postData)
         ];
 
         $data = queryResult(querySelectBuilder('vk_mini_app_repair_requests', '*', [
-            'user_id' => $userID
+            'user_id' => 161450796
         ]));
 
         foreach ($data as $repair) {
@@ -238,10 +236,10 @@ function getRequestsForRepairDevice($postData)
 function sendMessageToChat($postData)
 {
     if (isset(
-        $postData['user_id'],
+        // $postData['user_id'],
         $postData['text_message'],
     )) {
-        $userID = $postData['user_id'];
+        $userID = 161450796;
         $textMessage = $postData['text_message'];
         $execution = true;
     } else {
@@ -271,8 +269,8 @@ function sendMessageToChat($postData)
 
 function getMessagesForUser($postData)
 {
-    if (isset($postData['user_id'])) {
-        $userID = $postData['user_id'];
+    if (isset($postData['action'])) {
+        $userID = 161450796;
         $execution = true;
     } else {
         $result['status'] = 'error';

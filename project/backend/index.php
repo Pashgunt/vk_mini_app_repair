@@ -14,15 +14,12 @@ switch ($postData['action']) {
     case "get_user_devices":
         echo getUserDevices($postData);
         break;
-        // READY
     case "get_devices":
         echo getDevices($postData);
         break;
-        // READY
     case "add_user_device":
         echo addUserDevice($postData);
         break;
-        // READY
     case "delete_user_device":
         echo removeUserDevice($postData);
         break;
