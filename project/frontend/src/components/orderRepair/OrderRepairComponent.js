@@ -34,7 +34,7 @@ export default function OrderRepairComponent(props) {
 
     const headerRef = useRef(null);
 
-    const deviceRef = useRef(null);
+    let deviceValue = "";
     const problemRef = useRef(null);
     const problemRefDescription = useRef(null);
     const fullAdressRef = useRef(null);
@@ -71,6 +71,10 @@ export default function OrderRepairComponent(props) {
         }
         startAsyncFunc();
     }, [])
+
+    const onChangeDevice = (event) => {
+        deviceValue = event.target.options[event.target.selectedIndex].value;
+    }
 
     const cards = state.modal.chooseDevice.cardDevice,
         options = [
@@ -146,7 +150,7 @@ export default function OrderRepairComponent(props) {
     }
 
     const sendOrderRepairRequest = async () => {
-        const deviceRefValue = deviceRef.current.value,
+        const deviceRefValue = deviceValue,
             problemRefValue = problemRef.current.value,
             problemRefDescriptionValue = problemRefDescription.current.value,
             fullAdressRefValue = fullAdressRef.current.value,
@@ -194,8 +198,7 @@ export default function OrderRepairComponent(props) {
                 phoneRefValue,
                 userData.id
             );
-
-            if (result.data.data === "success" && (result.status >= 200 || result.status < 400)) {
+            if (result.data === "success") {
                 let repairData = {
                     'device': deviceRefValue,
                     'problem': problemRefValue,
@@ -207,6 +210,7 @@ export default function OrderRepairComponent(props) {
                 if (!Array.isArray(requestsForRepair)) {
                     let copyRequestsForRepair = Object.assign({}, requestsForRepair);
                     copyRequestsForRepair.current.push(repairData);
+                    copyRequestsForRepair.all.push(repairData);
                     setRequestsForRepair(copyRequestsForRepair)
                 } else {
                     setRequestsForRepair([...requestsForRepair, repairData])
@@ -216,6 +220,8 @@ export default function OrderRepairComponent(props) {
             } else {
                 addActionLogItem('При создании заказа на ремонт произошла ошибка! Попробуйте ещё раз');
             }
+        } else {
+            addActionLogItem('При создании заказа на ремонт произошла ошибка! Попробуйте ещё раз');
         }
     }
 
@@ -284,7 +290,7 @@ export default function OrderRepairComponent(props) {
                 </div>
                 <Spacing size={40} />
 
-                <Group mode="card" separator={false} style={{
+                <Group mode="card" separator={"hide"} style={{
                     position: "relative"
                 }}>
                     <Title level="2" style={{
@@ -297,14 +303,18 @@ export default function OrderRepairComponent(props) {
                     }}>Устройство</Title>
                     <Div>
                         <FormItem top="Выберите устройство" bottom="Поиск по устройствам">
-                            <CustomSelect placeholder="Введите название устройства" options={options} getRef={deviceRef} />
+                            <CustomSelect
+                                placeholder="Введите название устройства"
+                                options={options}
+                                onChange={onChangeDevice}
+                            />
                         </FormItem>
                     </Div>
                 </Group>
 
                 <Spacing size={20} />
 
-                <Group mode="card" separator={false} style={{
+                <Group mode="card" separator={"hide"} style={{
                     position: "relative"
                 }}>
                     <Title level="2" style={{
@@ -363,7 +373,7 @@ export default function OrderRepairComponent(props) {
 
                 <Spacing size={20} />
 
-                <Group mode="card" separator={false} style={{
+                <Group mode="card" separator={"hide"} style={{
                     position: "relative"
                 }}>
                     <Title level="2" style={{
@@ -430,7 +440,7 @@ export default function OrderRepairComponent(props) {
                 </Group>
                 <Spacing size={20} />
 
-                <Group mode="card" separator={false} style={{
+                <Group mode="card" separator={"hide"} style={{
                     position: "relative"
                 }}>
                     <Title level="2" style={{

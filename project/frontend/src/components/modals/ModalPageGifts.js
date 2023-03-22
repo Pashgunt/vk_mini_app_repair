@@ -33,7 +33,9 @@ export default function ModalPageGifts({ state, requestsForRepair }) {
                                             <div style={{
                                                 width: "50%",
                                                 margin: "0 auto",
-                                                textAlign: "center"
+                                                textAlign: "center",
+                                                display:"flex",
+                                                justifyContent:"center"
                                             }}>
                                                 <Icon28BlockOutline fill="white" width={34} height={34} />
                                             </div>
