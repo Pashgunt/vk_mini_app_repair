@@ -1,19 +1,19 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Button, Div, FormItem, Group, Separator, Spacing, Textarea, Title } from "@vkontakte/vkui";
 import { Icon20ChevronRightOutline } from "@vkontakte/icons";
 
 export default function ModalSearchProblemPage({ state, changeShowActiveModal, problem, setProblem, setIsCorrectDataForProblem }) {
 
     const [matchWordsList, setMatchWords] = useState(false);
-    const [isErrorInput, setIsErrorInput] = useState(true);
+    const [isErrorInput, setIsErrorInput] = useState(false);
     const problemRef = useRef(null);
 
     const onChangeTextareaProblem = function (event) {
-        let value = event.target.value?.toLowerCase(),
+        let value = event ? event.target.value?.toLowerCase() : problem.trim(),
             searchItems = state.modal.searchProblem.quickSearch,
             matchWords = [];
 
-        setProblem(event.target.value);
+        setProblem(event?.target.value ?? problem.trim());
 
         if (value && value.length >= 3) {
             setIsCorrectDataForProblem(true);
@@ -26,7 +26,7 @@ export default function ModalSearchProblemPage({ state, changeShowActiveModal, p
                 }
             });
         } else {
-            setIsErrorInput(false);
+            setIsErrorInput(true);
             setIsCorrectDataForProblem(false);
         }
         setMatchWords(matchWords);
@@ -38,10 +38,9 @@ export default function ModalSearchProblemPage({ state, changeShowActiveModal, p
         changeShowActiveModal(state.panels.modal_chooseDevice, state);
     }
 
-    const clickForNextModalWithCorrectInput = () => {
-        setIsErrorInput(true);
-        changeShowActiveModal(state.panels.modal_chooseDevice, state)
-    }
+    useEffect(() => {
+        onChangeTextareaProblem(null);
+    }, []);
 
     return (
         <Group>

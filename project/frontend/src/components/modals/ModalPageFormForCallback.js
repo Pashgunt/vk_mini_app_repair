@@ -25,6 +25,7 @@ export default function ModalPageFormForCallback({ state, changeShowActiveModal,
         if (state.validator.isMobilePhone(value, ['ru-RU'])) {
             setCorrectPhone(true);
             setUserPhone(value)
+            setIsCorrectDataForConnect(true);
         } else {
             setCorrectPhone(false);
             setIsCorrectDataForConnect(false);
@@ -35,16 +36,10 @@ export default function ModalPageFormForCallback({ state, changeShowActiveModal,
         let value = event.target.value;
         if (state.validator.isAlpha(value, ['ru-RU']) || state.validator.isAlpha(value, ['en-US'])) {
             setCorrectUsername(true)
+            setIsCorrectDataForConnect(true);
         } else {
             setCorrectUsername(false);
             setIsCorrectDataForConnect(false);
-        }
-    }
-
-    const clickForNextModalWithCorrectInput = () => {
-        if (correctPhone && correctUsername) {
-            changeShowActiveModal(state.panels.modal_sendRequestForRepair, state);
-            setIsCorrectDataForConnect(true);
         }
     }
 

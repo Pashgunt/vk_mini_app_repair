@@ -31,7 +31,8 @@ export const settingsStyles = {
     problemContainerTextStyle: {
         padding: "5px 10px",
         borderRadius: "15px",
-        background: "#ddd",
+        background: "#eee",
+        width: "max-content",
         color: "black",
     },
     problemTextStyle: {

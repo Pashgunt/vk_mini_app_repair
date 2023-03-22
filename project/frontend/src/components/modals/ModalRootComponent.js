@@ -28,6 +28,8 @@ export default function ModalRootComponent(props) {
     const [isCorrectDataForSendFeedback, setIsCorrectDataForSendFeedback] = useState(false);
     const [isCorrectDataForProblem, setIsCorrectDataForProblem] = useState(false);
 
+
+    
     return (
         <ModalRoot activeModal={state.activeModal}>
             <ModalPage

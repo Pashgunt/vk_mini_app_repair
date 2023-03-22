@@ -8,15 +8,17 @@ export default function ModalPageCreateRequestRepair({ state, problem, chooseDev
             <Div>
                 <Headline>{chooseDevice}</Headline>
                 <Spacing size={15} />
-                <Title level="3"
-                    style={{
-                        display: "flex",
-                        gap: "10px"
-                    }}
-                >
-                    {problem}
-                    <Icon16Pen fill="#2688eb" onClick={() => changeShowActiveModal(state.panels.modal_searchProblem, state)} />
-                </Title>
+                <div style={state.modal.chooseDevice.cardProblemStyle}>
+                    <Title level="3"
+                        style={{
+                            display: "flex",
+                            gap: "10px"
+                        }}
+                    >
+                        {problem}
+                        <Icon16Pen fill="#2688eb" onClick={() => changeShowActiveModal(state.panels.modal_searchProblem, state)} />
+                    </Title>
+                </div>
                 <Spacing size={30} />
                 <Div style={{
                     background: "rgba(0,0,0,.05)",
