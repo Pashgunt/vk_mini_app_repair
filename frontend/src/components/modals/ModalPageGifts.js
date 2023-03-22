@@ -1,5 +1,6 @@
 import { Group, Div, CardGrid, Card, Headline, Spacing } from "@vkontakte/vkui";
 import { Fragment } from "react";
+import { Icon28BlockOutline } from "@vkontakte/icons";
 
 export default function ModalPageGifts({ state, requestsForRepair }) {
     return (
@@ -34,7 +35,7 @@ export default function ModalPageGifts({ state, requestsForRepair }) {
                                                 margin: "0 auto",
                                                 textAlign: "center"
                                             }}>
-                                                Условие для получение подарка
+                                                <Icon28BlockOutline fill="white" width={34} height={34} />
                                             </div>
                                         </div>}
                                         <Div style={{

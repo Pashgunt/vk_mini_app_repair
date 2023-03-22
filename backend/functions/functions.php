@@ -16,21 +16,23 @@ function getUserDevices($postData)
             'status' => 'ok',
             'data' => [],
         ];
-        $result['data'] = queryResult(querySelectBuilder(
-            'vk_mini_app_devices_for_user',
-            '`devices`.`device`, `device_type`.`device_type`',
-            [
-                ['=', '`vk_mini_app_devices_for_user`.`is_actual`', 1],
-                ['=', '`vk_mini_app_devices_for_user`.`user_id`', $userID],
-            ],
-            [],
-            null,
-            null,
-            [
-                ['inner', 'vk_mini_app_devices', 'id' => 'device_id'],
-                ['inner', 'vk_mini_app_device_types', 'id' => 'device_type_id'],
-            ]
-        ));
+
+        $prepareDevices = [];
+
+        $devices = queryResult(
+            "SELECT `devices`.`device`, `device_type`.`device_type` FROM `vk_mini_app_devices_for_user` as `user_devices`
+                INNER JOIN `vk_mini_app_devices` as `devices` 
+                ON `user_devices`.`device_id` = `devices`.`id`
+                INNER JOIN `vk_mini_app_device_types` as `device_type`
+                ON `devices`.`device_type_id` = `device_type`.`id`
+                WHERE `user_devices`.`is_actual` = 1 AND `user_devices`.`user_id` = $userID"
+        );
+
+        foreach ($devices as $element) {
+            $prepareDevices[$element['device_type']][] = $element['device'];
+        }
+
+        $result['data'] = $prepareDevices;
     }
 
     return json_encode($result);
@@ -40,7 +42,10 @@ function getDevices()
 {
 
     $result['status'] = 'ok';
-    $result['data'] = queryResult(querySelectBuilder(
+
+    $prepareDevices = [];
+
+    $devices = queryResult(querySelectBuilder(
         'vk_mini_app_devices',
         '`vk_mini_app_devices`.`id`, `vk_mini_app_devices`.`device`, `vk_mini_app_device_types`.`device_type`',
         [
@@ -52,6 +57,12 @@ function getDevices()
         null,
         ['inner', 'vk_mini_app_device_types', 'id' => 'device_type_id']
     ));
+
+    foreach ($devices as $element) {
+        $prepareDevices[$element['device_type']][] = $element['device'];
+    }
+
+    $result['data'] = $prepareDevices;
 
     return json_encode($result);
 }
@@ -89,8 +100,8 @@ function addUserDevice($postData)
                 'user_id' => $userID,
                 'device' => $device,
             ];
-
-            $result = makeCurlRequest($postData['action'], $data);
+            $result['data'] = 'success';
+            // $result = makeCurlRequest($postData['action'], $data);
         } else {
             $result['status'] = 'error';
         }
@@ -132,7 +143,8 @@ function removeUserDevice($postData)
                 'device' => $device,
             ];
 
-            $result = makeCurlRequest($postData['action'], $data);
+            // $result = makeCurlRequest($postData['action'], $data);
+            $result['data'] = 'success';
         } else {
             $result['status'] = 'error';
         }
@@ -179,7 +191,8 @@ function createRequestForRepairDevice($postData)
         $resultOfInsert = queryExec(queryInsertBuilder('vk_mini_app_repair_requests', $data));
 
         if ($resultOfInsert) {
-            $result = makeCurlRequest($postData['action'], $data);
+            $result['data'] = 'success';
+            // $result = makeCurlRequest($postData['action'], $data);
         } else {
             $result['status'] = 'error';
         }
@@ -199,9 +212,24 @@ function getRequestsForRepairDevice($postData)
     }
 
     if ($execution) {
-        $result['data'] = queryResult(querySelectBuilder('vk_mini_app_repair_requests', '*', [
+
+        $prepareData = [
+            'current' => [],
+            'all' => [],
+        ];
+
+        $data = queryResult(querySelectBuilder('vk_mini_app_repair_requests', '*', [
             'user_id' => $userID
         ]));
+
+        foreach ($data as $repair) {
+            $prepareData['all'][] = $repair;
+            if ($repair['is_actual']) {
+                $prepareData['current'][] = $repair;
+            }
+        }
+
+        $result['data'] = $prepareData;
     }
 
     return json_encode($result);
@@ -231,7 +259,8 @@ function sendMessageToChat($postData)
         $resultForInsert = queryExec(queryInsertBuilder('vk_mini_app_chat_messages', $data));
 
         if ($resultForInsert) {
-            $result = makeCurlRequest($postData['action'], $data);
+            $result['data'] = 'success';
+            // $result = makeCurlRequest($postData['action'], $data);
         } else {
             $result['status'] = 'error';
         }

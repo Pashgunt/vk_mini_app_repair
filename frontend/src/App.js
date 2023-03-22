@@ -81,7 +81,7 @@ const App = () => {
                         autoClose: true,
                         action: async () => {
                             let result = await state.api.addDeviceForUser(userID, device);
-                            if (result.data.data === "success" && (result.status >= 200 || result.status < 400)) {
+                            if (result.data === "success" && (result.status >= 200 || result.status < 400)) {
                                 addActionLogItem(`Устройство ${device} добавлено в Ваш список.`);
                                 let copyOfMyDeviceList = Object.assign({}, myDeviceList);
                                 if (deviceType in copyOfMyDeviceList) {
@@ -121,7 +121,7 @@ const App = () => {
                         action: async () => {
                             addActionLogItem('Устройство удалено из списка Ваших устройств.');
                             let result = await state.api.removeDeviceForUser(userID, device);
-                            if (result.data.data === "success" && (result.status >= 200 || result.status < 400)) {
+                            if (result.data === "success" && (result.status >= 200 || result.status < 400)) {
                                 addActionLogItem(`Устройство ${device} удалено из Вашего списка.`);
                                 let copyOfMyDeviceList = Object.assign({}, myDeviceList);
                                 copyOfMyDeviceList[deviceType] = copyOfMyDeviceList[deviceType].filter(myDeviceItem => myDeviceItem !== device)

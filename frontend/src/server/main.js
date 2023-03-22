@@ -7,7 +7,7 @@ const getAllDeviceListForUser = async function (userID) {
         'user_id': userID
     }
     return await axios.post(`/backend/`, JSON.stringify(data))
-        .then(response => response)
+        .then(response => response.data)
         .catch(error => error);
 }
 
@@ -17,7 +17,7 @@ const getDeviceList = async function () {
         'secret': '1GipmudsZ2'
     }
     return await axios.post(`/backend/`, JSON.stringify(data))
-        .then(response => response)
+        .then(response => response.data)
         .catch(error => error);
 }
 
@@ -29,7 +29,7 @@ const addDeviceForUser = async function (userID, device) {
         'device': device
     }
     return await axios.post(`/backend/`, JSON.stringify(data))
-        .then(response => response)
+        .then(response => response.data)
         .catch(error => error);
 }
 
@@ -41,7 +41,7 @@ const removeDeviceForUser = async function (userID, device) {
         'device': device
     }
     return await axios.post(`/backend/`, JSON.stringify(data))
-        .then(response => response)
+        .then(response => response.data)
         .catch(error => error);
 }
 
@@ -66,7 +66,7 @@ const createRequestForRepairDevice = async function (
         'phone': phone,
     };
     return await axios.post('/backend/', JSON.stringify(data))
-        .then(response => response)
+        .then(response => response.data)
         .catch(error => error);
 }
 
@@ -77,7 +77,7 @@ const getRequestsForRepairDevice = async function (userID) {
         'user_id': userID
     };
     return await axios.post(`/backend/`, JSON.stringify(data))
-        .then(response => response)
+        .then(response => response.data)
         .catch(error => error);;
 };
 
@@ -89,7 +89,7 @@ const sendMessageToChat = async function (userID, textMessage) {
         'text_message': textMessage
     };
     return await axios.post('/backend/', JSON.stringify(data))
-        .then(response => response)
+        .then(response => response.data)
         .catch(error => error);
 }
 
@@ -100,7 +100,7 @@ const getMessagesForUser = async function (userID) {
         'user_id': userID
     };
     return await axios.post('/backend/', JSON.stringify(data))
-        .then(response => response)
+        .then(response => response.data)
         .catch(error => error);
 }
 

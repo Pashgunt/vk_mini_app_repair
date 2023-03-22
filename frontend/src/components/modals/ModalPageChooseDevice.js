@@ -12,7 +12,7 @@ export default function ModalPageChooseDevice({
     setChooseDevice
 }) {
 
-    const [devices, setDevices] = useState(false);
+    const [devices, setDevices] = useState({});
 
     useEffect(() => {
         const startAsyncFunc = async () => {
