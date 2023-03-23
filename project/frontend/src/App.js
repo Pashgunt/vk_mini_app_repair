@@ -238,11 +238,11 @@ const App = () => {
                         popout={popout}
                         modal={<ModalRootComponent data={propsForModal} />}
                         style={{
-                            background: state.schema == 'dark' ? '#19191A' : "#ECF6FD",
+                            background: state.setBgColor(),
                             height: "max-content"
                         }}>
                         <View activePanel={activePanelView} style={{
-                            background: state.schema == 'dark' ? '#19191A' : "#ECF6FD",
+                            background: state.setBgColor(),
                             height: "max-content"
                         }}>
                             <Panel id={state.panels.panel_mainScreen}>

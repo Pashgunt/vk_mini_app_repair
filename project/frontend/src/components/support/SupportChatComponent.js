@@ -79,7 +79,7 @@ export default function SupportChatComponent(props) {
                                     borderRadius: "15px",
                                     width: "max-content",
                                     marginLeft: "auto",
-                                    background: state.schema == 'dark' ? '#454648' : "#ECF6FD",
+                                    background: state.schema == 'dark' ? '#454648' : "#FFF",
                                     marginBottom: "5px"
                                 }}>
                                     {message.text}

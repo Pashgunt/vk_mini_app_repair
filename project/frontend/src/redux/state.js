@@ -69,7 +69,7 @@ const state = {
         this.activeModal = newActiveModalState;
     },
     setBgColor() {
-        return this.schema === "dark" ? '#19191A' : '#fff';
+        return this.schema === "dark" ? '#19191A' : '#FFF';
     },
     pick(source, ...props) {
         const obj = {};

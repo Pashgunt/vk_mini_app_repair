@@ -23,7 +23,9 @@ export default function MainSupportTools({ state, changeShowActivePanel, }) {
                         {state.components.mainSupportTools.title}
                     </Title>
                 </Header>
-                <Div>
+                <Div style={{
+                    paddingBottom: 0
+                }}>
                     {
                         Object.keys(cards).map((title, index) => {
                             return (

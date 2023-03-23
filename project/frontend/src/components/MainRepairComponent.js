@@ -42,7 +42,9 @@ export default function MainRepairComponent({
                     Все
                 </TabsItem>
             </Tabs>
-            <Div>
+            <Div style={{
+                paddingBottom: 0
+            }}>
                 {
                     selectedTab === "now-repair" ?
                         (requestsForRepair?.current?.length ?
@@ -68,9 +70,10 @@ export default function MainRepairComponent({
                                 })}
                                 {
                                     requestsForRepair?.current?.length > 3 &&
-                                    <Div>
+                                    <>
+                                        <Spacing size={10} />
                                         <Link onClick={() => changeShowActivePanel(state.panels.panel_orderRepairCurrentAndAll, state)}>Ещё <Icon20ChevronRightOutline width={16} height={16} /></Link>
-                                    </Div>
+                                    </>
                                 }
                             </>
                             :
@@ -105,9 +108,11 @@ export default function MainRepairComponent({
                                     );
                                 })}
                                 {
-                                    requestsForRepair?.all?.length > 3 && <Div>
+                                    requestsForRepair?.all?.length > 3 &&
+                                    <>
+                                        <Spacing size={10} />
                                         <Link onClick={() => changeShowActivePanel(state.panels.panel_orderRepairCurrentAndAll, state)}>Ещё <Icon20ChevronRightOutline width={16} height={16} /></Link>
-                                    </Div>
+                                    </>
                                 }
                             </>
                             :
