@@ -1,5 +1,5 @@
 <?php
-$connection = mysqli_connect('mysql', 'user', 'user', 'beboss_trial');
+$connection = mysqli_connect('host', 'user', 'password', 'database');
 $connection->set_charset("utf8");
 
 if (mysqli_connect_errno()) {

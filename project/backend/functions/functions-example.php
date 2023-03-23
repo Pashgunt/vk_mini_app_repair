@@ -292,7 +292,7 @@ function makeCurlRequest($action, $data)
 {
     $myCurl = curl_init();
     curl_setopt_array($myCurl, array(
-        CURLOPT_URL            => "https://lumrapideco.ru/api/vkapp/api-repair-vk-app.php?action=$action",
+        CURLOPT_URL            => "url",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST           => true,
         CURLOPT_POSTFIELDS     => http_build_query($data)
