@@ -34,7 +34,6 @@ export default function OrderRepairComponent(props) {
 
     const headerRef = useRef(null);
 
-    let deviceValue = "";
     const problemRef = useRef(null);
     const problemRefDescription = useRef(null);
     const fullAdressRef = useRef(null);
@@ -48,6 +47,7 @@ export default function OrderRepairComponent(props) {
     const [isScroll, setIsScroll] = useState(false);
     const [devices, setDevices] = useState(false);
     const [matchWordsList, setMatchWords] = useState(false);
+    const [deviceValue, setDeviceValue] = useState("");
 
     const [isCorrectProblem, setIsCorrectProblem] = useState(
         state.validator.isAlphanumeric(problem, ['ru-RU']) || state.validator.isAlphanumeric(problem, ['en-US'])
@@ -73,7 +73,7 @@ export default function OrderRepairComponent(props) {
     }, [])
 
     const onChangeDevice = (event) => {
-        deviceValue = event.target.options[event.target.selectedIndex].value;
+        setDeviceValue(event.target.options[event.target.selectedIndex].value);
     }
 
     const cards = state.modal.chooseDevice.cardDevice,
@@ -203,7 +203,7 @@ export default function OrderRepairComponent(props) {
                     'device': deviceRefValue,
                     'problem': problemRefValue,
                     'probelm_description': problemRefDescriptionValue,
-                    'probelm_description': aderss,
+                    'adress': aderss,
                     'name': nameRefValue,
                     'phone': phoneRefValue
                 };

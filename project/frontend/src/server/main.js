@@ -81,12 +81,14 @@ const getRequestsForRepairDevice = async function (userID) {
         .catch(error => error);;
 };
 
-const sendMessageToChat = async function (userID, textMessage) {
+const sendMessageToChat = async function (userID, textMessage, name, phone) {
     let data = {
         'action': 'send_message_chat',
         'secret': '1GipmudsZ2',
         'user_id': userID,
-        'text_message': textMessage
+        'text_message': textMessage,
+        'name': name,
+        'phone': phone
     };
     return await axios.post('/backend/', JSON.stringify(data))
         .then(response => response.data)

@@ -19,6 +19,7 @@ export default function SupportChatComponent(props) {
         chooseDeviceType,
         setChooseProblemType,
         setChooseProblemText,
+        userPhone,
     ] = props.data;
 
     const [messages, setMessages] = useState([]);
@@ -27,8 +28,9 @@ export default function SupportChatComponent(props) {
 
     const sendMessage = async function () {
         let messageValue = messageRef.current.value;
-        let result = await state.api.sendMessageToChat(userData.id, messageValue);
-        if (result.data.data === "success") {
+        messageRef.current.value  = "";
+        let result = await state.api.sendMessageToChat(userData.id, messageValue, userData.first_name, userPhone);
+        if (result.data === "success") {
             setMessages([...messages, {
                 "type": "OUT",
                 "text": messageValue,
@@ -79,7 +81,7 @@ export default function SupportChatComponent(props) {
                                     borderRadius: "15px",
                                     width: "max-content",
                                     marginLeft: "auto",
-                                    background: state.schema == 'dark' ? '#454648' : "#FFF",
+                                    background: state.schema == 'dark' ? '#454648' : "#ECF6FD",
                                     marginBottom: "5px"
                                 }}>
                                     {message.text}
@@ -114,15 +116,12 @@ export default function SupportChatComponent(props) {
                 width: "100%"
             }}>
                 <Div style={{
-                    display: "flex",
-                    justifyContent: "space-between"
+                    display: "grid",
+                    gridTemplateColumns: "auto 48px"
                 }}>
                     <Input
                         type="text"
                         placeholder="Сообщение"
-                        style={{
-                            width: "80vw"
-                        }}
                         getRef={messageRef}
                     />
                     <IconButton onClick={sendMessage}>

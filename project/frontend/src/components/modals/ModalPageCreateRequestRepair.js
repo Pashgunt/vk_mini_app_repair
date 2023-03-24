@@ -52,7 +52,7 @@ export default function ModalPageCreateRequestRepair({ state, problem, chooseDev
                         borderRadius: "10px",
                         textAlign: "center"
                     }}>
-                        <Link href="tel:79119844159">
+                        <Link href="tel:78122141753">
                             <Icon36Phone />
                             Звонок
                         </Link>
