@@ -2,6 +2,7 @@ import { Fragment, useRef, useState, useEffect } from "react";
 import { Group, Div, Spacing, Title, CustomSelect, FormItem, Textarea, Input, Card, CardGrid, Button, Separator, Headline } from "@vkontakte/vkui";
 import { Icon28ChevronBack, Icon20ChevronRightOutline } from "@vkontakte/icons";
 import MainFixedHeader from "../MainFixedHeader";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function OrderRepairComponent(props) {
     const [
@@ -48,6 +49,7 @@ export default function OrderRepairComponent(props) {
     const [devices, setDevices] = useState(false);
     const [matchWordsList, setMatchWords] = useState(false);
     const [deviceValue, setDeviceValue] = useState("");
+    const [showLoader, setShowLoader] = useState(false);
 
     const [isCorrectProblem, setIsCorrectProblem] = useState(
         state.validator.isAlphanumeric(problem, ['ru-RU']) || state.validator.isAlphanumeric(problem, ['en-US'])
@@ -150,6 +152,7 @@ export default function OrderRepairComponent(props) {
     }
 
     const sendOrderRepairRequest = async () => {
+        setShowLoader(true);
         const deviceRefValue = deviceValue,
             problemRefValue = problemRef.current.value,
             problemRefDescriptionValue = problemRefDescription.current.value,
@@ -266,232 +269,255 @@ export default function OrderRepairComponent(props) {
     })
 
     return (<Fragment>
-        {isScroll && <MainFixedHeader
-            state={state}
-            title={"Заказать ремонт"}
-            changeShowActiveModal={changeShowActiveModal}
-            showProfile={false}
-        />}
-        <Div>
-            <Group mode="plain" style={{
-                position: "relative"
+        <div style={{
+            position: "relative"
+        }}>
+            {showLoader && <div style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                background: "rgba(0,0,0,.75)",
+                zIndex: '100',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: "center"
             }}>
-                <div style={{
-                    top: "0",
-                    left: "0",
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: "15px"
-                }} ref={headerRef}>
-                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
-                    <Title>
-                        Заказать ремонт
-                    </Title>
-                </div>
-                <Spacing size={40} />
-
-                <Group mode="card" separator={"hide"} style={{
+                <ClipLoader
+                    color={"#FFF"}
+                    size={60}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+            </div>}
+            {isScroll && <MainFixedHeader
+                state={state}
+                title={"Заказать ремонт"}
+                changeShowActiveModal={changeShowActiveModal}
+                showProfile={false}
+            />}
+            <Div>
+                <Group mode="plain" style={{
                     position: "relative"
                 }}>
-                    <Title level="2" style={{
-                        background: state.schema === 'dark' ? '#19191A' : '#fff',
-                        position: "absolute",
-                        padding: "0 10px",
-                        top: "-12px",
-                        left: "20px",
-                        zIndex: "1"
-                    }}>Устройство</Title>
-                    <Div>
-                        <FormItem top="Выберите устройство" bottom="Поиск по устройствам">
-                            <CustomSelect
-                                placeholder="Введите название устройства"
-                                options={options}
-                                onChange={onChangeDevice}
-                            />
-                        </FormItem>
-                    </Div>
-                </Group>
+                    <div style={{
+                        top: "0",
+                        left: "0",
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: "15px"
+                    }} ref={headerRef}>
+                        <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                        <Title>
+                            Заказать ремонт
+                        </Title>
+                    </div>
+                    <Spacing size={40} />
 
-                <Spacing size={20} />
-
-                <Group mode="card" separator={"hide"} style={{
-                    position: "relative"
-                }}>
-                    <Title level="2" style={{
-                        background: state.setBgColor(),
-                        position: "absolute",
-                        padding: "0 10px",
-                        top: "-12px",
-                        left: "20px",
-                        zIndex: "1"
-                    }}>Проблема</Title>
-                    <Div>
-                        <FormItem top="Укажите проблему">
-                            <Input
-                                type="text"
-                                placeholder="Укажите проблему"
-                                onKeyUp={state.throttle(onChangeTextareaProblem, 300)}
-                                getRef={problemRef}
-                                defaultValue={problem}
-                                status={!isCorrectProblem ? 'error' : 'valid'}
-                            />
-                            {matchWordsList && <><Spacing size={12} /><Group mode={"card"}>
-                                {
-                                    matchWordsList.map(function (match, index) {
-                                        return (<Fragment>
-                                            <Div
-                                                key={index}
-                                                style={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "space-between",
-                                                    color: "#aaa"
-                                                }}
-                                                onClick={clickByFastSearch}
-                                            >
-                                                <div
-                                                    dangerouslySetInnerHTML={{ __html: match.replace(problem, `<span style="color: black">${problem}</span>`) }}>
-                                                </div>
-                                                <Icon20ChevronRightOutline />
-                                            </Div>
-                                            <Separator />
-                                        </Fragment>)
-                                    })
-                                }
-                            </Group></>
-                            }
-                        </FormItem>
-                        <FormItem top="Опишите проблему детальнее (необязательно)">
-                            <Textarea
-                                placeholder="Опишите проблему"
-                                rows={3}
-                                getRef={problemRefDescription}
-                            />
-                        </FormItem>
-                    </Div>
-                </Group>
-
-                <Spacing size={20} />
-
-                <Group mode="card" separator={"hide"} style={{
-                    position: "relative"
-                }}>
-                    <Title level="2" style={{
-                        background: state.setBgColor(),
-                        position: "absolute",
-                        padding: "0 10px",
-                        top: "-12px",
-                        left: "20px",
-                        zIndex: "1"
-                    }}>Адрес</Title>
-                    <Div>
-                        <FormItem top="Укажите адрес">
-                            <Input
-                                type="text"
-                                placeholder="Укажите адрес"
-                                getRef={fullAdressRef}
-                                onKeyUp={onChangeFullAdressRefValue}
-                                status={!isCorrectFullAdress ? 'error' : 'valid'}
-                            />
-                        </FormItem>
-                        <Spacing size={10} />
-                        <CardGrid size="m" style={{
-                            paddingLeft: "12px",
-                            paddingRight: "12px",
-                        }}>
-                            <Card>
-                                <Input
-                                    type="text"
-                                    placeholder="Квартира"
-                                    onKeyUp={onChangeFlatRefValue}
-                                    getRef={flatRef}
-                                    status={!isCorrectFlat ? 'error' : 'valid'}
-                                />
-                            </Card>
-                            <Card>
-                                <Input
-                                    type="text"
-                                    placeholder="Подъезд"
-                                    onKeyUp={onChangeEntranceRefValue}
-                                    getRef={intercomRef}
-                                    status={!isCorrectEnterance ? 'error' : 'valid'}
-                                />
-                            </Card>
-                            <Card>
-                                <Input
-                                    type="text"
-                                    placeholder="Этаж"
-                                    onKeyUp={onChangeFloorRefValue}
-                                    getRef={floorRef}
-                                    status={!isCorrectFloor ? 'error' : 'valid'}
-                                />
-                            </Card>
-                            <Card>
-                                <Input
-                                    type="text"
-                                    placeholder="Домофон"
-                                    onKeyUp={onChangeIntercomRefValue}
-                                    getRef={entranceRef}
-                                    status={!isCorrectIntercome ? 'error' : 'valid'}
-                                />
-                            </Card>
-                        </CardGrid>
-                    </Div>
-                </Group>
-                <Spacing size={20} />
-
-                <Group mode="card" separator={"hide"} style={{
-                    position: "relative"
-                }}>
-                    <Title level="2" style={{
-                        background: state.setBgColor(),
-                        position: "absolute",
-                        padding: "0 10px",
-                        top: "-12px",
-                        left: "20px",
-                        zIndex: "1"
-                    }}>Контактные данные</Title>
-                    <Div>
-                        <FormItem top="Укажите имя">
-                            <Input
-                                getRef={nameRef}
-                                type="text"
-                                placeholder="Имя"
-                                onKeyUp={onChangeNameRefValue}
-                                defaultValue={userData.first_name ?? ''}
-                                status={!isCorrectName ? 'error' : 'valid'}
-                            />
-                        </FormItem>
-                        <FormItem top="Укажите номер телефона">
-                            <Input
-                                getRef={phoneRef}
-                                type="text"
-                                placeholder="Номер телефона"
-                                onKeyUp={onChangePhoneRefValue}
-                                defaultValue={userPhone ?? ''}
-                                status={!isCorrectPhone ? 'error' : 'valid'}
-                            />
-                        </FormItem>
-                    </Div>
-                </Group>
-            </Group>
-
-            <Spacing size={20} />
-            {
-                actionsLog.length ? <>
-                    <Headline style={{
-                        fontSize: '14px',
-                        color: "red"
+                    <Group mode="card" separator={"hide"} style={{
+                        position: "relative"
                     }}>
-                        {actionsLog}
-                    </Headline>
-                    <Spacing size={10} />
-                </> : ''
-            }
-            <Button onClick={sendOrderRepairRequest}>
-                Отправить заявку
-            </Button>
-            <Spacing size={20} />
-        </Div>
+                        <Title level="2" style={{
+                            background: state.schema === 'dark' ? '#19191A' : '#fff',
+                            position: "absolute",
+                            padding: "0 10px",
+                            top: "-12px",
+                            left: "20px",
+                            zIndex: "1"
+                        }}>Устройство</Title>
+                        <Div>
+                            <FormItem top="Выберите устройство" bottom="Поиск по устройствам">
+                                <CustomSelect
+                                    placeholder="Введите название устройства"
+                                    options={options}
+                                    onChange={onChangeDevice}
+                                />
+                            </FormItem>
+                        </Div>
+                    </Group>
+
+                    <Spacing size={20} />
+
+                    <Group mode="card" separator={"hide"} style={{
+                        position: "relative"
+                    }}>
+                        <Title level="2" style={{
+                            background: state.setBgColor(),
+                            position: "absolute",
+                            padding: "0 10px",
+                            top: "-12px",
+                            left: "20px",
+                            zIndex: "1"
+                        }}>Проблема</Title>
+                        <Div>
+                            <FormItem top="Укажите проблему">
+                                <Input
+                                    type="text"
+                                    placeholder="Укажите проблему"
+                                    onKeyUp={state.throttle(onChangeTextareaProblem, 300)}
+                                    getRef={problemRef}
+                                    defaultValue={problem}
+                                    status={!isCorrectProblem ? 'error' : 'valid'}
+                                />
+                                {matchWordsList && <><Spacing size={12} /><Group mode={"card"}>
+                                    {
+                                        matchWordsList.map(function (match, index) {
+                                            return (<Fragment>
+                                                <Div
+                                                    key={index}
+                                                    style={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        justifyContent: "space-between",
+                                                        color: "#aaa"
+                                                    }}
+                                                    onClick={clickByFastSearch}
+                                                >
+                                                    <div
+                                                        dangerouslySetInnerHTML={{ __html: match.replace(problem, `<span style="color: black">${problem}</span>`) }}>
+                                                    </div>
+                                                    <Icon20ChevronRightOutline />
+                                                </Div>
+                                                <Separator />
+                                            </Fragment>)
+                                        })
+                                    }
+                                </Group></>
+                                }
+                            </FormItem>
+                            <FormItem top="Опишите проблему детальнее (необязательно)">
+                                <Textarea
+                                    placeholder="Опишите проблему"
+                                    rows={3}
+                                    getRef={problemRefDescription}
+                                />
+                            </FormItem>
+                        </Div>
+                    </Group>
+
+                    <Spacing size={20} />
+
+                    <Group mode="card" separator={"hide"} style={{
+                        position: "relative"
+                    }}>
+                        <Title level="2" style={{
+                            background: state.setBgColor(),
+                            position: "absolute",
+                            padding: "0 10px",
+                            top: "-12px",
+                            left: "20px",
+                            zIndex: "1"
+                        }}>Адрес</Title>
+                        <Div>
+                            <FormItem top="Укажите адрес">
+                                <Input
+                                    type="text"
+                                    placeholder="Укажите адрес"
+                                    getRef={fullAdressRef}
+                                    onKeyUp={onChangeFullAdressRefValue}
+                                    status={!isCorrectFullAdress ? 'error' : 'valid'}
+                                />
+                            </FormItem>
+                            <Spacing size={10} />
+                            <CardGrid size="m" style={{
+                                paddingLeft: "12px",
+                                paddingRight: "12px",
+                            }}>
+                                <Card>
+                                    <Input
+                                        type="text"
+                                        placeholder="Квартира"
+                                        onKeyUp={onChangeFlatRefValue}
+                                        getRef={flatRef}
+                                        status={!isCorrectFlat ? 'error' : 'valid'}
+                                    />
+                                </Card>
+                                <Card>
+                                    <Input
+                                        type="text"
+                                        placeholder="Подъезд"
+                                        onKeyUp={onChangeEntranceRefValue}
+                                        getRef={intercomRef}
+                                        status={!isCorrectEnterance ? 'error' : 'valid'}
+                                    />
+                                </Card>
+                                <Card>
+                                    <Input
+                                        type="text"
+                                        placeholder="Этаж"
+                                        onKeyUp={onChangeFloorRefValue}
+                                        getRef={floorRef}
+                                        status={!isCorrectFloor ? 'error' : 'valid'}
+                                    />
+                                </Card>
+                                <Card>
+                                    <Input
+                                        type="text"
+                                        placeholder="Домофон"
+                                        onKeyUp={onChangeIntercomRefValue}
+                                        getRef={entranceRef}
+                                        status={!isCorrectIntercome ? 'error' : 'valid'}
+                                    />
+                                </Card>
+                            </CardGrid>
+                        </Div>
+                    </Group>
+                    <Spacing size={20} />
+
+                    <Group mode="card" separator={"hide"} style={{
+                        position: "relative"
+                    }}>
+                        <Title level="2" style={{
+                            background: state.setBgColor(),
+                            position: "absolute",
+                            padding: "0 10px",
+                            top: "-12px",
+                            left: "20px",
+                            zIndex: "1"
+                        }}>Контактные данные</Title>
+                        <Div>
+                            <FormItem top="Укажите имя">
+                                <Input
+                                    getRef={nameRef}
+                                    type="text"
+                                    placeholder="Имя"
+                                    onKeyUp={onChangeNameRefValue}
+                                    defaultValue={userData.first_name ?? ''}
+                                    status={!isCorrectName ? 'error' : 'valid'}
+                                />
+                            </FormItem>
+                            <FormItem top="Укажите номер телефона">
+                                <Input
+                                    getRef={phoneRef}
+                                    type="text"
+                                    placeholder="Номер телефона"
+                                    onKeyUp={onChangePhoneRefValue}
+                                    defaultValue={userPhone ?? ''}
+                                    status={!isCorrectPhone ? 'error' : 'valid'}
+                                />
+                            </FormItem>
+                        </Div>
+                    </Group>
+                </Group>
+
+                <Spacing size={20} />
+                {
+                    actionsLog.length ? <>
+                        <Headline style={{
+                            fontSize: '14px',
+                            color: "red"
+                        }}>
+                            {actionsLog}
+                        </Headline>
+                        <Spacing size={10} />
+                    </> : ''
+                }
+                <Button onClick={sendOrderRepairRequest}>
+                    Отправить заявку
+                </Button>
+                <Spacing size={20} />
+            </Div>
+        </div>
     </Fragment>);
 }

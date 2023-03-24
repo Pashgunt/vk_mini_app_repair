@@ -28,7 +28,7 @@ export default function SupportChatComponent(props) {
 
     const sendMessage = async function () {
         let messageValue = messageRef.current.value;
-        messageRef.current.value  = "";
+        messageRef.current.value = "";
         let result = await state.api.sendMessageToChat(userData.id, messageValue, userData.first_name, userPhone);
         if (result.data === "success") {
             setMessages([...messages, {
