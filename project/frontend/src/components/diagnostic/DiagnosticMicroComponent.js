@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Group, Div, Spacing, Title } from "@vkontakte/vkui";
+import { Group, Div, Spacing, Title, usePlatform } from "@vkontakte/vkui";
 import { Icon28ChevronBack } from "@vkontakte/icons";
 import RecorderControls from "../recorder/RecorderControls";
 import RecordingsList from "../recorder/RecordingsList";
@@ -12,6 +12,7 @@ export default function DiagnosticMicroComponent(props) {
 
     const { recorderState, ...handlers } = useRecorder();
     const { audio } = recorderState;
+    const platform = usePlatform();
 
     return (<Fragment>
         <Div style={{
@@ -21,7 +22,7 @@ export default function DiagnosticMicroComponent(props) {
                 position: "relative"
             }}>
                 <div style={{
-                    top: "0",
+                    paddingTop:  platform === 'ios' ? '50px' : '12px',
                     left: "0",
                     display: 'flex',
                     alignItems: 'center',

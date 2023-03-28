@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Group, Div, Spacing, Title, CardGrid } from "@vkontakte/vkui";
+import { Group, Div, usePlatform, Title, CardGrid, Spacing } from "@vkontakte/vkui";
 import MainCardDiagnostic from "../MainCardDiagnostic";
 import { Icon28ChevronBack } from "@vkontakte/icons";
 
@@ -10,7 +10,7 @@ export default function DiagnosticItemsComponents(props) {
     ] = props.data;
 
     const cards = state.components.diagnostics.tools;
-
+    const platform = usePlatform();
     return (
         <Fragment>
             <Group mode="plain" separator="hide" style={{
@@ -18,6 +18,7 @@ export default function DiagnosticItemsComponents(props) {
                 background: state.setBgColor()
             }}>
                 <Div style={{
+                    paddingTop:  platform === 'ios' ? '50px' : '12px',
                     display: 'flex',
                     alignItems: 'center',
                     gap: "15px"
@@ -27,6 +28,7 @@ export default function DiagnosticItemsComponents(props) {
                         Диагностика
                     </Title>
                 </Div>
+                <Spacing size={15} />
                 <Div style={{
                     paddingTop: 0,
                     paddingBottom: 0

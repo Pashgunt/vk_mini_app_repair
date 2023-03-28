@@ -26,7 +26,7 @@ export default function MainHeader({ state, setIsScroll, changeShowActiveModal }
                 <Div separator="false">
                     <div style={{
                         display: "flex",
-                        justifyContent: "space-between",
+                        gap:"20px",
                         alignItems: "center"
                     }}>
                         <Title level="1" style={{

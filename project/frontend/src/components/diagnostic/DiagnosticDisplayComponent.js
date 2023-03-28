@@ -1,4 +1,4 @@
-import { Group, Div } from "@vkontakte/vkui";
+import { Group, Div, usePlatform } from "@vkontakte/vkui";
 import React, { Fragment, useState } from "react";
 import { Icon48Play, Icon48Pause, Icon28ChevronBack } from '@vkontakte/icons';
 
@@ -35,6 +35,7 @@ export default function DiagnosticDisplayComponent(props) {
         setIsPlayed(false);
         clearInterval(intervalID);
     }
+    const platform = usePlatform();
 
     return (
         <Fragment>
@@ -54,7 +55,7 @@ export default function DiagnosticDisplayComponent(props) {
                     display: "flex",
                     gap: "15px",
                     position: "absolute",
-                    top: "0",
+                    top:  platform === 'ios' ? '50px' : '12px',
                     left: "0"
                 }}>
                     <Icon28ChevronBack fill="white" onClick={() => {

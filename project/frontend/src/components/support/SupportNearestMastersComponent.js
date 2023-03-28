@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import { Div, Group, Spacing, Title } from "@vkontakte/vkui";
+import { Div, Group, Spacing, Title, usePlatform } from "@vkontakte/vkui";
 import { Icon28ChevronBack } from "@vkontakte/icons";
 import bridge from '@vkontakte/vk-bridge';
 import {
@@ -17,7 +17,7 @@ export default function SupportNearestMastersComponent(props) {
     ] = props.data;
 
     const [GPSdata, setGPSdata] = useState('');
-
+    const platform = usePlatform();
     useEffect(() => {
         bridge.send('VKWebAppGetGeodata')
             .then((data) => {
@@ -51,6 +51,7 @@ export default function SupportNearestMastersComponent(props) {
             background: state.setBgColor()
         }}>
             <Div style={{
+                paddingTop:  platform === 'ios' ? '50px' : '12px',
                 display: 'flex',
                 alignItems: 'center'
             }}>

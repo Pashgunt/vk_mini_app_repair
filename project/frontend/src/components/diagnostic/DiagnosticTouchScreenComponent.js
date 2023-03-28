@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+import { usePlatform, Div } from "@vkontakte/vkui";
 import { Icon28ChevronBack } from "@vkontakte/icons";
 
 export default function DiagnosticTouchScreenComponent(props) {
@@ -31,8 +32,9 @@ export default function DiagnosticTouchScreenComponent(props) {
 
     useEffect(() => {
         const height = document.body.offsetHeight,
-            elems = document.body.offsetWidth >= 768 ? parseInt(((height / 20)) * 100) : parseInt(((height / 20)) * 80);
+            elems = document.body.offsetWidth >= 768 ? parseInt(((height / 20)) * 100) : parseInt(((height / 30)) * 80);
         setCountOfCell(elems);
+        document.body.style.overflow = "hidden";
     }, []);
 
     const startDrawing = function () {
@@ -72,35 +74,74 @@ export default function DiagnosticTouchScreenComponent(props) {
             elem.style.background = "orange";
         }
     }
+    const platform = usePlatform();
 
     return (
         <Fragment>
-            <div style={{
-                height: "100vh",
-                overflow: "hidden",
-                background: "#666",
-                display: "grid",
-                gap: "2px",
-                gridTemplateColumns: document.body.offsetWidth >= 768 ? "repeat(50 ,auto)" : "repeat(30 ,auto)",
-                gridAutoRows: "10px",
-                position: "relative"
-            }}
-                onMouseDown={startDrawing}
-                onMouseUp={finishDrawing}
-                onTouchStart={startDrawing}
-                onTouchEnd={finishDrawing}
-            >
-                <div
-                    style={{
-                        position: "absolute",
-                        top: "10px",
-                        left: "10px",
-                    }}
+            {document.body.offsetWidth > 768 ?
+
+                <div style={{
+                    height: "100vh",
+                    overflow: "hidden",
+                    background: "#666",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    position: "relative"
+                }}
                 >
-                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                    <div
+                        style={{
+                            position: "absolute",
+                            top: platform === 'ios' ? '50px' : '12px',
+                            left: "12px"
+                        }}
+                    >
+                        <Icon28ChevronBack onClick={() => {
+                            document.body.style.overflow = "auto";
+                            changeShowActivePanel(state.panels.panel_mainScreen, state)
+                        }} />
+                    </div>
+
+                    <Div
+                        style={{
+                            fontSize: "20px",
+                            textAlign:"center"
+                        }}
+                    >
+                        Данный тест не доступен для Вашего экрана
+                    </Div>
                 </div>
-                {countOfCell ? [...Array(countOfCell).keys()].map(item => blockForDraw(item)) : ''}
-            </div>
+
+                : <div style={{
+                    height: "100vh",
+                    overflow: "hidden",
+                    background: "#666",
+                    display: "grid",
+                    gap: "2px",
+                    gridTemplateColumns: document.body.offsetWidth <= 768 && "repeat(15 ,auto)",
+                    gridAutoRows: document.body.offsetWidth <= 768 && "20px",
+                    position: "relative"
+                }}
+                    onMouseDown={startDrawing}
+                    onMouseUp={finishDrawing}
+                    onTouchStart={startDrawing}
+                    onTouchEnd={finishDrawing}
+                >
+                    <div
+                        style={{
+                            position: "absolute",
+                            top:  platform === 'ios' ? '50px' : '12px',
+                            left: "10px",
+                        }}
+                    >
+                        <Icon28ChevronBack onClick={() => {
+                            document.body.style.overflow = "auto";
+                            changeShowActivePanel(state.panels.panel_mainScreen, state)
+                        }} />
+                    </div>
+                    {countOfCell ? [...Array(countOfCell).keys()].map(item => blockForDraw(item)) : ''}
+                </div>}
         </Fragment>
     );
 }

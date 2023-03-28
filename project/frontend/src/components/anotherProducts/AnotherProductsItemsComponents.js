@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Group, Div, Spacing, Title, CardGrid } from "@vkontakte/vkui";
+import { Group, Div, usePlatform, Title, CardGrid, Spacing } from "@vkontakte/vkui";
 import MainCardAnotherProduct from "../MainCardAnotherProduct";
 import { Icon28ChevronBack } from "@vkontakte/icons";
 
@@ -9,13 +9,15 @@ export default function AnotherProductsItemsComponents(props) {
     ] = props.data;
 
     const cards = state.components.mainAnotherProducts.productCards;
+    const platform = usePlatform();
 
     return (<Fragment>
         <Group mode="plain" separator="hide" style={{
             minHeight: "100vh",
-            background:  state.setBgColor()
+            background: state.setBgColor()
         }}>
             <Div style={{
+                paddingTop:  platform === 'ios' ? '50px' : '12px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: "15px"
@@ -25,6 +27,7 @@ export default function AnotherProductsItemsComponents(props) {
                     Другие продукты
                 </Title>
             </Div>
+            <Spacing size={15}/>
             <Div style={{
                 paddingTop: 0,
                 paddingBottom: 0

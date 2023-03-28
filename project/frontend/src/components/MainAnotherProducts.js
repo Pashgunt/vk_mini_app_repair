@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { CardScroll, Group, Header, Link, Spacing, Title } from "@vkontakte/vkui";
+import { CardScroll, Group, Header, Spacing, Title } from "@vkontakte/vkui";
 import { Icon20ChevronRightOutline } from "@vkontakte/icons";
 import MainCardAnotherProduct from "./MainCardAnotherProduct";
 export default function MainAnotherProducts({ state, changeShowActivePanel, changeShowActiveModal }) {

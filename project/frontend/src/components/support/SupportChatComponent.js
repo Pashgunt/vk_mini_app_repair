@@ -1,4 +1,4 @@
-import { Div, Group, Spacing, Subhead, Title, Input, FormItem, IconButton } from "@vkontakte/vkui";
+import { Div, Group, Spacing, Subhead, Title, Input, usePlatform, IconButton } from "@vkontakte/vkui";
 import { Icon28ChevronBack, Icon24Help, Icon48WritebarSend } from "@vkontakte/icons";
 import { Fragment, useEffect, useRef, useState } from "react";
 export default function SupportChatComponent(props) {
@@ -25,7 +25,7 @@ export default function SupportChatComponent(props) {
     const [messages, setMessages] = useState([]);
 
     const messageRef = useRef(null);
-
+    const platform = usePlatform();
     const sendMessage = async function () {
         let messageValue = messageRef.current.value;
         messageRef.current.value = "";
@@ -55,6 +55,7 @@ export default function SupportChatComponent(props) {
         }}>
             <Group mode="plain" separator="hide">
                 <Div style={{
+                    paddingTop:  platform === 'ios' ? '50px' : '12px',
                     display: 'flex',
                     alignItems: 'center',
                     gap: "15px"
@@ -71,7 +72,7 @@ export default function SupportChatComponent(props) {
             <Group mode="plain" separator="hide">
                 <Div style={{
                     overflowY: "scroll",
-                    height: "calc(100vh - 200px)"
+                    height: "calc(100vh - 250px)"
                 }}>
                     {messages?.length ?
                         messages?.map((message, index) => {
@@ -112,7 +113,7 @@ export default function SupportChatComponent(props) {
                 background: state.setBgColor(),
                 position: "absolute",
                 left: "0",
-                bottom: "0",
+                bottom: "25px",
                 width: "100%"
             }}>
                 <Div style={{

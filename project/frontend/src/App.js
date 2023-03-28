@@ -230,8 +230,7 @@ const App = () => {
     return (
         <ConfigProvider
             appearance={state.schema}
-            transitionMotionEnabled={WebviewType.VKAPPS}
-            platform="ios">
+            transitionMotionEnabled={WebviewType.VKAPPS}>
             <AdaptivityProvider>
                 <AppRoot>
                     <SplitLayout

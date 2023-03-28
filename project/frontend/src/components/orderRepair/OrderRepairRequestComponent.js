@@ -1,11 +1,11 @@
 import { Fragment } from "react";
-import { Group, Div, Spacing, Title, InfoRow, Header, Textarea, Headline, Card, CardGrid, Button, SimpleCell, Tabs, TabsItem } from "@vkontakte/vkui";
+import { Group, Div, Spacing, Title, InfoRow, Header, Textarea, Headline, Card, usePlatform, Button, SimpleCell, Tabs, TabsItem } from "@vkontakte/vkui";
 import { Icon28ChevronBack, Icon28CancelAltOutline } from "@vkontakte/icons";
 
 export default function OrderRepairRequestComponent(props) {
     const [
         state,
-        userData,,
+        userData, ,
         setChooseDevice,
         setChooseDeviceType,
         changeShowActiveModal,
@@ -29,18 +29,18 @@ export default function OrderRepairRequestComponent(props) {
         chooseActiveRequestRepairItem,
         setChooseActiveRequestRepairItem
     ] = props.data;
-
+    const platform = usePlatform();
     return (<Fragment>
         <Group mode="plain" style={{
             minHeight: "100vh",
             background: state.setBgColor()
         }}>
             <Div style={{
-                top: "0",
+                paddingTop:  platform === 'ios' ? '50px' : '12px',
                 left: "0",
                 display: 'flex',
                 alignItems: 'center',
-                gap:"15px"
+                gap: "15px"
             }}>
                 <Icon28CancelAltOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
                 <Title>
@@ -64,14 +64,6 @@ export default function OrderRepairRequestComponent(props) {
                 </SimpleCell>
                 <SimpleCell multiline>
                     <InfoRow header="Описание проблемы">{chooseActiveRequestRepairItem.probelm_description ?? '–'}</InfoRow>
-                </SimpleCell>
-            </Div>
-            <Div style={{
-                padding: "0"
-            }}>
-                <Header mode="secondary">Адрес</Header>
-                <SimpleCell multiline>
-                    <InfoRow header="Полный адрес">{chooseActiveRequestRepairItem.adress}</InfoRow>
                 </SimpleCell>
             </Div>
             <Div style={{

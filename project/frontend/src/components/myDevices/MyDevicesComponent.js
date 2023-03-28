@@ -1,4 +1,4 @@
-import { Div, Group, Spacing, Title, Search, CardScroll, Card, Headline } from "@vkontakte/vkui";
+import { Div, Group, Spacing, Title, Search, CardScroll, Card, Headline, usePlatform } from "@vkontakte/vkui";
 import { Icon28ChevronBack } from '@vkontakte/icons';
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Icon20AddSquareOutline, Icon20DeleteOutline } from '@vkontakte/icons';
@@ -90,7 +90,7 @@ export default function MyDevicesComponents(props) {
             setIsScroll(false);
         }
     })
-
+    const platform = usePlatform();
     return (
         <Fragment>
             <Group mode="plain" style={{
@@ -105,6 +105,7 @@ export default function MyDevicesComponents(props) {
                 <Group mode="plain" separator="hide" >
                     <Div>
                         <div style={{
+                            paddingTop:  platform === 'ios' ? '50px' : '12px',
                             display: 'flex',
                             alignItems: 'center',
                             gap: "15px"

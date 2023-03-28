@@ -1,5 +1,5 @@
 import { Fragment, useRef, useState, useEffect } from "react";
-import { Group, Div, Spacing, Title, CustomSelect, FormItem, Textarea, Input, Card, CardGrid, Button, Separator, Headline } from "@vkontakte/vkui";
+import { Group, Div, Spacing, Title, CustomSelect, FormItem, Textarea, Input, Card, usePlatform, Button, Separator, Headline } from "@vkontakte/vkui";
 import { Icon28ChevronBack, Icon20ChevronRightOutline } from "@vkontakte/icons";
 import MainFixedHeader from "../MainFixedHeader";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -51,14 +51,7 @@ export default function OrderRepairComponent(props) {
     const [deviceValue, setDeviceValue] = useState("");
     const [showLoader, setShowLoader] = useState(false);
 
-    const [isCorrectProblem, setIsCorrectProblem] = useState(
-        state.validator.isAlphanumeric(problem, ['ru-RU']) || state.validator.isAlphanumeric(problem, ['en-US'])
-    );
-    const [isCorrectFullAdress, setIsCorrectFullAdress] = useState(false);
-    const [isCorrectFlat, setIsCorrectFlat] = useState(false);
-    const [isCorrectFloor, setIsCorrectFloor] = useState(false);
-    const [isCorrectEnterance, setIsCorrectEnterance] = useState(false);
-    const [isCorrectIntercome, setIsCorrectIntercome] = useState(false);
+    const [isCorrectProblem, setIsCorrectProblem] = useState(true);
     const [isCorrectName, setIsCorrectName] = useState(
         state.validator.isAlpha(userData.first_name, ['ru-RU']) || state.validator.isAlpha(userData.first_name, ['en-US'])
     );
@@ -132,7 +125,7 @@ export default function OrderRepairComponent(props) {
         setProblem(event.target.value);
 
         if (value && value.length >= 3) {
-            setIsCorrectProblem(state.validator.isAlphanumeric(value, ['ru-RU']) || state.validator.isAlphanumeric(value, ['en-US']));
+            setIsCorrectProblem(true);
 
             matchWords = searchItems.filter(function (item) {
                 try {
@@ -152,51 +145,30 @@ export default function OrderRepairComponent(props) {
     }
 
     const sendOrderRepairRequest = async () => {
-        setShowLoader(true);
         const deviceRefValue = deviceValue,
             problemRefValue = problemRef.current.value,
             problemRefDescriptionValue = problemRefDescription.current.value,
-            fullAdressRefValue = fullAdressRef.current.value,
-            flatRefValue = flatRef.current.value,
-            floorRefValue = floorRef.current.value,
-            entranceRefValue = entranceRef.current.value,
-            intercomRefValue = intercomRef.current.value,
             nameRefValue = nameRef.current.value,
             phoneRefValue = phoneRef.current.value,
-            resultCheckProblemRefValue = state.validator.isAlphanumeric(problemRefValue, ['ru-RU']) || state.validator.isAlphanumeric(problemRefValue, ['en-US']),
-            resultCheckFullAdressRefValue = state.validator.isAlphanumeric(fullAdressRefValue, ['ru-RU']) || state.validator.isAlphanumeric(fullAdressRefValue, ['en-US']),
-            resultCheckFlatRefValue = state.validator.isAlphanumeric(flatRefValue, ['ru-RU']) || state.validator.isAlphanumeric(flatRefValue, ['en-US']),
-            resultCheckFloorRefValue = state.validator.isAlphanumeric(floorRefValue, ['ru-RU']) || state.validator.isAlphanumeric(floorRefValue, ['en-US']),
-            resultCheckEntranceRefValue = state.validator.isAlphanumeric(entranceRefValue, ['ru-RU']) || state.validator.isAlphanumeric(entranceRefValue, ['en-US']),
-            resultCheckIntercomRefValue = state.validator.isAlphanumeric(intercomRefValue, ['ru-RU']) || state.validator.isAlphanumeric(intercomRefValue, ['en-US']),
-            resultCheckNameRefValue = state.validator.isAlpha(nameRefValue, ['ru-RU']) || state.validator.isAlpha(nameRefValue, ['en-US']),
-            resultCheckPhoneRefValue = state.validator.isMobilePhone(phoneRefValue, ['ru-RU']);
+            resultCheckProblemRefValue = true,
+            resultCheckNameRefValue = true,
+            resultCheckPhoneRefValue = true;
 
         setIsCorrectProblem(resultCheckProblemRefValue);
-        setIsCorrectFullAdress(resultCheckFullAdressRefValue);
-        setIsCorrectFlat(resultCheckFlatRefValue);
-        setIsCorrectFloor(resultCheckFloorRefValue);
-        setIsCorrectEnterance(resultCheckEntranceRefValue);
-        setIsCorrectIntercome(resultCheckIntercomRefValue);
         setIsCorrectName(resultCheckNameRefValue);
         setIsCorrectPhone(resultCheckPhoneRefValue);
 
         if (
             resultCheckProblemRefValue &&
-            resultCheckFullAdressRefValue &&
-            resultCheckFlatRefValue &&
-            resultCheckFloorRefValue &&
-            resultCheckEntranceRefValue &&
-            resultCheckIntercomRefValue &&
             resultCheckNameRefValue &&
             resultCheckPhoneRefValue
         ) {
-            let aderss = `${fullAdressRefValue} кв. ${flatRefValue} этаж ${floorRefValue} под. ${entranceRefValue} домофон ${intercomRefValue}`;
+            setShowLoader(true);
             let result = await state.api.createRequestForRepairDevice(
                 deviceRefValue,
                 problemRefValue,
                 problemRefDescriptionValue,
-                aderss,
+                "–",
                 nameRefValue,
                 phoneRefValue,
                 userData.id
@@ -206,7 +178,7 @@ export default function OrderRepairComponent(props) {
                     'device': deviceRefValue,
                     'problem': problemRefValue,
                     'probelm_description': problemRefDescriptionValue,
-                    'adress': aderss,
+                    'adress': "–",
                     'name': nameRefValue,
                     'phone': phoneRefValue
                 };
@@ -221,6 +193,7 @@ export default function OrderRepairComponent(props) {
                 setChooseActiveRequestRepairItem(repairData);
                 changeShowActivePanel(state.panels.panel_orderRepairRequest, state);
             } else {
+                setShowLoader(false);
                 addActionLogItem('При создании заказа на ремонт произошла ошибка! Попробуйте ещё раз');
             }
         } else {
@@ -228,33 +201,13 @@ export default function OrderRepairComponent(props) {
         }
     }
 
-    const onChangeFullAdressRefValue = (event) => {
-        let value = event.target.value;
-        setIsCorrectFullAdress(state.validator.isAlphanumeric(value, ['ru-RU']) || state.validator.isAlphanumeric(value, ['en-US']));
-    }
-    const onChangeFlatRefValue = (event) => {
-        let value = event.target.value;
-        setIsCorrectFlat(state.validator.isAlphanumeric(value, ['ru-RU']) || state.validator.isAlphanumeric(value, ['en-US']));
-    }
-    const onChangeFloorRefValue = (event) => {
-        let value = event.target.value;
-        setIsCorrectFloor(state.validator.isAlphanumeric(value, ['ru-RU']) || state.validator.isAlphanumeric(value, ['en-US']));
-    }
-    const onChangeEntranceRefValue = (event) => {
-        let value = event.target.value;
-        setIsCorrectEnterance(state.validator.isAlphanumeric(value, ['ru-RU']) || state.validator.isAlphanumeric(value, ['en-US']));
-    }
-    const onChangeIntercomRefValue = (event) => {
-        let value = event.target.value;
-        setIsCorrectIntercome(state.validator.isAlphanumeric(value, ['ru-RU']) || state.validator.isAlphanumeric(value, ['en-US']));
-    }
     const onChangeNameRefValue = (event) => {
         let value = event.target.value;
-        setIsCorrectName(state.validator.isAlpha(value, ['ru-RU']) || state.validator.isAlpha(value, ['en-US']));
+        setIsCorrectName(true);
     }
     const onChangePhoneRefValue = (event) => {
         let value = event.target.value;
-        setIsCorrectPhone(state.validator.isMobilePhone(value, ['ru-RU']));
+        setIsCorrectPhone(true);
     }
 
     window.addEventListener("scroll", function () {
@@ -267,7 +220,7 @@ export default function OrderRepairComponent(props) {
             setIsScroll(false);
         }
     })
-
+    const platform = usePlatform();
     return (<Fragment>
         <div style={{
             position: "relative"
@@ -302,7 +255,7 @@ export default function OrderRepairComponent(props) {
                     position: "relative"
                 }}>
                     <div style={{
-                        top: "0",
+                        paddingTop:  platform === 'ios' ? '50px' : '12px',
                         left: "0",
                         display: 'flex',
                         alignItems: 'center',
@@ -396,73 +349,6 @@ export default function OrderRepairComponent(props) {
                         </Div>
                     </Group>
 
-                    <Spacing size={20} />
-
-                    <Group mode="card" separator={"hide"} style={{
-                        position: "relative"
-                    }}>
-                        <Title level="2" style={{
-                            background: state.setBgColor(),
-                            position: "absolute",
-                            padding: "0 10px",
-                            top: "-12px",
-                            left: "20px",
-                            zIndex: "1"
-                        }}>Адрес</Title>
-                        <Div>
-                            <FormItem top="Укажите адрес">
-                                <Input
-                                    type="text"
-                                    placeholder="Укажите адрес"
-                                    getRef={fullAdressRef}
-                                    onKeyUp={onChangeFullAdressRefValue}
-                                    status={!isCorrectFullAdress ? 'error' : 'valid'}
-                                />
-                            </FormItem>
-                            <Spacing size={10} />
-                            <CardGrid size="m" style={{
-                                paddingLeft: "12px",
-                                paddingRight: "12px",
-                            }}>
-                                <Card>
-                                    <Input
-                                        type="text"
-                                        placeholder="Квартира"
-                                        onKeyUp={onChangeFlatRefValue}
-                                        getRef={flatRef}
-                                        status={!isCorrectFlat ? 'error' : 'valid'}
-                                    />
-                                </Card>
-                                <Card>
-                                    <Input
-                                        type="text"
-                                        placeholder="Подъезд"
-                                        onKeyUp={onChangeEntranceRefValue}
-                                        getRef={intercomRef}
-                                        status={!isCorrectEnterance ? 'error' : 'valid'}
-                                    />
-                                </Card>
-                                <Card>
-                                    <Input
-                                        type="text"
-                                        placeholder="Этаж"
-                                        onKeyUp={onChangeFloorRefValue}
-                                        getRef={floorRef}
-                                        status={!isCorrectFloor ? 'error' : 'valid'}
-                                    />
-                                </Card>
-                                <Card>
-                                    <Input
-                                        type="text"
-                                        placeholder="Домофон"
-                                        onKeyUp={onChangeIntercomRefValue}
-                                        getRef={entranceRef}
-                                        status={!isCorrectIntercome ? 'error' : 'valid'}
-                                    />
-                                </Card>
-                            </CardGrid>
-                        </Div>
-                    </Group>
                     <Spacing size={20} />
 
                     <Group mode="card" separator={"hide"} style={{

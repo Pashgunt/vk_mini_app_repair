@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { Group, Div, Spacing, Title, Headline } from "@vkontakte/vkui";
+import { Group, Div, Spacing, Title, Headline, usePlatform } from "@vkontakte/vkui";
 import { Icon28ChevronBack, Icon28CameraOutline } from "@vkontakte/icons";
 
 export default function DiagnosticCameraComponent(props) {
@@ -47,6 +47,7 @@ export default function DiagnosticCameraComponent(props) {
                 setIssetCamera(false);
             });
     }, [chooseCameraType])
+    const platform = usePlatform();
 
     return (<Fragment>
         <Div style={{
@@ -56,7 +57,7 @@ export default function DiagnosticCameraComponent(props) {
                 position: "relative"
             }}>
                 <div style={{
-                    top: "0",
+                    paddingTop:  platform === 'ios' ? '50px' : '12px',
                     left: "0",
                     display: 'flex',
                     alignItems: 'center',

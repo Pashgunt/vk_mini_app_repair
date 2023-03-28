@@ -1,5 +1,5 @@
 import { Fragment, useRef, useState } from "react";
-import { Group, Div, Spacing, Title } from "@vkontakte/vkui";
+import { Group, Div, Spacing, Title, usePlatform } from "@vkontakte/vkui";
 import { Icon28ChevronBack, Icon48Play, Icon48Pause } from "@vkontakte/icons";
 
 export default function DiagnosticSoundComponent(props) {
@@ -31,6 +31,7 @@ export default function DiagnosticSoundComponent(props) {
     audio.addEventListener('ended', function () {
         stopPlay()
     }, false);
+    const platform = usePlatform();
 
     return (<Fragment>
         <Div style={{
@@ -40,7 +41,7 @@ export default function DiagnosticSoundComponent(props) {
                 position: "relative"
             }}>
                 <div style={{
-                    top: "0",
+                    paddingTop:  platform === 'ios' ? '50px' : '12px',
                     left: "0",
                     display: 'flex',
                     gap:"15px",

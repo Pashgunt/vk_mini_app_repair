@@ -1,4 +1,4 @@
-import { Group, Div } from '@vkontakte/vkui';
+import { Group, Div,usePlatform} from '@vkontakte/vkui';
 import { Icon28ChevronBack, Icon28ClearDataOutline } from "@vkontakte/icons";
 import { Fragment, useEffect, useRef, useState } from 'react';
 
@@ -25,6 +25,7 @@ export default function DiagnosticDrawComponent(props) {
         context.strokeStyle = state.schema == 'dark' ? "white" : "black";
         context.lineWidth = 1;
         contextRef.current = context;
+        document.body.style.overflow = "hidden";
     }, [])
 
     const startDrawing = function ({ nativeEvent }) {
@@ -60,6 +61,7 @@ export default function DiagnosticDrawComponent(props) {
     const clearDraw = function () {
         contextRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     }
+    const platform = usePlatform();
 
     return (
         <Fragment>
@@ -70,12 +72,15 @@ export default function DiagnosticDrawComponent(props) {
             }}>
                 <Div style={{
                     position: "absolute",
-                    top: "0",
+                    top:  platform === 'ios' ? '50px' : '12px',
                     left: "0",
                     display: 'flex',
-                    gap:"15px"
+                    gap: "15px"
                 }}>
-                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                    <Icon28ChevronBack onClick={() => {
+                        document.body.style.overflow = "auto";
+                        changeShowActivePanel(state.panels.panel_mainScreen, state)
+                    }} />
                     <Icon28ClearDataOutline onClick={clearDraw} />
                 </Div>
 

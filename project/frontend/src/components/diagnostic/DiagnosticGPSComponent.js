@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { Group, Div, Spacing, Title, Card, Link } from "@vkontakte/vkui";
+import { Group, Div, Spacing, Title, Card, Link, usePlatform } from "@vkontakte/vkui";
 import { Icon28ChevronBack } from "@vkontakte/icons";
 import { YMaps, Map, Placemark, FullscreenControl, GeolocationControl, ZoomControl } from "@pbe/react-yandex-maps";
 
@@ -24,6 +24,7 @@ export default function DiagnosticGPSComponent(props) {
             }
         });
     }
+    const platform = usePlatform();
 
     return (<Fragment>
         <Group mode="plain" style={{
@@ -34,7 +35,7 @@ export default function DiagnosticGPSComponent(props) {
                     position: "relative"
                 }}>
                     <div style={{
-                        top: "0",
+                        paddingTop:  platform === 'ios' ? '50px' : '12px',
                         left: "0",
                         display: 'flex',
                         alignItems: 'center',

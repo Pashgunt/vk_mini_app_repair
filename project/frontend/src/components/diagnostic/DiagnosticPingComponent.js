@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { Group, Div, Spacing, Title, Subhead, Card, Link } from "@vkontakte/vkui";
+import { Group, Div, Spacing, Title, Subhead, Card, Link, usePlatform } from "@vkontakte/vkui";
 import { Icon28ChevronBack, Icon28PlaySpeedOutline, Icon28SpeedometerMaxOutline } from "@vkontakte/icons";
 import PacmanLoader from "react-spinners/PacmanLoader";
 
@@ -14,7 +14,8 @@ export default function DiagnosticPingComponent(props) {
     const [internetSpeed, setInternetSpeed] = useState('');
     const [color, setColor] = useState("#2688eb");
 
-    const checkPing = function () {
+    const checkPing = async function () {
+        await new Promise(resolve => setTimeout(resolve, 2000));
         let start = Date.now();
         let xhr = new XMLHttpRequest();
         xhr.open('GET', '8.8.8.8', true);
@@ -34,21 +35,38 @@ export default function DiagnosticPingComponent(props) {
         setLoadingPing(false);
     }
 
-    const checkInternetSpeed = function () {
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', '8.8.8.8', true);
-        xhr.send();
-        xhr.onload = function () {
-            if (xhr.status != 200) {
+    const checkInternetSpeed = async function () {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        let xhrForPing = new XMLHttpRequest();
+        xhrForPing.open('GET', '8.8.8.8', true);
+        xhrForPing.send();
+        xhrForPing.onload = function () {
+            if (xhrForPing.status != 200) {
                 setInternetSpeed(0);
+                return;
             } else {
-                setInternetSpeed(Math.floor(Math.random() * (50 - 30 + 1) + 30))
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', '8.8.8.8', true);
+                xhr.send();
+                xhr.onload = function () {
+                    if (xhr.status != 200) {
+                        setInternetSpeed(0);
+                    } else {
+                        setInternetSpeed(Math.floor(Math.random() * (50 - 30 + 1) + 30))
+                    }
+                };
+                xhr.onerror = function () {
+                    setInternetSpeed(0);
+                };
+                setLoadingSpeed(false);
             }
         };
-        xhr.onerror = function () {
+
+        xhrForPing.onerror = function () {
             setInternetSpeed(0);
+            return;
         };
-        setLoadingSpeed(false);
+
     }
 
     const override = {
@@ -66,6 +84,7 @@ export default function DiagnosticPingComponent(props) {
         setLoadingSpeed(true);
         checkInternetSpeed();
     }
+    const platform = usePlatform();
 
     return (<Fragment>
         <Div style={{
@@ -75,7 +94,7 @@ export default function DiagnosticPingComponent(props) {
                 position: "relative"
             }}>
                 <div style={{
-                    top: "0",
+                    paddingTop:  platform === 'ios' ? '50px' : '12px',
                     left: "0",
                     display: 'flex',
                     gap: "15px",
@@ -87,7 +106,7 @@ export default function DiagnosticPingComponent(props) {
                     </Title>
                 </div>
                 <Spacing size={30} />
-                <Group mode="card">
+                <Group separator="hide" mode="card">
                     <Div>
                         <Title style={{
                             display: "flex",

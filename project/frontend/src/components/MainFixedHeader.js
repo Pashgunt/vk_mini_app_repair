@@ -1,10 +1,14 @@
 import React from "react";
-import { FixedLayout, Group, Headline, Spacing, Title } from "@vkontakte/vkui";
+import { FixedLayout, Platform, Group, Headline, Spacing, Title, usePlatform } from "@vkontakte/vkui";
 import { Icon28Profile } from '@vkontakte/icons';
 
 export default function MainFixedHeader({ state, title, changeShowActiveModal, showProfile = true }) {
+
+    const platform = usePlatform();
+
     return (
         <FixedLayout vertical="top" style={{
+            paddingTop:  platform === 'ios' ? '50px' : '12px',
             background: state.setBgColor(),
             borderBottom: state.setBgColor()
         }}>

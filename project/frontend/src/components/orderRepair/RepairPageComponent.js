@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { Group, Div, Spacing, Title, CustomSelect, FormItem, Textarea, Headline, Card, CardGrid, Button, SimpleCell, Tabs, TabsItem } from "@vkontakte/vkui";
+import { Group, Div, Spacing, Title, CustomSelect, FormItem, usePlatform, Headline, Card, CardGrid, Button, SimpleCell, Tabs, TabsItem } from "@vkontakte/vkui";
 import { Icon28ChevronBack, Icon20ChevronRightOutline } from "@vkontakte/icons";
 
 export default function RepairPageComponent(props) {
@@ -36,14 +36,14 @@ export default function RepairPageComponent(props) {
         setChooseActiveRequestRepairItem(item);
         changeShowActivePanel(state.panels.panel_orderRepairRequest, state);
     }
-
+    const platform = usePlatform();
     return (<Fragment>
         <Group mode="plain" style={{
             minHeight: "100vh",
             background: state.setBgColor()
         }}>
             <Div style={{
-                top: "0",
+                paddingTop:  platform === 'ios' ? '50px' : '12px',
                 left: "0",
                 display: 'flex',
                 alignItems: 'center',
