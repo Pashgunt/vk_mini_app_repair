@@ -4,7 +4,33 @@ import { Icon48Play, Icon48Pause, Icon28ChevronBack } from '@vkontakte/icons';
 
 export default function DiagnosticDisplayComponent(props) {
     const [
-        state, , , , , , changeShowActivePanel
+        state,
+        userData,
+        myDeviceList,
+        setChooseDevice,
+        setChooseDeviceType,
+        changeShowActiveModal,
+        changeShowActivePanel,
+        confirmAdd,
+        confirmDelete,
+        actionsLog,
+        setProblem,
+        chooseProblemType,
+        chooseProblemText,
+        chooseDevice,
+        chooseDeviceType,
+        setChooseProblemType,
+        setChooseProblemText,
+        userPhone,
+        problem,
+        setMyDeviceList,
+        addActionLogItem,
+        requestsForRepair,
+        setRequestsForRepair,
+        chooseActiveRequestRepairItem,
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ] = props.data;
 
     const [intervalID, setIntervalID] = useState(null);
@@ -35,7 +61,16 @@ export default function DiagnosticDisplayComponent(props) {
         setIsPlayed(false);
         clearInterval(intervalID);
     }
+
     const platform = usePlatform();
+
+    const back = () => {
+        let toPanel = history?.at(-2);
+        history.pop();
+        history.pop();
+        setHistory([...history])
+        changeShowActivePanel(toPanel, state)
+    }
 
     return (
         <Fragment>
@@ -45,6 +80,8 @@ export default function DiagnosticDisplayComponent(props) {
                 style={{
                     background: "red",
                     minHeight: "100vh",
+                    maxHeight: "100vh",
+                    overflow: "hidden",
                     backgroundColor: currentColor,
                     display: "flex",
                     justifyContent: "center",
@@ -55,12 +92,12 @@ export default function DiagnosticDisplayComponent(props) {
                     display: "flex",
                     gap: "15px",
                     position: "absolute",
-                    top:  platform === 'ios' ? '50px' : '12px',
+                    top: platform === 'ios' ? '50px' : '12px',
                     left: "0"
                 }}>
                     <Icon28ChevronBack fill="white" onClick={() => {
                         stopToggle()
-                        changeShowActivePanel(state.panels.panel_mainScreen, state)
+                        back()
                     }} />
                 </Div>
             </Group>

@@ -5,7 +5,8 @@ import { Icon28ChevronBack, Icon20ChevronRightOutline } from "@vkontakte/icons";
 export default function RepairPageComponent(props) {
     const [
         state,
-        userData, ,
+        userData,
+        myDeviceList,
         setChooseDevice,
         setChooseDeviceType,
         changeShowActiveModal,
@@ -27,7 +28,9 @@ export default function RepairPageComponent(props) {
         requestsForRepair,
         setRequestsForRepair,
         chooseActiveRequestRepairItem,
-        setChooseActiveRequestRepairItem
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ] = props.data;
 
     const [selectedTab, setSelectedTab] = useState('now-repair')
@@ -36,20 +39,29 @@ export default function RepairPageComponent(props) {
         setChooseActiveRequestRepairItem(item);
         changeShowActivePanel(state.panels.panel_orderRepairRequest, state);
     }
+
     const platform = usePlatform();
+
+    const back = () => {
+        
+        let toPanel = history?.at(-2);
+        setHistory([...history, toPanel])
+        changeShowActivePanel(toPanel, state)
+    }
+
     return (<Fragment>
         <Group mode="plain" style={{
             minHeight: "100vh",
             background: state.setBgColor()
         }}>
             <Div style={{
-                paddingTop:  platform === 'ios' ? '50px' : '12px',
+                paddingTop: platform === 'ios' ? '50px' : '12px',
                 left: "0",
                 display: 'flex',
                 alignItems: 'center',
                 gap: "15px"
             }}>
-                <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                <Icon28ChevronBack onClick={back} />
                 <Title>
                     Сервисное обслуживание
                 </Title>

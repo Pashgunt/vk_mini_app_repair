@@ -2,12 +2,15 @@ import React, { Fragment } from 'react';
 import { CardScroll, Group, Header, Spacing, Title } from "@vkontakte/vkui";
 import { Icon20ChevronRightOutline } from "@vkontakte/icons";
 import MainCardAnotherProduct from "./MainCardAnotherProduct";
-export default function MainAnotherProducts({ state, changeShowActivePanel, changeShowActiveModal }) {
+export default function MainAnotherProducts({ state, changeShowActivePanel, changeShowActiveModal, history, setHistory }) {
     const cards = state.components.mainAnotherProducts.productCards;
     return (
         <Group mode="plain">
             <Header>
-                <Title level="2" weight="2" onClick={() => changeShowActivePanel(state.panels.panel_anotherProductItems, state)} style={{
+                <Title level="2" weight="2" onClick={() => {
+                    setHistory([...history, state.panels.panel_anotherProductItems])
+                    changeShowActivePanel(state.panels.panel_anotherProductItems, state)
+                }} style={{
                     display: "flex",
                     alignItems: "end",
                     gap: "5px"

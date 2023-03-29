@@ -3,7 +3,7 @@ import { CardScroll, Group, Header, Spacing, Title } from "@vkontakte/vkui";
 import { Icon20ChevronRightOutline } from "@vkontakte/icons";
 import MainCardDiagnostic from "./MainCardDiagnostic";
 
-export default function MainDiagnostic({ state, changeShowActivePanel }) {
+export default function MainDiagnostic({ state, changeShowActivePanel, history, setHistory }) {
     const cards = state.components.diagnostics.tools;
     return (
         <Group mode="plain">
@@ -12,7 +12,10 @@ export default function MainDiagnostic({ state, changeShowActivePanel }) {
                     display: "flex",
                     alignItems: "end",
                     gap: "5px"
-                }} onClick={() => changeShowActivePanel(state.panels.panel_diagnosticItems, state)}>
+                }} onClick={() => {
+                    setHistory([...history, state.panels.panel_diagnosticItems])
+                    changeShowActivePanel(state.panels.panel_diagnosticItems, state)
+                }}>
                     {state.components.diagnostics.title} <Icon20ChevronRightOutline />
                 </Title>
             </Header>
@@ -28,6 +31,8 @@ export default function MainDiagnostic({ state, changeShowActivePanel }) {
                             imageName={cards[title]['img']}
                             panel={cards[title]['panel']}
                             changeShowActivePanel={changeShowActivePanel}
+                            history={history}
+                            setHistory={setHistory}
                         />
                     })
                 }

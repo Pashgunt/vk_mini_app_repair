@@ -21,15 +21,15 @@ export default function ModalRootComponent(props) {
         changeShowActivePanel,
         setChooseDevice,
         setUserPhone,
-        requestsForRepair
+        requestsForRepair,
+        history,
+        setHistory
     ] = props.data;
 
     const [isCorrectDataForConnect, setIsCorrectDataForConnect] = useState(true);
     const [isCorrectDataForSendFeedback, setIsCorrectDataForSendFeedback] = useState(false);
     const [isCorrectDataForProblem, setIsCorrectDataForProblem] = useState(false);
 
-
-    
     return (
         <ModalRoot activeModal={state.activeModal}>
             <ModalPage

@@ -4,7 +4,33 @@ import { Icon28ChevronBack } from "@vkontakte/icons";
 
 export default function DiagnosticMultitouchComponents(props) {
     const [
-        state, , , , , , changeShowActivePanel
+        state,
+        userData,
+        myDeviceList,
+        setChooseDevice,
+        setChooseDeviceType,
+        changeShowActiveModal,
+        changeShowActivePanel,
+        confirmAdd,
+        confirmDelete,
+        actionsLog,
+        setProblem,
+        chooseProblemType,
+        chooseProblemText,
+        chooseDevice,
+        chooseDeviceType,
+        setChooseProblemType,
+        setChooseProblemText,
+        userPhone,
+        problem,
+        setMyDeviceList,
+        addActionLogItem,
+        requestsForRepair,
+        setRequestsForRepair,
+        chooseActiveRequestRepairItem,
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ] = props.data;
 
     const [canToDoTest, setCanToDoTest] = useState(true);
@@ -38,6 +64,14 @@ export default function DiagnosticMultitouchComponents(props) {
         event.preventDefault();
     }
 
+    const back = () => {
+        let toPanel = history?.at(-2);
+        history.pop();
+        history.pop();
+        setHistory([...history])
+        changeShowActivePanel(toPanel, state)
+    }
+
     return (
         <Fragment>
             <Group
@@ -63,7 +97,7 @@ export default function DiagnosticMultitouchComponents(props) {
                     gap:"15px",
                     left: "0"
                 }}>
-                    <Icon28ChevronBack fill="white" onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                    <Icon28ChevronBack fill="white" onClick={back} />
                 </Div>
                 {
                     Object.values(pointerIDs).map(position => {

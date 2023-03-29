@@ -1,11 +1,37 @@
-import { Group, Div, Spacing, Title, Subhead, Search, Separator } from "@vkontakte/vkui";
+import { Group, Div, Spacing, Title, Subhead, Search, Separator, usePlatform } from "@vkontakte/vkui";
 import React, { Fragment, useEffect, useState } from "react";
 import { Icon28ChevronBack, Icon20ChevronRightOutline } from "@vkontakte/icons";
 
 export default function DevicePageComponent(props) {
 
     const [
-        state, , , , , , changeShowActivePanel, , , , , , , chooseDevice, chooseDeviceType, setChooseProblemType, setChooseProblemText,
+        state,
+        userData,
+        myDeviceList,
+        setChooseDevice,
+        setChooseDeviceType,
+        changeShowActiveModal,
+        changeShowActivePanel,
+        confirmAdd,
+        confirmDelete,
+        actionsLog,
+        setProblem,
+        chooseProblemType,
+        chooseProblemText,
+        chooseDevice,
+        chooseDeviceType,
+        setChooseProblemType,
+        setChooseProblemText,
+        userPhone,
+        problem,
+        setMyDeviceList,
+        addActionLogItem,
+        requestsForRepair,
+        setRequestsForRepair,
+        chooseActiveRequestRepairItem,
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ] = props.data
 
     const [resultSearch, setResualSearch] = useState([]);
@@ -40,6 +66,15 @@ export default function DevicePageComponent(props) {
         changeShowActivePanel(state.panels.panel_deviceDetailPage, state)
     }
 
+    const platform = usePlatform();
+
+    const back = () => {
+        
+        let toPanel = history?.at(-2);
+        setHistory([...history, toPanel])
+        changeShowActivePanel(toPanel, state)
+    }
+
     return (
         <Fragment>
             <Group mode="plain" style={{
@@ -47,11 +82,12 @@ export default function DevicePageComponent(props) {
             }}>
                 <Group mode="plain" separator="hide">
                     <Div style={{
+                        paddingTop: platform === 'ios' ? '50px' : '12px',
                         display: 'flex',
                         alignItems: 'center',
                         gap: "15px"
                     }}>
-                        <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                        <Icon28ChevronBack onClick={back} />
                         <Title>
                             {chooseDevice}
                         </Title>

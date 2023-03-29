@@ -17,9 +17,27 @@ export default function MainPanel(props) {
         setChooseDevice,
         setChooseDeviceType,
         changeShowActiveModal,
-        changeShowActivePanel, , , , , , , , , , , , , , ,
-        requestsForRepair, , ,
-        setChooseActiveRequestRepairItem
+        changeShowActivePanel,
+        confirmAdd,
+        confirmDelete,
+        actionsLog,
+        setProblem,
+        chooseProblemType,
+        chooseProblemText,
+        chooseDevice,
+        chooseDeviceType,
+        setChooseProblemType,
+        setChooseProblemText,
+        userPhone,
+        problem,
+        setMyDeviceList,
+        addActionLogItem,
+        requestsForRepair,
+        setRequestsForRepair,
+        chooseActiveRequestRepairItem,
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ] = props.data;
 
     return (
@@ -40,25 +58,35 @@ export default function MainPanel(props) {
                 changeShowActivePanel={changeShowActivePanel}
                 setChooseDevice={setChooseDevice}
                 setChooseDeviceType={setChooseDeviceType}
+                history={history}
+                setHistory={setHistory}
             />
             <MainSupportTools
                 state={state}
                 changeShowActivePanel={changeShowActivePanel}
+                history={history}
+                setHistory={setHistory}
             />
             <MainRepairComponent
                 state={state}
                 changeShowActivePanel={changeShowActivePanel}
                 requestsForRepair={requestsForRepair}
                 setChooseActiveRequestRepairItem={setChooseActiveRequestRepairItem}
+                history={history}
+                setHistory={setHistory}
             />
             <MainDiagnostic
                 state={state}
                 changeShowActivePanel={changeShowActivePanel}
+                history={history}
+                setHistory={setHistory}
             />
             <MainAnotherProducts
                 state={state}
                 changeShowActivePanel={changeShowActivePanel}
                 changeShowActiveModal={changeShowActiveModal}
+                history={history}
+                setHistory={setHistory}
             />
         </Fragment>
     );

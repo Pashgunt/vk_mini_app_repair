@@ -10,7 +10,7 @@ import {
 } from "@vkontakte/vkui";
 import { Icon20ChevronRightOutline, Icon36Add } from "@vkontakte/icons";
 
-export default function MainDevices({ state, userData, myDeviceList, changeShowActivePanel, setChooseDevice, setChooseDeviceType }) {
+export default function MainDevices({ state, userData, myDeviceList, changeShowActivePanel, setChooseDevice, setChooseDeviceType, history, setHistory }) {
     return (
         <Fragment>
             <Group mode="plain">
@@ -19,7 +19,10 @@ export default function MainDevices({ state, userData, myDeviceList, changeShowA
                         display: "flex",
                         alignItems: "end",
                         gap: "5px"
-                    }} onClick={() => changeShowActivePanel(state.panels.panel_deviceScreen, state)}>
+                    }} onClick={() => {
+                        setHistory([...history, state.panels.panel_deviceScreen])
+                        changeShowActivePanel(state.panels.panel_deviceScreen, state)
+                    }}>
                         {state.components.mainDevices.title} <Icon20ChevronRightOutline />
                     </Title>
                 </Header>
@@ -30,6 +33,7 @@ export default function MainDevices({ state, userData, myDeviceList, changeShowA
                             return myDeviceList[deviceType].map(deviceName => {
                                 return (
                                     <Card key={deviceType} onClick={() => {
+                                        setHistory([...history, state.panels.panel_deviceInnerPage])
                                         changeShowActivePanel(state.panels.panel_deviceInnerPage, state)
                                         setChooseDevice(`${deviceName} ${userData ? `(${userData.first_name})` : ''}`)
                                         setChooseDeviceType(deviceType)
@@ -48,7 +52,10 @@ export default function MainDevices({ state, userData, myDeviceList, changeShowA
                             })
                         })
                     }
-                    <Card onClick={() => changeShowActivePanel(state.panels.panel_deviceScreen, state)} style={state.components.mainDevices.styleButton}>
+                    <Card onClick={() => {
+                        setHistory([...history, state.panels.panel_deviceScreen])
+                        changeShowActivePanel(state.panels.panel_deviceScreen, state)
+                    }} style={state.components.mainDevices.styleButton}>
                         <div style={{
                             textAlign: "center"
                         }}>

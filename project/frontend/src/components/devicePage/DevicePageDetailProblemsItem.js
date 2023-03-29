@@ -1,11 +1,46 @@
 import React, { Fragment } from "react";
-import { Group, Div, Spacing, Title, Link, Card, Separator } from "@vkontakte/vkui";
+import { Group, Div, Spacing, Title, Link, usePlatform, Separator } from "@vkontakte/vkui";
 import { Icon28ChevronBack, Icon20ChevronRightOutline } from "@vkontakte/icons";
 
 export default function DevicePageDetailProblemsItem(props) {
     const [
-        state, , , , , changeShowActiveModal, changeShowActivePanel, , , , setProblem, , chooseProblemText,
+        state,
+        userData,
+        myDeviceList,
+        setChooseDevice,
+        setChooseDeviceType,
+        changeShowActiveModal,
+        changeShowActivePanel,
+        confirmAdd,
+        confirmDelete,
+        actionsLog,
+        setProblem,
+        chooseProblemType,
+        chooseProblemText,
+        chooseDevice,
+        chooseDeviceType,
+        setChooseProblemType,
+        setChooseProblemText,
+        userPhone,
+        problem,
+        setMyDeviceList,
+        addActionLogItem,
+        requestsForRepair,
+        setRequestsForRepair,
+        chooseActiveRequestRepairItem,
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ] = props.data;
+
+    const platform = usePlatform();
+
+    const back = () => {
+        
+        let toPanel = history?.at(-2);
+        setHistory([...history, toPanel])
+        changeShowActivePanel(toPanel, state)
+    }
 
     return (
         <Fragment>
@@ -14,11 +49,12 @@ export default function DevicePageDetailProblemsItem(props) {
                 minHeight: "100vh",
             }}>
                 <Div style={{
+                    paddingTop: platform === 'ios' ? '50px' : '12px',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '15px'
                 }}>
-                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_deviceInnerPage, state)} />
+                    <Icon28ChevronBack onClick={back} />
                     <Title>
                         {chooseProblemText}
                     </Title>

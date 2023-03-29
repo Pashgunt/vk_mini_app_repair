@@ -5,11 +5,44 @@ import { Icon28ChevronBack } from "@vkontakte/icons";
 
 export default function AnotherProductsItemsComponents(props) {
     const [
-        state, , , , , changeShowActiveModal, changeShowActivePanel
+        state,
+        userData,
+        myDeviceList,
+        setChooseDevice,
+        setChooseDeviceType,
+        changeShowActiveModal,
+        changeShowActivePanel,
+        confirmAdd,
+        confirmDelete,
+        actionsLog,
+        setProblem,
+        chooseProblemType,
+        chooseProblemText,
+        chooseDevice,
+        chooseDeviceType,
+        setChooseProblemType,
+        setChooseProblemText,
+        userPhone,
+        problem,
+        setMyDeviceList,
+        addActionLogItem,
+        requestsForRepair,
+        setRequestsForRepair,
+        chooseActiveRequestRepairItem,
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ] = props.data;
 
     const cards = state.components.mainAnotherProducts.productCards;
     const platform = usePlatform();
+
+    const back = () => {
+        
+        let toPanel = history?.at(-2);
+        setHistory([...history, toPanel])
+        changeShowActivePanel(toPanel, state)
+    }
 
     return (<Fragment>
         <Group mode="plain" separator="hide" style={{
@@ -17,17 +50,17 @@ export default function AnotherProductsItemsComponents(props) {
             background: state.setBgColor()
         }}>
             <Div style={{
-                paddingTop:  platform === 'ios' ? '50px' : '12px',
+                paddingTop: platform === 'ios' ? '50px' : '12px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: "15px"
             }}>
-                <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                <Icon28ChevronBack onClick={back} />
                 <Title>
                     Другие продукты
                 </Title>
             </Div>
-            <Spacing size={15}/>
+            <Spacing size={15} />
             <Div style={{
                 paddingTop: 0,
                 paddingBottom: 0

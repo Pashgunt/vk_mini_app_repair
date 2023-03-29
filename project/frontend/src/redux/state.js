@@ -71,13 +71,6 @@ const state = {
     setBgColor() {
         return this.schema === "dark" ? '#19191A' : '#FFF';
     },
-    pick(source, ...props) {
-        const obj = {};
-        for (const prop of props) {
-            obj[prop] = source[prop];
-        }
-        return obj;
-    },
     throttle(func, ms) {
         let isThrottled = false,
             savedArgs,

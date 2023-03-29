@@ -16,31 +16,37 @@ export default function MyDevicesComponents(props) {
         state,
         userData,
         myDeviceList,
-        ,
-        ,
-        ,
+        setChooseDevice,
+        setChooseDeviceType,
+        changeShowActiveModal,
         changeShowActivePanel,
         confirmAdd,
         confirmDelete,
         actionsLog,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-
+        setProblem,
+        chooseProblemType,
+        chooseProblemText,
+        chooseDevice,
+        chooseDeviceType,
+        setChooseProblemType,
+        setChooseProblemText,
+        userPhone,
+        problem,
+        setMyDeviceList,
+        addActionLogItem,
+        requestsForRepair,
+        setRequestsForRepair,
+        chooseActiveRequestRepairItem,
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ] = props.data;
 
     useEffect(() => {
+        if (navigator.userAgent.match(/iPad/i)) setSearchCategory('ipad')
+
+        if (navigator.userAgent.match(/iPhone/i)) setSearchCategory('iphone')
+
         const startAsyncFunc = async () => {
             const res = await state.api.getDeviceList();
             setDeviceList(res.data);
@@ -90,7 +96,9 @@ export default function MyDevicesComponents(props) {
             setIsScroll(false);
         }
     })
+
     const platform = usePlatform();
+
     return (
         <Fragment>
             <Group mode="plain" style={{
@@ -105,13 +113,16 @@ export default function MyDevicesComponents(props) {
                 <Group mode="plain" separator="hide" >
                     <Div>
                         <div style={{
-                            paddingTop:  platform === 'ios' ? '50px' : '12px',
+                            paddingTop: platform === 'ios' ? '50px' : '12px',
                             display: 'flex',
                             alignItems: 'center',
                             gap: "15px"
                         }}
                             ref={headerRef}>
-                            <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                            <Icon28ChevronBack onClick={() => {
+                                addActionLogItem("");
+                                changeShowActivePanel(state.panels.panel_mainScreen, state)
+                            }} />
                             <Title>
                                 Добавить устройство
                             </Title>
@@ -168,9 +179,9 @@ export default function MyDevicesComponents(props) {
                 <Div>
                     {searchDeviceList ?
                         searchCategory ?
-                            searchDeviceList[searchCategory].map((device, index) => {
+                            searchDeviceList[searchCategory]?.map((device, index) => {
                                 return (<>
-                                    <Card key={index}>
+                                    <Card key={index} onClick={() => deciderForAddOrRemove(device, searchCategory)}>
                                         <Div style={!myDeviceList[searchCategory]?.includes(device) ? {
                                             display: "flex",
                                             alignItems: "center",

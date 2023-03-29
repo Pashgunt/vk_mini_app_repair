@@ -35,6 +35,7 @@ import AnotherProductsItemsComponents from './components/anotherProducts/Another
 import { state } from "./redux/state";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/main.css';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const App = () => {
     const [activePanelView, setActivePanelVew] = useState(state.activePanelState);
@@ -51,6 +52,8 @@ const App = () => {
     const [myDeviceList, setMyDeviceList] = useState({});
     const [requestsForRepair, setRequestsForRepair] = useState([]);
     const [chooseActiveRequestRepairItem, setChooseActiveRequestRepairItem] = useState(null);
+    const [showLoader, setShowLoader] = useState(false);
+    const [history, setHistory] = useState([state.panels.panel_mainScreen]);
 
     const changeShowActiveModal = function (newModal, state) {
         setActiveModal(newModal);
@@ -76,13 +79,19 @@ const App = () => {
             <Alert
                 actions={[
                     {
+                        title: 'Отмена',
+                        autoClose: true,
+                        mode: 'cancel',
+                        action: () => closePopout()
+                    },
+                    {
                         title: 'Добавить устройство',
                         mode: 'destructive',
                         autoClose: true,
                         action: async () => {
+                            setShowLoader(true)
                             let result = await state.api.addDeviceForUser(userID, device);
                             if (result.data === "success") {
-                                addActionLogItem(`Устройство ${device} добавлено в Ваш список.`);
                                 let copyOfMyDeviceList = Object.assign({}, myDeviceList);
                                 if (deviceType in copyOfMyDeviceList) {
                                     copyOfMyDeviceList[deviceType].push(device);
@@ -90,16 +99,14 @@ const App = () => {
                                     copyOfMyDeviceList[deviceType] = [device];
                                 }
                                 setMyDeviceList(copyOfMyDeviceList);
+                                setHistory([...history, state.panels.panel_mainScreen]);
+                                changeShowActivePanel(state.panels.panel_mainScreen, state);
+                                setShowLoader(false)
                             } else {
                                 addActionLogItem(`При добавлении устройства ${device} в Ваш список произошла ошибка`);
+                                setShowLoader(false)
                             }
                         },
-                    },
-                    {
-                        title: 'Отмена',
-                        autoClose: true,
-                        mode: 'cancel',
-                        action: () => closePopout()
                     },
                 ]}
                 actionsLayout="horizontal"
@@ -115,27 +122,30 @@ const App = () => {
             <Alert
                 actions={[
                     {
-                        title: 'Удалить',
-                        autoClose: true,
-                        mode: 'destructive',
-                        action: async () => {
-                            addActionLogItem('Устройство удалено из списка Ваших устройств.');
-                            let result = await state.api.removeDeviceForUser(userID, device);
-                            if (result.data === "success") {
-                                addActionLogItem(`Устройство ${device} удалено из Вашего списка.`);
-                                let copyOfMyDeviceList = Object.assign({}, myDeviceList);
-                                copyOfMyDeviceList[deviceType] = copyOfMyDeviceList[deviceType].filter(myDeviceItem => myDeviceItem !== device)
-                                setMyDeviceList(copyOfMyDeviceList);
-                            } else {
-                                addActionLogItem(`При удалении устройства ${device} из Вашего списка произошла ошибка`);
-                            }
-                        },
-                    },
-                    {
                         title: 'Отмена',
                         autoClose: true,
                         mode: 'cancel',
                         action: () => closePopout()
+                    },
+                    {
+                        title: 'Удалить',
+                        autoClose: true,
+                        mode: 'destructive',
+                        action: async () => {
+                            setShowLoader(true)
+                            let result = await state.api.removeDeviceForUser(userID, device);
+                            if (result.data === "success") {
+                                let copyOfMyDeviceList = Object.assign({}, myDeviceList);
+                                copyOfMyDeviceList[deviceType] = copyOfMyDeviceList[deviceType].filter(myDeviceItem => myDeviceItem !== device)
+                                setMyDeviceList(copyOfMyDeviceList);
+                                setHistory([...history, state.panels.panel_mainScreen]);
+                                changeShowActivePanel(state.panels.panel_mainScreen, state);
+                                setShowLoader(false)
+                            } else {
+                                addActionLogItem(`При удалении устройства ${device} из Вашего списка произошла ошибка`);
+                                setShowLoader(false)
+                            }
+                        },
                     },
                 ]}
                 actionsLayout="horizontal"
@@ -149,6 +159,7 @@ const App = () => {
     useEffect(async () => {
         const resMyDevice = await state.api.getAllDeviceListForUser(161450796);
         if (Array.isArray(resMyDevice.data)) {
+            setHistory([...history, state.panels.panel_deviceScreen]);
             changeShowActivePanel(state.panels.panel_deviceScreen, state)
         }
         setMyDeviceList(resMyDevice.data);
@@ -163,6 +174,7 @@ const App = () => {
             .then(async response => {
                 const resMyDevice = await state.api.getAllDeviceListForUser(response.id);
                 if (Array.isArray(resMyDevice.data)) {
+                    setHistory([...history, state.panels.panel_mainScreen]);
                     changeShowActivePanel(state.panels.panel_deviceScreen, state)
                 }
                 setMyDeviceList(resMyDevice.data);
@@ -196,7 +208,9 @@ const App = () => {
         changeShowActivePanel,
         setChooseDevice,
         setUserPhone,
-        requestsForRepair
+        requestsForRepair,
+        history,
+        setHistory
     ];
 
     const propsForPanel = [
@@ -224,7 +238,9 @@ const App = () => {
         requestsForRepair,
         setRequestsForRepair,
         chooseActiveRequestRepairItem,
-        setChooseActiveRequestRepairItem
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ];
 
     return (
@@ -240,6 +256,25 @@ const App = () => {
                             background: state.setBgColor(),
                             height: "max-content"
                         }}>
+                        {showLoader && <div style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100vw",
+                            height: "100vh",
+                            background: "rgba(0,0,0,.75)",
+                            zIndex: '100',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: "center"
+                        }}>
+                            <ClipLoader
+                                color={"#FFF"}
+                                size={60}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                            />
+                        </div>}
                         <View activePanel={activePanelView} style={{
                             background: state.setBgColor(),
                             height: "max-content"

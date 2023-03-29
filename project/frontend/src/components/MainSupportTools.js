@@ -9,7 +9,7 @@ import {
 } from "@vkontakte/vkui";
 import MainCardSupportTools from "./MainCardSupportTools";
 
-export default function MainSupportTools({ state, changeShowActivePanel, }) {
+export default function MainSupportTools({ state, changeShowActivePanel, history, setHistory }) {
     const cards = state.components.mainSupportTools.supportCard;
     return (
         <Fragment>
@@ -37,6 +37,8 @@ export default function MainSupportTools({ state, changeShowActivePanel, }) {
                                         imageName={cards[title]['img']}
                                         panelName={cards[title]['panel']}
                                         changeShowActivePanel={changeShowActivePanel}
+                                        history={history}
+                                        setHistory={setHistory}
                                     />
                                     {Object.keys(cards).length - 1 !== index && <Spacing size={10} />}
                                 </Fragment>)

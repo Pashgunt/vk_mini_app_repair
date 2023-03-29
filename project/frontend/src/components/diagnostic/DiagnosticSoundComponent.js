@@ -4,7 +4,33 @@ import { Icon28ChevronBack, Icon48Play, Icon48Pause } from "@vkontakte/icons";
 
 export default function DiagnosticSoundComponent(props) {
     const [
-        state, , , , , , changeShowActivePanel
+        state,
+        userData,
+        myDeviceList,
+        setChooseDevice,
+        setChooseDeviceType,
+        changeShowActiveModal,
+        changeShowActivePanel,
+        confirmAdd,
+        confirmDelete,
+        actionsLog,
+        setProblem,
+        chooseProblemType,
+        chooseProblemText,
+        chooseDevice,
+        chooseDeviceType,
+        setChooseProblemType,
+        setChooseProblemText,
+        userPhone,
+        problem,
+        setMyDeviceList,
+        addActionLogItem,
+        requestsForRepair,
+        setRequestsForRepair,
+        chooseActiveRequestRepairItem,
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ] = props.data;
 
     const lineRef = useRef(null);
@@ -31,7 +57,16 @@ export default function DiagnosticSoundComponent(props) {
     audio.addEventListener('ended', function () {
         stopPlay()
     }, false);
+
     const platform = usePlatform();
+
+    const back = () => {
+        let toPanel = history?.at(-2);
+        history.pop();
+        history.pop();
+        setHistory([...history])
+        changeShowActivePanel(toPanel, state)
+    }
 
     return (<Fragment>
         <Div style={{
@@ -47,7 +82,7 @@ export default function DiagnosticSoundComponent(props) {
                     gap:"15px",
                     alignItems: 'center'
                 }}>
-                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                    <Icon28ChevronBack onClick={back} />
                     <Title>
                         Звук
                     </Title>

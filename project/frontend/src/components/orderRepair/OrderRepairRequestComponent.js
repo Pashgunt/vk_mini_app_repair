@@ -5,7 +5,8 @@ import { Icon28ChevronBack, Icon28CancelAltOutline } from "@vkontakte/icons";
 export default function OrderRepairRequestComponent(props) {
     const [
         state,
-        userData, ,
+        userData,
+        myDeviceList,
         setChooseDevice,
         setChooseDeviceType,
         changeShowActiveModal,
@@ -27,9 +28,20 @@ export default function OrderRepairRequestComponent(props) {
         requestsForRepair,
         setRequestsForRepair,
         chooseActiveRequestRepairItem,
-        setChooseActiveRequestRepairItem
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ] = props.data;
+
     const platform = usePlatform();
+
+    const back = () => {
+        
+        let toPanel = history?.at(-2);
+        setHistory([...history, toPanel])
+        changeShowActivePanel(toPanel, state)
+    }
+
     return (<Fragment>
         <Group mode="plain" style={{
             minHeight: "100vh",
@@ -42,7 +54,7 @@ export default function OrderRepairRequestComponent(props) {
                 alignItems: 'center',
                 gap: "15px"
             }}>
-                <Icon28CancelAltOutline onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                <Icon28CancelAltOutline onClick={back} />
                 <Title>
                     Заказ на ремонт {chooseActiveRequestRepairItem.device} {chooseActiveRequestRepairItem.problem}
                 </Title>

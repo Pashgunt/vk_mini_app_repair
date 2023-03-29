@@ -30,7 +30,9 @@ export default function OrderRepairComponent(props) {
         requestsForRepair,
         setRequestsForRepair,
         chooseActiveRequestRepairItem,
-        setChooseActiveRequestRepairItem
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ] = props.data;
 
     const headerRef = useRef(null);
@@ -220,7 +222,16 @@ export default function OrderRepairComponent(props) {
             setIsScroll(false);
         }
     })
+
     const platform = usePlatform();
+
+    const back = () => {
+        
+        let toPanel = history?.at(-2);
+        setHistory([...history, toPanel])
+        changeShowActivePanel(toPanel, state)
+    }
+
     return (<Fragment>
         <div style={{
             position: "relative"
@@ -255,13 +266,16 @@ export default function OrderRepairComponent(props) {
                     position: "relative"
                 }}>
                     <div style={{
-                        paddingTop:  platform === 'ios' ? '50px' : '12px',
+                        paddingTop: platform === 'ios' ? '50px' : '12px',
                         left: "0",
                         display: 'flex',
                         alignItems: 'center',
                         gap: "15px"
                     }} ref={headerRef}>
-                        <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                        <Icon28ChevronBack onClick={() => {
+                            addActionLogItem("");
+                            back();
+                        }} />
                         <Title>
                             Заказать ремонт
                         </Title>

@@ -9,7 +9,7 @@ export default function ModalPageChooseDevice({
     changeShowActiveModal,
     changeShowActivePanel,
     userData,
-    setChooseDevice
+    setChooseDevice,
 }) {
 
     const [devices, setDevices] = useState({});

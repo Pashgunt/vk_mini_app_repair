@@ -6,20 +6,26 @@ export default function MainRepairComponent({
     state,
     changeShowActivePanel,
     requestsForRepair,
-    setChooseActiveRequestRepairItem
+    setChooseActiveRequestRepairItem,
+    history,
+    setHistory
 }) {
 
     const [selectedTab, setSelectedTab] = useState('now-repair')
 
     const chooseDetailPageForRepairRequest = function (item) {
         setChooseActiveRequestRepairItem(item);
+        setHistory([...history, state.panels.panel_orderRepairRequest])
         changeShowActivePanel(state.panels.panel_orderRepairRequest, state);
     }
 
     return (<Fragment>
         <Group mode="plain">
             <Header>
-                <Title level="2" weight="2" onClick={() => changeShowActivePanel(state.panels.panel_diagnosticItems, state)}>
+                <Title level="2" weight="2" onClick={() => {
+                    setHistory([...history, state.panels.panel_diagnosticItems])
+                    changeShowActivePanel(state.panels.panel_diagnosticItems, state)
+                }}>
                     Сервисное обслуживание
                 </Title>
             </Header>
@@ -72,7 +78,10 @@ export default function MainRepairComponent({
                                     requestsForRepair?.current?.length > 3 &&
                                     <>
                                         <Spacing size={10} />
-                                        <Link onClick={() => changeShowActivePanel(state.panels.panel_orderRepairCurrentAndAll, state)}>Ещё <Icon20ChevronRightOutline width={16} height={16} /></Link>
+                                        <Link onClick={() => {
+                                            setHistory([...history, state.panels.panel_orderRepairCurrentAndAll])
+                                            changeShowActivePanel(state.panels.panel_orderRepairCurrentAndAll, state)
+                                        }}>Ещё <Icon20ChevronRightOutline width={16} height={16} /></Link>
                                     </>
                                 }
                             </>
@@ -111,7 +120,10 @@ export default function MainRepairComponent({
                                     requestsForRepair?.all?.length > 3 &&
                                     <>
                                         <Spacing size={10} />
-                                        <Link onClick={() => changeShowActivePanel(state.panels.panel_orderRepairCurrentAndAll, state)}>Ещё <Icon20ChevronRightOutline width={16} height={16} /></Link>
+                                        <Link onClick={() => {
+                                            setHistory([...history, state.panels.panel_orderRepairCurrentAndAll])
+                                            changeShowActivePanel(state.panels.panel_orderRepairCurrentAndAll, state)
+                                        }}>Ещё <Icon20ChevronRightOutline width={16} height={16} /></Link>
                                     </>
                                 }
                             </>

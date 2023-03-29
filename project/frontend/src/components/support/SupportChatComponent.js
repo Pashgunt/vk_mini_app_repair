@@ -4,7 +4,8 @@ import { Fragment, useEffect, useRef, useState } from "react";
 export default function SupportChatComponent(props) {
     const [
         state,
-        userData, ,
+        userData,
+        myDeviceList,
         setChooseDevice,
         setChooseDeviceType,
         changeShowActiveModal,
@@ -20,6 +21,15 @@ export default function SupportChatComponent(props) {
         setChooseProblemType,
         setChooseProblemText,
         userPhone,
+        problem,
+        setMyDeviceList,
+        addActionLogItem,
+        requestsForRepair,
+        setRequestsForRepair,
+        chooseActiveRequestRepairItem,
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ] = props.data;
 
     const [messages, setMessages] = useState([]);
@@ -48,6 +58,13 @@ export default function SupportChatComponent(props) {
         startAsyncFunc();
     }, [setMessages])
 
+    const back = () => {
+        
+        let toPanel = history?.at(-2);
+        setHistory([...history, toPanel])
+        changeShowActivePanel(toPanel, state)
+    }
+
     return (<Fragment>
         <div style={{
             position: "relative",
@@ -60,7 +77,7 @@ export default function SupportChatComponent(props) {
                     alignItems: 'center',
                     gap: "15px"
                 }}>
-                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                    <Icon28ChevronBack onClick={back} />
                     <Icon24Help fill="#2688eb" width={36} height={36} />
                     <Title style={{
                         marginLeft: "10px"

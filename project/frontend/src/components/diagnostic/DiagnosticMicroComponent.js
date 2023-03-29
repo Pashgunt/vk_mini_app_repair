@@ -7,12 +7,46 @@ import useRecorder from "../../hooks/useRecorder";
 
 export default function DiagnosticMicroComponent(props) {
     const [
-        state, , , , , , changeShowActivePanel
+        state,
+        userData,
+        myDeviceList,
+        setChooseDevice,
+        setChooseDeviceType,
+        changeShowActiveModal,
+        changeShowActivePanel,
+        confirmAdd,
+        confirmDelete,
+        actionsLog,
+        setProblem,
+        chooseProblemType,
+        chooseProblemText,
+        chooseDevice,
+        chooseDeviceType,
+        setChooseProblemType,
+        setChooseProblemText,
+        userPhone,
+        problem,
+        setMyDeviceList,
+        addActionLogItem,
+        requestsForRepair,
+        setRequestsForRepair,
+        chooseActiveRequestRepairItem,
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ] = props.data;
 
     const { recorderState, ...handlers } = useRecorder();
     const { audio } = recorderState;
     const platform = usePlatform();
+
+    const back = () => {
+        let toPanel = history?.at(-2);
+        history.pop();
+        history.pop();
+        setHistory([...history])
+        changeShowActivePanel(toPanel, state)
+    }
 
     return (<Fragment>
         <Div style={{
@@ -28,7 +62,7 @@ export default function DiagnosticMicroComponent(props) {
                     alignItems: 'center',
                     gap:"15px"
                 }}>
-                    <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                    <Icon28ChevronBack onClick={back} />
                     <Title>
                         Микрофон
                     </Title>

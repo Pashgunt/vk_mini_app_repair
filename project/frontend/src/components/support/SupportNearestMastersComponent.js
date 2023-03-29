@@ -13,7 +13,33 @@ import {
 
 export default function SupportNearestMastersComponent(props) {
     const [
-        state, , , , , , changeShowActivePanel, , , , , , , , , , ,
+        state,
+        userData,
+        myDeviceList,
+        setChooseDevice,
+        setChooseDeviceType,
+        changeShowActiveModal,
+        changeShowActivePanel,
+        confirmAdd,
+        confirmDelete,
+        actionsLog,
+        setProblem,
+        chooseProblemType,
+        chooseProblemText,
+        chooseDevice,
+        chooseDeviceType,
+        setChooseProblemType,
+        setChooseProblemText,
+        userPhone,
+        problem,
+        setMyDeviceList,
+        addActionLogItem,
+        requestsForRepair,
+        setRequestsForRepair,
+        chooseActiveRequestRepairItem,
+        setChooseActiveRequestRepairItem,
+        history,
+        setHistory
     ] = props.data;
 
     const [GPSdata, setGPSdata] = useState('');
@@ -45,17 +71,24 @@ export default function SupportNearestMastersComponent(props) {
             });
     }, []);
 
+    const back = () => {
+        
+        let toPanel = history?.at(-2);
+        setHistory([...history, toPanel])
+        changeShowActivePanel(toPanel, state)
+    }
+
     return (<Fragment>
         <Group mode="plain" separator="hide" style={{
             minHeight: "100vh",
             background: state.setBgColor()
         }}>
             <Div style={{
-                paddingTop:  platform === 'ios' ? '50px' : '12px',
+                paddingTop: platform === 'ios' ? '50px' : '12px',
                 display: 'flex',
                 alignItems: 'center'
             }}>
-                <Icon28ChevronBack onClick={() => changeShowActivePanel(state.panels.panel_mainScreen, state)} />
+                <Icon28ChevronBack onClick={back} />
                 <Spacing size={10} />
                 <Title style={{
                     marginLeft: "10px"

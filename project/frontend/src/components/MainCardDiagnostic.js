@@ -1,5 +1,4 @@
 import { Card, Div, Headline } from "@vkontakte/vkui";
-import React from "react";
 
 export default function MainCardDiagnostic(props) {
     return (
@@ -7,7 +6,10 @@ export default function MainCardDiagnostic(props) {
             display: "flex",
             justifyContent: "center",
         }}
-            onClick={() => props.changeShowActivePanel(props.panel, props.state)}
+            onClick={() => {
+                props.setHistory([...props.history, props.panel])
+                props.changeShowActivePanel(props.panel, props.state)
+            }}
         >
             <Div style={props.state.components.diagnostics.cardStyle}>
                 <img src={props.image[props.imageName]} width={28} height={28} alt="insurance" />
