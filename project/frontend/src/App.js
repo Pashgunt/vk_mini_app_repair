@@ -8,7 +8,10 @@ import {
     Panel,
     SplitLayout,
     Alert,
-    WebviewType
+    WebviewType,
+    PopoutWrapper,
+    Button,
+    Spacing
 } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 import MainPanel from "./components/MainPanel";
@@ -74,6 +77,36 @@ const App = () => {
         setPopout(null);
     };
 
+    const setShowSuccessAddedDevice = (deviceType, device) => {
+        setPopout(<PopoutWrapper>
+            <div style={{
+                backgroundColor: '#FFF',
+                borderRadius: 8,
+                position: 'relative',
+                padding: '24px',
+                width: "90%",
+                textAlign: "center"
+            }}>
+                <h5>Вы успешно добавили своё первое устройство !</h5>
+                <Spacing size={20} />
+                <img src={state.images[deviceType]} alt='device' width={state.sizes[deviceType]?.lg?.width} height={state.sizes[deviceType]?.lg?.height} />
+                <Spacing size={20} />
+                <div style={{
+                    fontSize: "24px",
+                }}>
+                    {device}
+                </div>
+                <Spacing size={20} />
+                <Button size="l" appearance="positive" stretched onClick={() => {
+                    setPopout(null);
+                    changeShowActivePanel(state.panels.panel_diagnosticItems, state);
+                }}>
+                    Продолжить
+                </Button>
+            </div>
+        </PopoutWrapper>);
+    }
+
     const confirmAdd = function (userID, device, deviceType) {
         setPopout(
             <Alert
@@ -92,6 +125,7 @@ const App = () => {
                             setShowLoader(true)
                             let result = await state.api.addDeviceForUser(userID, device);
                             if (result.data === "success") {
+                                setShowSuccessAddedDevice(deviceType, device);
                                 let copyOfMyDeviceList = Object.assign({}, myDeviceList);
                                 if (deviceType in copyOfMyDeviceList) {
                                     copyOfMyDeviceList[deviceType].push(device);
@@ -240,7 +274,7 @@ const App = () => {
         chooseActiveRequestRepairItem,
         setChooseActiveRequestRepairItem,
         history,
-        setHistory
+        setHistory,
     ];
 
     return (

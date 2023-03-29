@@ -37,7 +37,7 @@ export default function MainPanel(props) {
         chooseActiveRequestRepairItem,
         setChooseActiveRequestRepairItem,
         history,
-        setHistory
+        setHistory,
     ] = props.data;
 
     return (
