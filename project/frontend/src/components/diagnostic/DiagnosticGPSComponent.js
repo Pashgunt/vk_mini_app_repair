@@ -70,13 +70,15 @@ export default function DiagnosticGPSComponent(props) {
                     position: "relative"
                 }}>
                     <div style={{
-                        paddingTop:  platform === 'ios' ? '50px' : '12px',
+                        paddingTop: platform === 'ios' ? '50px' : '12px',
                         left: "0",
                         display: 'flex',
                         alignItems: 'center',
                         gap: "15px"
                     }}>
-                        <Icon28ChevronBack onClick={back} />
+                        <div>
+                            <Icon28ChevronBack onClick={back} />
+                        </div>
                         <Title>
                             GPS
                         </Title>

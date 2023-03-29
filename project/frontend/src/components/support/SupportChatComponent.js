@@ -59,7 +59,7 @@ export default function SupportChatComponent(props) {
     }, [setMessages])
 
     const back = () => {
-        
+
         let toPanel = history?.at(-2);
         setHistory([...history, toPanel])
         changeShowActivePanel(toPanel, state)
@@ -72,13 +72,17 @@ export default function SupportChatComponent(props) {
         }}>
             <Group mode="plain" separator="hide">
                 <Div style={{
-                    paddingTop:  platform === 'ios' ? '50px' : '12px',
+                    paddingTop: platform === 'ios' ? '50px' : '12px',
                     display: 'flex',
                     alignItems: 'center',
                     gap: "15px"
                 }}>
-                    <Icon28ChevronBack onClick={back} />
-                    <Icon24Help fill="#2688eb" width={36} height={36} />
+                    <div>
+                        <Icon28ChevronBack onClick={back} />
+                    </div>
+                    <div>
+                        <Icon24Help fill="#2688eb" width={36} height={36} />
+                    </div>
                     <Title style={{
                         marginLeft: "10px"
                     }}>

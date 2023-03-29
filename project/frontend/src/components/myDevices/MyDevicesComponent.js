@@ -118,11 +118,14 @@ export default function MyDevicesComponents(props) {
                             alignItems: 'center',
                             gap: "15px"
                         }}
-                            ref={headerRef}>
-                            <Icon28ChevronBack onClick={() => {
-                                addActionLogItem("");
-                                changeShowActivePanel(state.panels.panel_mainScreen, state)
-                            }} />
+                            ref={headerRef}
+                        >
+                            <div>
+                                <Icon28ChevronBack onClick={() => {
+                                    addActionLogItem("");
+                                    changeShowActivePanel(state.panels.panel_mainScreen, state)
+                                }} />
+                            </div>
                             <Title>
                                 Добавить устройство
                             </Title>

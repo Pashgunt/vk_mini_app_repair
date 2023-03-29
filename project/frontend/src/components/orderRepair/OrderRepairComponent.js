@@ -226,7 +226,7 @@ export default function OrderRepairComponent(props) {
     const platform = usePlatform();
 
     const back = () => {
-        
+
         let toPanel = history?.at(-2);
         setHistory([...history, toPanel])
         changeShowActivePanel(toPanel, state)
@@ -272,10 +272,12 @@ export default function OrderRepairComponent(props) {
                         alignItems: 'center',
                         gap: "15px"
                     }} ref={headerRef}>
-                        <Icon28ChevronBack onClick={() => {
-                            addActionLogItem("");
-                            back();
-                        }} />
+                        <div>
+                            <Icon28ChevronBack onClick={() => {
+                                addActionLogItem("");
+                                back();
+                            }} />
+                        </div>
                         <Title>
                             Заказать ремонт
                         </Title>

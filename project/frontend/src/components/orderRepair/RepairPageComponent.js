@@ -43,7 +43,7 @@ export default function RepairPageComponent(props) {
     const platform = usePlatform();
 
     const back = () => {
-        
+
         let toPanel = history?.at(-2);
         setHistory([...history, toPanel])
         changeShowActivePanel(toPanel, state)
@@ -61,7 +61,9 @@ export default function RepairPageComponent(props) {
                 alignItems: 'center',
                 gap: "15px"
             }}>
-                <Icon28ChevronBack onClick={back} />
+                <div>
+                    <Icon28ChevronBack onClick={back} />
+                </div>
                 <Title>
                     Сервисное обслуживание
                 </Title>

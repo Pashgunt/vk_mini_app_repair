@@ -72,7 +72,7 @@ export default function SupportNearestMastersComponent(props) {
     }, []);
 
     const back = () => {
-        
+
         let toPanel = history?.at(-2);
         setHistory([...history, toPanel])
         changeShowActivePanel(toPanel, state)
@@ -86,10 +86,12 @@ export default function SupportNearestMastersComponent(props) {
             <Div style={{
                 paddingTop: platform === 'ios' ? '50px' : '12px',
                 display: 'flex',
-                alignItems: 'center'
+                alignItems: 'center',
+                gap: "15px"
             }}>
-                <Icon28ChevronBack onClick={back} />
-                <Spacing size={10} />
+                <div>
+                    <Icon28ChevronBack onClick={back} />
+                </div>
                 <Title style={{
                     marginLeft: "10px"
                 }}>

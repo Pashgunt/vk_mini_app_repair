@@ -57,7 +57,9 @@ export default function DiagnosticItemsComponents(props) {
                     alignItems: 'center',
                     gap: "15px"
                 }}>
-                    <Icon28ChevronBack onClick={back} />
+                    <div>
+                        <Icon28ChevronBack onClick={back} />
+                    </div>
                     <Title>
                         Диагностика
                     </Title>

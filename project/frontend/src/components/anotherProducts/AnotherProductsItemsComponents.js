@@ -38,7 +38,7 @@ export default function AnotherProductsItemsComponents(props) {
     const platform = usePlatform();
 
     const back = () => {
-        
+
         let toPanel = history?.at(-2);
         setHistory([...history, toPanel])
         changeShowActivePanel(toPanel, state)
@@ -55,7 +55,9 @@ export default function AnotherProductsItemsComponents(props) {
                 alignItems: 'center',
                 gap: "15px"
             }}>
-                <Icon28ChevronBack onClick={back} />
+                <div>
+                    <Icon28ChevronBack onClick={back} />
+                </div>
                 <Title>
                     Другие продукты
                 </Title>

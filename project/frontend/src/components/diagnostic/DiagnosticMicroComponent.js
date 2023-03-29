@@ -56,13 +56,15 @@ export default function DiagnosticMicroComponent(props) {
                 position: "relative"
             }}>
                 <div style={{
-                    paddingTop:  platform === 'ios' ? '50px' : '12px',
+                    paddingTop: platform === 'ios' ? '50px' : '12px',
                     left: "0",
                     display: 'flex',
                     alignItems: 'center',
-                    gap:"15px"
+                    gap: "15px"
                 }}>
-                    <Icon28ChevronBack onClick={back} />
+                    <div>
+                        <Icon28ChevronBack onClick={back} />
+                    </div>
                     <Title>
                         Микрофон
                     </Title>
@@ -72,7 +74,7 @@ export default function DiagnosticMicroComponent(props) {
             <Spacing size={80} />
 
             <RecorderControls recorderState={recorderState} handlers={handlers} />
-            <Spacing size={60}/>
+            <Spacing size={60} />
             <RecordingsList audio={audio} />
         </Div>
     </Fragment>)

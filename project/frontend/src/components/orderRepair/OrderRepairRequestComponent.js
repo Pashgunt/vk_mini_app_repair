@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Group, Div, Spacing, Title, InfoRow, Header, Textarea, Headline, Card, usePlatform, Button, SimpleCell, Tabs, TabsItem } from "@vkontakte/vkui";
-import { Icon28ChevronBack, Icon28CancelAltOutline } from "@vkontakte/icons";
+import { Icon28CancelAltOutline } from "@vkontakte/icons";
 
 export default function OrderRepairRequestComponent(props) {
     const [
@@ -36,7 +36,7 @@ export default function OrderRepairRequestComponent(props) {
     const platform = usePlatform();
 
     const back = () => {
-        
+
         let toPanel = history?.at(-2);
         setHistory([...history, toPanel])
         changeShowActivePanel(toPanel, state)
@@ -48,13 +48,15 @@ export default function OrderRepairRequestComponent(props) {
             background: state.setBgColor()
         }}>
             <Div style={{
-                paddingTop:  platform === 'ios' ? '50px' : '12px',
+                paddingTop: platform === 'ios' ? '50px' : '12px',
                 left: "0",
                 display: 'flex',
                 alignItems: 'center',
                 gap: "15px"
             }}>
-                <Icon28CancelAltOutline onClick={back} />
+                <div>
+                    <Icon28CancelAltOutline onClick={back} />
+                </div>
                 <Title>
                     Заказ на ремонт {chooseActiveRequestRepairItem.device} {chooseActiveRequestRepairItem.problem}
                 </Title>
