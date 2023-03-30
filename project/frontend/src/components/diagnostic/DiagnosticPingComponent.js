@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { Group, Div, Spacing, Title, Subhead, Card, Link, usePlatform } from "@vkontakte/vkui";
 import { Icon28ChevronBack, Icon28PlaySpeedOutline, Icon28SpeedometerMaxOutline } from "@vkontakte/icons";
-import PacmanLoader from "react-spinners/PacmanLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function DiagnosticPingComponent(props) {
     const [
@@ -38,13 +38,13 @@ export default function DiagnosticPingComponent(props) {
     const [loadingSpeed, setLoadingSpeed] = useState(false);
     const [pingData, setPingData] = useState('');
     const [internetSpeed, setInternetSpeed] = useState('');
-    const [color, setColor] = useState("#2688eb");
+    const [color, setColor] = useState("#666");
 
     const checkPing = async function () {
         await new Promise(resolve => setTimeout(resolve, 2000));
         let start = Date.now();
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', 'https://www.amazon.com/', true);
+        xhr.open('GET', '8.8.8.8', true);
         xhr.send();
         xhr.onload = function () {
             if (xhr.status != 200) {
@@ -64,7 +64,7 @@ export default function DiagnosticPingComponent(props) {
     const checkInternetSpeed = async function () {
         await new Promise(resolve => setTimeout(resolve, 2000));
         let xhrForPing = new XMLHttpRequest();
-        xhrForPing.open('GET', 'https://www.amazon.com/', true);
+        xhrForPing.open('GET', '8.8.8.8', true);
         xhrForPing.send();
         xhrForPing.onload = function () {
             if (xhrForPing.status != 200) {
@@ -72,7 +72,7 @@ export default function DiagnosticPingComponent(props) {
                 return;
             } else {
                 let xhr = new XMLHttpRequest();
-                xhr.open('GET', 'https://www.amazon.com/', true);
+                xhr.open('GET', '8.8.8.8', true);
                 xhr.send();
                 xhr.onload = function () {
                     if (xhr.status != 200) {
@@ -98,7 +98,7 @@ export default function DiagnosticPingComponent(props) {
     const override = {
         display: "block",
         margin: "0 auto",
-        borderColor: "red"
+        color: "#666"
     };
 
     const startPingTest = async function () {
@@ -153,16 +153,16 @@ export default function DiagnosticPingComponent(props) {
                             Скорость интернета <Icon28PlaySpeedOutline />
                         </Title>
                         <Spacing size={15} />
-                        {internetSpeed !== '' && <>
+                        {(internetSpeed && !loadingSpeed) && <>
                             <Title level="2" style={{
                                 color: "#666"
                             }}>Средняя скорость интернета: ~{internetSpeed} Mbps</Title>
                             <Spacing size={15} />
                         </>}
-                        <PacmanLoader
+                        <ClipLoader
                             color={color}
                             loading={loadingSpeed}
-                            size={30}
+                            size={60}
                             cssOverride={override}
                             aria-label="Loading Spinner"
                             data-testid="loader"
@@ -207,16 +207,16 @@ export default function DiagnosticPingComponent(props) {
                             Пинг <Icon28SpeedometerMaxOutline />
                         </Title>
                         <Spacing size={15} />
-                        {pingData && <>
+                        {(pingData && !loadingPing) && <>
                             <Title level="2" style={{
                                 color: "#666"
                             }}>Средний пинг: ~{pingData} мс</Title>
                             <Spacing size={15} />
                         </>}
-                        <PacmanLoader
+                        <ClipLoader
                             color={color}
                             loading={loadingPing}
-                            size={30}
+                            size={60}
                             cssOverride={override}
                             aria-label="Loading Spinner"
                             data-testid="loader"
