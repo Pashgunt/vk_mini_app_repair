@@ -1,6 +1,8 @@
-import { Div, Group, Spacing, Subhead, Title, Input, usePlatform, IconButton } from "@vkontakte/vkui";
+import { Div, Group, Subhead, Title, Input, usePlatform, IconButton } from "@vkontakte/vkui";
 import { Icon28ChevronBack, Icon24Help, Icon48WritebarSend } from "@vkontakte/icons";
 import { Fragment, useEffect, useRef, useState } from "react";
+import { Icon16Clear } from "@vkontakte/icons";
+
 export default function SupportChatComponent(props) {
     const [
         state,
@@ -64,6 +66,8 @@ export default function SupportChatComponent(props) {
         setHistory([...history, toPanel])
         changeShowActivePanel(toPanel, state)
     }
+
+    const clear = (refItem) => (refItem.current.value = '');
 
     return (<Fragment>
         <div style={{
@@ -145,6 +149,11 @@ export default function SupportChatComponent(props) {
                         type="text"
                         placeholder="Сообщение"
                         getRef={messageRef}
+                        after={
+                            <IconButton hoverMode="opacity" aria-label="Очистить поле" onClick={() => clear(messageRef)}>
+                                <Icon16Clear />
+                            </IconButton>
+                        }
                     />
                     <IconButton onClick={sendMessage}>
                         <Icon48WritebarSend fill="#2688eb" />

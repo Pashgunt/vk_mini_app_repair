@@ -1,6 +1,6 @@
 import { Group, Div, Spacing, Title, Subhead, Search, Separator, usePlatform } from "@vkontakte/vkui";
 import React, { Fragment, useEffect, useState } from "react";
-import { Icon28ChevronBack, Icon20ChevronRightOutline } from "@vkontakte/icons";
+import { Icon28ChevronBack, Icon20ChevronRightOutline, Icon16SearchOutline } from "@vkontakte/icons";
 
 export default function DevicePageComponent(props) {
 
@@ -127,7 +127,7 @@ export default function DevicePageComponent(props) {
                         paddingBottom: "0"
                     }}
                         onKeyUp={searchProblem}
-                        before=""
+                        before={<Icon16SearchOutline />}
                         placeholder="Расскажите нам о проблеме"
                     />
                 </Group>

@@ -1,8 +1,9 @@
 import { Fragment, useRef, useState, useEffect } from "react";
-import { Group, Div, Spacing, Title, CustomSelect, FormItem, Textarea, Input, Card, usePlatform, Button, Separator, Headline } from "@vkontakte/vkui";
+import { Group, Div, Spacing, Title, CustomSelect, FormItem, Textarea, Input, IconButton, usePlatform, Button, Separator, Headline } from "@vkontakte/vkui";
 import { Icon28ChevronBack, Icon20ChevronRightOutline } from "@vkontakte/icons";
 import MainFixedHeader from "../MainFixedHeader";
 import ClipLoader from "react-spinners/ClipLoader";
+import { Icon16Clear } from "@vkontakte/icons";
 
 export default function OrderRepairComponent(props) {
     const [
@@ -232,6 +233,8 @@ export default function OrderRepairComponent(props) {
         changeShowActivePanel(toPanel, state)
     }
 
+    const clear = (refItem) => (refItem.current.value = '');
+
     return (<Fragment>
         <div style={{
             position: "relative"
@@ -328,6 +331,11 @@ export default function OrderRepairComponent(props) {
                                     getRef={problemRef}
                                     defaultValue={problem}
                                     status={!isCorrectProblem ? 'error' : 'valid'}
+                                    after={
+                                        <IconButton hoverMode="opacity" aria-label="Очистить поле" onClick={() => clear(problemRef)}>
+                                            <Icon16Clear />
+                                        </IconButton>
+                                    }
                                 />
                                 {matchWordsList && <><Spacing size={12} /><Group mode={"card"}>
                                     {
@@ -387,6 +395,11 @@ export default function OrderRepairComponent(props) {
                                     onKeyUp={onChangeNameRefValue}
                                     defaultValue={userData.first_name ?? ''}
                                     status={!isCorrectName ? 'error' : 'valid'}
+                                    after={
+                                        <IconButton hoverMode="opacity" aria-label="Очистить поле" onClick={() => clear(nameRef)}>
+                                            <Icon16Clear />
+                                        </IconButton>
+                                    }
                                 />
                             </FormItem>
                             <FormItem top="Укажите номер телефона">
@@ -397,6 +410,11 @@ export default function OrderRepairComponent(props) {
                                     onKeyUp={onChangePhoneRefValue}
                                     defaultValue={userPhone ?? ''}
                                     status={!isCorrectPhone ? 'error' : 'valid'}
+                                    after={
+                                        <IconButton hoverMode="opacity" aria-label="Очистить поле" onClick={() => clear(phoneRef)}>
+                                            <Icon16Clear />
+                                        </IconButton>
+                                    }
                                 />
                             </FormItem>
                         </Div>

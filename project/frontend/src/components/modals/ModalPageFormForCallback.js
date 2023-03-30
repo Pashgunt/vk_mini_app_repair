@@ -1,5 +1,6 @@
-import { Div, Group, Title, Spacing, Input, Subhead, Button } from "@vkontakte/vkui";
-import React, { Fragment, useEffect, useState } from "react";
+import { Div, Group, Title, Spacing, Input, Subhead, IconButton } from "@vkontakte/vkui";
+import React, { Fragment, useEffect, useRef, useState } from "react";
+import { Icon16Clear } from "@vkontakte/icons";
 
 export default function ModalPageFormForCallback({ state, changeShowActiveModal, userData, userPhone, setUserPhone, setIsCorrectDataForConnect }) {
     const [correctPhone, setCorrectPhone] = useState(false);
@@ -43,6 +44,11 @@ export default function ModalPageFormForCallback({ state, changeShowActiveModal,
         }
     }
 
+    const userNameRef = useRef(null);
+    const phoneUserRef = useRef(null);
+
+    const clear = (refItem) => (refItem.current.value = '');
+
     return (
         <Fragment>
             <Div>
@@ -54,8 +60,14 @@ export default function ModalPageFormForCallback({ state, changeShowActiveModal,
                     <Input
                         type="text"
                         defaultValue={userData.first_name}
+                        getRef={userNameRef}
                         status={!correctUsername ? 'error' : 'valid'}
                         onKeyUp={changeUsername}
+                        after={
+                            <IconButton hoverMode="opacity" aria-label="Очистить поле" onClick={() => clear(userNameRef)}>
+                                <Icon16Clear />
+                            </IconButton>
+                        }
                     />
                     {!correctUsername && <Fragment>
                         <Spacing size={5} />
@@ -73,10 +85,16 @@ export default function ModalPageFormForCallback({ state, changeShowActiveModal,
                     <Spacing size={10} />
                     <Input
                         type="tel"
+                        getRef={phoneUserRef}
                         pattern="[0-9]{3}-[0-09]{3}-[0-9]{2}-[0-9]{2}"
                         defaultValue={userPhone}
                         status={!userPhone || !correctPhone ? 'error' : 'valid'}
                         onKeyUp={changePhoneNumberForUser}
+                        after={
+                            <IconButton hoverMode="opacity" aria-label="Очистить поле" onClick={() => clear(phoneUserRef)}>
+                                <Icon16Clear />
+                            </IconButton>
+                        }
                     />
                     <Spacing size={5} />
                     {!correctPhone ? <Subhead weight="3" style={{

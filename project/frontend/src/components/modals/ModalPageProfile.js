@@ -1,5 +1,6 @@
-import { Div, Group, Spacing, Title, Input, Link, Subhead } from "@vkontakte/vkui";
-import { Fragment, useEffect, useState } from "react";
+import { Div, Group, Spacing, Title, Input, Link, Subhead, IconButton } from "@vkontakte/vkui";
+import { Fragment, useEffect, useRef, useState } from "react";
+import {Icon16Clear} from "@vkontakte/icons";
 
 export default function ModalPageProfile({ state, changeShowActiveModal, userData, userPhone, setUserPhone }) {
 
@@ -18,6 +19,10 @@ export default function ModalPageProfile({ state, changeShowActiveModal, userDat
             setCorrectPhone(false);
         }
     }
+
+    const phoneUserRef = useRef(null);
+
+    const clear = (refItem) => (refItem.current.value = '');
 
     return (
         <Fragment>
@@ -48,6 +53,12 @@ export default function ModalPageProfile({ state, changeShowActiveModal, userDat
                         defaultValue={userPhone}
                         status={!userPhone ? 'error' : 'valid'}
                         onKeyUp={changePhoneNumberForUser}
+                        getRef={phoneUserRef}
+                        after={
+                            <IconButton hoverMode="opacity" aria-label="Очистить поле" onClick={() => clear(phoneUserRef)}>
+                                <Icon16Clear />
+                            </IconButton>
+                        }
                     />
                     <Spacing size={5} />
                     {!userPhone || !correctPhone ? <Subhead weight="3" style={{

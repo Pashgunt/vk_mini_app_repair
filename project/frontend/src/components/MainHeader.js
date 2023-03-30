@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { Group, Search, Title, Div, Spacing } from "@vkontakte/vkui";
-import { Icon28Profile } from '@vkontakte/icons';
+import { Icon28Profile, Icon16SearchOutline } from '@vkontakte/icons';
 
 export default function MainHeader({ state, setIsScroll, changeShowActiveModal }) {
 
@@ -43,7 +43,9 @@ export default function MainHeader({ state, setIsScroll, changeShowActiveModal }
                 <Search style={{
                     paddingBottom: "0"
                 }}
-                    before=""
+                    before={
+                        <Icon16SearchOutline />
+                    }
                     placeholder={state.components.mainHeader.placeholder}
                     onClick={() => changeShowActiveModal(state.panels.modal_searchProblem, state)}
                 />

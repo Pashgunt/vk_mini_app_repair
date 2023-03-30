@@ -143,7 +143,9 @@ export default function ModalRootComponent(props) {
                 size={"m"}
                 header={
                     <ModalPageHeader
-                        before={<PanelHeaderClose onClick={() => changeShowActiveModal(null, state)} />}
+                        before={<div>
+                            <PanelHeaderClose onClick={() => changeShowActiveModal(null, state)} />
+                        </div>}
                     >
                         Профиль
                     </ModalPageHeader>

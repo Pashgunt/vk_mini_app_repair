@@ -1,7 +1,7 @@
 import { Div, Group, Spacing, Title, Search, CardScroll, Card, Headline, usePlatform } from "@vkontakte/vkui";
 import { Icon28ChevronBack } from '@vkontakte/icons';
 import { Fragment, useEffect, useRef, useState } from "react";
-import { Icon20AddSquareOutline, Icon20DeleteOutline } from '@vkontakte/icons';
+import { Icon20AddSquareOutline, Icon20DeleteOutline, Icon16SearchOutline } from '@vkontakte/icons';
 import MainFixedHeader from "../MainFixedHeader";
 
 export default function MyDevicesComponents(props) {
@@ -135,7 +135,7 @@ export default function MyDevicesComponents(props) {
                 <Search style={{
                     paddingBottom: "0"
                 }}
-                    before=""
+                    before={<Icon16SearchOutline />}
                     placeholder={state.components.addDeviceHeader.placeholder}
                     onKeyUp={searchDevice}
                 />
