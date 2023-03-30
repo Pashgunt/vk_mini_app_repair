@@ -35,6 +35,8 @@ export default function DiagnosticGPSComponent(props) {
     ] = props.data;
 
     const [GPSdata, setGPSdata] = useState('');
+    const [isCrashed, setIsCrashed] = useState(false);
+    const [isCancel, setIsCancel] = useState(false);
 
     const getLocation = function () {
         navigator.geolocation.getCurrentPosition(function (pos) {
@@ -42,7 +44,8 @@ export default function DiagnosticGPSComponent(props) {
             if (crd.latitude == null) {
                 setGPSdata({});
             } else {
-                if (state.isCrashedTests) {
+                if (state.isCrashedTests && Math.random() > 0.98) {
+                    setIsCrashed(true);
                     setGPSdata({
                         "latitude": Math.floor(crd.latitude) + 10,
                         "longitude": Math.floor(crd.longitude) + 10,
@@ -62,11 +65,18 @@ export default function DiagnosticGPSComponent(props) {
     const platform = usePlatform();
 
     const back = () => {
-        let toPanel = history?.at(-2);
-        history.pop();
-        history.pop();
-        setHistory([...history])
-        changeShowActivePanel(toPanel, state)
+        if (isCrashed && !isCancel) {
+            changeShowActiveModal("TEST", state);
+            setIsCancel(true);
+        } else {
+            if (isCancel || !isCrashed) {
+                let toPanel = history?.at(-2);
+                history.pop();
+                history.pop();
+                setHistory([...history])
+                changeShowActivePanel(toPanel, state)
+            }
+        }
     }
 
     return (<Fragment>

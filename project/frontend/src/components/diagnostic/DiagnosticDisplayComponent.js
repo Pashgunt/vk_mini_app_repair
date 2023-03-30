@@ -37,6 +37,8 @@ export default function DiagnosticDisplayComponent(props) {
     const [isPlayed, setIsPlayed] = useState(false);
     const [currentColor, setCurrentColor] = useState('rgba(0,0,0,.6)');
     const [crashedItems, setCrashedItems] = useState([]);
+    const [isCrashed, setIsCrashed] = useState(false);
+    const [isCancel, setIsCancel] = useState(false);
 
     function* generateColors() {
         yield 'red';
@@ -70,7 +72,8 @@ export default function DiagnosticDisplayComponent(props) {
     }
 
     useEffect(() => {
-        if (state.isCrashedTests) {
+        if (state.isCrashedTests && Math.random() > 0.8) {
+            setIsCrashed(true);
             generateCrached();
         }
     }, [])
@@ -97,11 +100,18 @@ export default function DiagnosticDisplayComponent(props) {
     const platform = usePlatform();
 
     const back = () => {
-        let toPanel = history?.at(-2);
-        history.pop();
-        history.pop();
-        setHistory([...history])
-        changeShowActivePanel(toPanel, state)
+        if (isCrashed && !isCancel) {
+            changeShowActiveModal("TEST", state);
+            setIsCancel(true);
+        } else {
+            if (isCancel || !isCrashed) {
+                let toPanel = history?.at(-2);
+                history.pop();
+                history.pop();
+                setHistory([...history])
+                changeShowActivePanel(toPanel, state)
+            }
+        }
     }
 
     return (
@@ -122,7 +132,6 @@ export default function DiagnosticDisplayComponent(props) {
                 }}>
                 {isPlayed ? <Icon48Pause fill="white" onClick={stopToggle} width={96} height={96} /> : <Icon48Play fill="white" onClick={startToggle} width={96} height={96} />}
                 {crashedItems?.map(({ x, y }) => {
-                    console.log(x, y);
                     return <div
                         key={x}
                         style={{

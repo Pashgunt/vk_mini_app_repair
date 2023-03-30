@@ -38,17 +38,25 @@ export default function DiagnosticSoundComponent(props) {
     const audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
     const [isPlayed, setIsPlayed] = useState(false);
     const [intervalID, setIntervalID] = useState(null);
+    const [isCrashed, setIsCrashed] = useState(false);
+    const [isCancel, setIsCancel] = useState(false);
 
     const startPlay = function () {
         setIsPlayed(true);
         audio.play();
-        const intervalIDValue = setInterval(() => {
-            lineRef.current.style.width = `${Math.floor(Math.random() * (parentLineRef.current.offsetWidth - 10 + 1) + 10)}px`
-            if (state.isCrashedTests) {
+        if (state.isCrashedTests && Math.random() > 0.95) {
+            setIsCrashed(true);
+            const intervalIDValue = setInterval(() => {
+                lineRef.current.style.width = `${Math.floor(Math.random() * (parentLineRef.current.offsetWidth - 10 + 1) + 10)}px`
                 audio.volume = Math.random();
-            }
-        }, 200);
-        setIntervalID(intervalIDValue);
+            }, 200);
+            setIntervalID(intervalIDValue);
+        } else {
+            const intervalIDValue = setInterval(() => {
+                lineRef.current.style.width = `${Math.floor(Math.random() * (parentLineRef.current.offsetWidth - 10 + 1) + 10)}px`
+            }, 200);
+            setIntervalID(intervalIDValue);
+        }
     }
 
     const stopPlay = function () {
@@ -64,11 +72,18 @@ export default function DiagnosticSoundComponent(props) {
     const platform = usePlatform();
 
     const back = () => {
-        let toPanel = history?.at(-2);
-        history.pop();
-        history.pop();
-        setHistory([...history])
-        changeShowActivePanel(toPanel, state)
+        if (isCrashed && !isCancel) {
+            changeShowActiveModal("TEST", state);
+            setIsCancel(true);
+        } else {
+            if (isCancel || !isCrashed) {
+                let toPanel = history?.at(-2);
+                history.pop();
+                history.pop();
+                setHistory([...history])
+                changeShowActivePanel(toPanel, state)
+            }
+        }
     }
 
     return (<Fragment>

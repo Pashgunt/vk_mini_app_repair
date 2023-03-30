@@ -39,6 +39,8 @@ export default function DiagnosticPingComponent(props) {
     const [pingData, setPingData] = useState('');
     const [internetSpeed, setInternetSpeed] = useState('');
     const [color, setColor] = useState("#666");
+    const [isCrashed, setIsCrashed] = useState(false);
+    const [isCancel, setIsCancel] = useState(false);
 
     const checkPing = async function () {
         await new Promise(resolve => setTimeout(resolve, 2000));
@@ -59,6 +61,9 @@ export default function DiagnosticPingComponent(props) {
             return false;
         };
         setLoadingPing(false);
+        if (state.isCrashedTests && Math.random() > 0.95) {
+            setIsCrashed(true);
+        }
     }
 
     const checkInternetSpeed = async function () {
@@ -92,7 +97,9 @@ export default function DiagnosticPingComponent(props) {
             setInternetSpeed(0);
             return;
         };
-
+        if (state.isCrashedTests && Math.random() > 0.95) {
+            setIsCrashed(true);
+        }
     }
 
     const override = {
@@ -114,11 +121,18 @@ export default function DiagnosticPingComponent(props) {
     const platform = usePlatform();
 
     const back = () => {
-        let toPanel = history?.at(-2);
-        history.pop();
-        history.pop();
-        setHistory([...history])
-        changeShowActivePanel(toPanel, state)
+        if (isCrashed && !isCancel) {
+            changeShowActiveModal("TEST", state);
+            setIsCancel(true);
+        } else {
+            if (isCancel || !isCrashed) {
+                let toPanel = history?.at(-2);
+                history.pop();
+                history.pop();
+                setHistory([...history])
+                changeShowActivePanel(toPanel, state)
+            }
+        }
     }
 
     return (<Fragment>

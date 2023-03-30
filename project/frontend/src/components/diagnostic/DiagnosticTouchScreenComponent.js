@@ -40,7 +40,7 @@ export default function DiagnosticTouchScreenComponent(props) {
     const blockForDraw = function (key) {
         return (
             <div
-                className={classElem}
+                className="block"
                 onMouseOver={mouseOver}
                 onClick={mouseClick}
                 onTouchStart={touchStart}

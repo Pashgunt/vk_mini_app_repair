@@ -37,6 +37,8 @@ export default function DiagnosticDrawComponent(props) {
     const contextRef = useRef(null);
 
     const [isDrawing, setIsDrawing] = useState(false)
+    const [isCrashed, setIsCrashed] = useState(false);
+    const [isCancel, setIsCancel] = useState(false);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -65,7 +67,8 @@ export default function DiagnosticDrawComponent(props) {
         contextRef.current.beginPath();
         contextRef.current.moveTo(offsetX, offsetY);
         setIsDrawing(true);
-        if (state.isCrashedTests) {
+        if (state.isCrashedTests && Math.random() > 0.8) {
+            setIsCrashed(true);
             setInterval(function () {
                 later(2000).then(data => {
                     contextRef.current.closePath();
@@ -110,11 +113,18 @@ export default function DiagnosticDrawComponent(props) {
     const platform = usePlatform();
 
     const back = () => {
-        let toPanel = history?.at(-2);
-        history.pop();
-        history.pop();
-        setHistory([...history])
-        changeShowActivePanel(toPanel, state)
+        if (isCrashed && !isCancel) {
+            changeShowActiveModal("TEST", state);
+            setIsCancel(true);
+        } else {
+            if (isCancel || !isCrashed) {
+                let toPanel = history?.at(-2);
+                history.pop();
+                history.pop();
+                setHistory([...history])
+                changeShowActivePanel(toPanel, state)
+            }
+        }
     }
 
     return (
