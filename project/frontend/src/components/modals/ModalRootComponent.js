@@ -1,4 +1,4 @@
-import { ModalPage, ModalRoot, ModalPageHeader, PanelHeaderButton, PanelHeaderClose } from "@vkontakte/vkui";
+import { ModalPage, ModalRoot, ModalPageHeader, PanelHeaderButton, ModalCard, Button } from "@vkontakte/vkui";
 import ModalSearchProblemPage from "./ModalSearchProblemPage";
 import ModalPageCreateRequestRepair from "./ModalPageCreateRequestRepair";
 import ModalPageChooseDevice from "./ModalPageChooseDevice";
@@ -8,6 +8,7 @@ import ModalPageFeedBackForm from "./ModalPageFeedBackForm";
 import ModalPageProfile from "./ModalPageProfile";
 import ModalPageGifts from "./ModalPageGifts";
 import { useState } from "react";
+import { Icon56MoneyTransferOutline } from "@vkontakte/icons";
 
 export default function ModalRootComponent(props) {
     const [
@@ -60,6 +61,24 @@ export default function ModalRootComponent(props) {
                     setIsCorrectDataForConnect={setIsCorrectDataForConnect}
                 />
             </ModalPage >
+            <ModalCard
+                id={"TEST"}
+                onClose={() => changeShowActiveModal(null, state)}
+                icon={<Icon56MoneyTransferOutline />}
+                size={"m"}
+                header="Проверьте своё устройство по всем направлениям"
+                subheader="Для тестирования устройства желательно пройти каждый тест миниумм 5 раз, если в течении какого то теста обнаружатся проблемы, то приложение автоматически предложит варианты исправления"
+                actions={
+                    <Button
+                        size="l"
+                        mode="primary"
+                        stretched
+                        onClick={() => changeShowActiveModal(null, state)}
+                    >
+                        Попробовать
+                    </Button>
+                }
+            ></ModalCard>
             <ModalPage
                 id={state.panels.modal_feedbackForm}
                 onClose={() => changeShowActiveModal(null, state)}

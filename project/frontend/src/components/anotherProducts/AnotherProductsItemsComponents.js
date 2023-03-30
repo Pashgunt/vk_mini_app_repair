@@ -63,10 +63,7 @@ export default function AnotherProductsItemsComponents(props) {
                 </Title>
             </Div>
             <Spacing size={15} />
-            <Div style={{
-                paddingTop: 0,
-                paddingBottom: 0
-            }}>
+            <div>
                 <CardGrid size="m">
                     {
                         Object.keys(cards).map((title, index) => {
@@ -81,7 +78,7 @@ export default function AnotherProductsItemsComponents(props) {
                         })
                     }
                 </CardGrid>
-            </Div>
+            </div>
         </Group>
     </Fragment>);
 }

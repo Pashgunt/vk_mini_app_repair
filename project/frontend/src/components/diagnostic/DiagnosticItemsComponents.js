@@ -32,7 +32,7 @@ export default function DiagnosticItemsComponents(props) {
         chooseActiveRequestRepairItem,
         setChooseActiveRequestRepairItem,
         history,
-        setHistory
+        setHistory,
     ] = props.data;
 
     const cards = state.components.diagnostics.tools;
@@ -65,10 +65,7 @@ export default function DiagnosticItemsComponents(props) {
                     </Title>
                 </Div>
                 <Spacing size={15} />
-                <Div style={{
-                    paddingTop: 0,
-                    paddingBottom: 0
-                }}>
+                <div>
                     <CardGrid size="m">
                         {
                             Object.keys(cards).map((title, index) => {
@@ -88,7 +85,7 @@ export default function DiagnosticItemsComponents(props) {
                             })
                         }
                     </CardGrid>
-                </Div>
+                </div>
             </Group>
         </Fragment>
     );

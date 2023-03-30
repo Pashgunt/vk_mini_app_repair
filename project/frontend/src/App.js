@@ -11,7 +11,7 @@ import {
     WebviewType,
     PopoutWrapper,
     Button,
-    Spacing
+    Spacing,
 } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 import MainPanel from "./components/MainPanel";
@@ -57,6 +57,7 @@ const App = () => {
     const [chooseActiveRequestRepairItem, setChooseActiveRequestRepairItem] = useState(null);
     const [showLoader, setShowLoader] = useState(false);
     const [history, setHistory] = useState([state.panels.panel_mainScreen]);
+    const [showPageDiagnostic, setShowPageDiagnostic] = useState(false);
 
     const changeShowActiveModal = function (newModal, state) {
         setActiveModal(newModal);
@@ -100,6 +101,7 @@ const App = () => {
                 <Button size="l" appearance="positive" stretched onClick={() => {
                     setPopout(null);
                     changeShowActivePanel(state.panels.panel_diagnosticItems, state);
+                    setShowPageDiagnostic(true);
                 }}>
                     Продолжить
                 </Button>
@@ -274,8 +276,13 @@ const App = () => {
         chooseActiveRequestRepairItem,
         setChooseActiveRequestRepairItem,
         history,
-        setHistory,
+        setHistory
     ];
+
+    if (showPageDiagnostic) {
+        changeShowActiveModal("TEST", state);
+        setShowPageDiagnostic(false);
+    }
 
     return (
         <ConfigProvider
