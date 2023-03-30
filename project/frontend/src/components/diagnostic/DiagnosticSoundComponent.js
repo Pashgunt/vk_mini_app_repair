@@ -44,7 +44,10 @@ export default function DiagnosticSoundComponent(props) {
         audio.play();
         const intervalIDValue = setInterval(() => {
             lineRef.current.style.width = `${Math.floor(Math.random() * (parentLineRef.current.offsetWidth - 10 + 1) + 10)}px`
-        }, 300);
+            if (state.isCrashedTests) {
+                audio.volume = Math.random();
+            }
+        }, 200);
         setIntervalID(intervalIDValue);
     }
 

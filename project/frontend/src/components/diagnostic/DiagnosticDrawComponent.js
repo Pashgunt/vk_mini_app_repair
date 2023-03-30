@@ -1,4 +1,4 @@
-import { Group, Div,usePlatform} from '@vkontakte/vkui';
+import { Group, Div, usePlatform } from '@vkontakte/vkui';
 import { Icon28ChevronBack, Icon28ClearDataOutline } from "@vkontakte/icons";
 import { Fragment, useEffect, useRef, useState } from 'react';
 
@@ -54,11 +54,30 @@ export default function DiagnosticDrawComponent(props) {
         document.body.style.overflow = "hidden";
     }, [])
 
+    function later(delay) {
+        return new Promise(function (resolve) {
+            setTimeout(resolve, delay);
+        });
+    }
+
     const startDrawing = function ({ nativeEvent }) {
         const { offsetX, offsetY } = nativeEvent;
         contextRef.current.beginPath();
         contextRef.current.moveTo(offsetX, offsetY);
         setIsDrawing(true);
+        if (state.isCrashedTests) {
+            setInterval(function () {
+                later(2000).then(data => {
+                    contextRef.current.closePath();
+                    setIsDrawing(false);
+                    return later(500)
+                }).then(result => {
+                    contextRef.current.beginPath();
+                    contextRef.current.moveTo(offsetX, offsetY);
+                    setIsDrawing(true);
+                })
+            }, 4000)
+        }
     }
 
     const finishDrawing = function () {
@@ -107,7 +126,7 @@ export default function DiagnosticDrawComponent(props) {
             }}>
                 <Div style={{
                     position: "absolute",
-                    top:  platform === 'ios' ? '50px' : '12px',
+                    top: platform === 'ios' ? '50px' : '12px',
                     left: "0",
                     display: 'flex',
                     gap: "15px"

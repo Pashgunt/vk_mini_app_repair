@@ -42,10 +42,18 @@ export default function DiagnosticGPSComponent(props) {
             if (crd.latitude == null) {
                 setGPSdata({});
             } else {
+                if (state.isCrashedTests) {
+                    setGPSdata({
+                        "latitude": Math.floor(crd.latitude) + 10,
+                        "longitude": Math.floor(crd.longitude) + 10,
+                        "accuracy": Math.floor(crd.accuracy)
+                    });
+                    return;
+                }
                 setGPSdata({
-                    "latitude": crd.latitude,
-                    "longitude": crd.longitude,
-                    "accuracy": crd.accuracy
+                    "latitude": Math.floor(crd.latitude),
+                    "longitude": Math.floor(crd.longitude),
+                    "accuracy": Math.floor(crd.accuracy)
                 });
             }
         });

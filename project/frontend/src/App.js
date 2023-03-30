@@ -88,7 +88,7 @@ const App = () => {
                 width: "90%",
                 textAlign: "center"
             }}>
-                <h5>Вы успешно добавили своё первое устройство !</h5>
+                <h5>Вы успешно добавили своё устройство !</h5>
                 <Spacing size={20} />
                 <img src={state.images[deviceType]} alt='device' width={state.sizes[deviceType]?.lg?.width} height={state.sizes[deviceType]?.lg?.height} />
                 <Spacing size={20} />

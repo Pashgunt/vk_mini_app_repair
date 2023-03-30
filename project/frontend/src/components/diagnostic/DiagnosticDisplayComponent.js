@@ -1,5 +1,5 @@
 import { Group, Div, usePlatform } from "@vkontakte/vkui";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Icon48Play, Icon48Pause, Icon28ChevronBack } from '@vkontakte/icons';
 
 export default function DiagnosticDisplayComponent(props) {
@@ -36,12 +36,44 @@ export default function DiagnosticDisplayComponent(props) {
     const [intervalID, setIntervalID] = useState(null);
     const [isPlayed, setIsPlayed] = useState(false);
     const [currentColor, setCurrentColor] = useState('rgba(0,0,0,.6)');
+    const [crashedItems, setCrashedItems] = useState([]);
 
     function* generateColors() {
         yield 'red';
         yield 'green';
         return 'blue';
     }
+
+    function generateCrached() {
+        const width = window.screen.width,
+            height = window.screen.height,
+            left = 0,
+            top = 0;
+        let coords = [],
+            count = 0,
+            promise = new Promise((resolve, reject) => {
+                let intervalCrashedID = setInterval(function () {
+                    count += 1;
+                    coords.push({
+                        'x': Math.floor(Math.random() * (width - left) + left),
+                        'y': Math.floor(Math.random() * (height - top) + top)
+                    })
+                    if (count === 7) {
+                        clearInterval(intervalCrashedID);
+                        resolve(coords);
+                    }
+                }, 50);
+            });
+        promise.then(coords => {
+            setCrashedItems(coords);
+        })
+    }
+
+    useEffect(() => {
+        if (state.isCrashedTests) {
+            generateCrached();
+        }
+    }, [])
 
     let generator = generateColors();
 
@@ -85,9 +117,23 @@ export default function DiagnosticDisplayComponent(props) {
                     backgroundColor: currentColor,
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center"
+                    alignItems: "center",
+                    position: "relative"
                 }}>
                 {isPlayed ? <Icon48Pause fill="white" onClick={stopToggle} width={96} height={96} /> : <Icon48Play fill="white" onClick={startToggle} width={96} height={96} />}
+                {crashedItems?.map(({ x, y }) => {
+                    console.log(x, y);
+                    return <div
+                        key={x}
+                        style={{
+                            position: "absolute",
+                            top: `${x}px`,
+                            left: `${y}px`,
+                            width: '1px',
+                            height: '1px',
+                            background: "black"
+                        }}></div>;
+                })}
                 <Div style={{
                     display: "flex",
                     gap: "15px",

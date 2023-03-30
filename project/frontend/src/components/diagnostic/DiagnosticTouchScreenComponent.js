@@ -40,7 +40,7 @@ export default function DiagnosticTouchScreenComponent(props) {
     const blockForDraw = function (key) {
         return (
             <div
-                className="block"
+                className={classElem}
                 onMouseOver={mouseOver}
                 onClick={mouseClick}
                 onTouchStart={touchStart}
@@ -51,14 +51,14 @@ export default function DiagnosticTouchScreenComponent(props) {
                     width: "100%",
                     height: "100%",
                     borderRadius: "3px",
-                    background: state.setBgColor()
+                    background: state.setBgColor(),
                 }}></div>
         );
     }
 
     useEffect(() => {
         const height = document.body.offsetHeight,
-            elems = document.body.offsetWidth >= 768 ? parseInt(((height / 20)) * 100) : parseInt(((height / 30)) * 80);
+            elems = document.body.offsetWidth >= 768 ? parseInt(((height / 20)) * 30) : parseInt(((height / 30)) * 30);
         setCountOfCell(elems);
         document.body.style.overflow = "hidden";
     }, []);

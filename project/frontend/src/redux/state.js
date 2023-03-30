@@ -48,6 +48,7 @@ const state = {
     activeModal: null,
     problem: '',
     api: API,
+    isCrashedTests: 1,
     get problemText() {
         return this.problem || localStorage.getItem('problemText');
     },
@@ -629,10 +630,10 @@ const state = {
                     'img': 'lines',
                     'panel': GlobalEnums.panel_deiagnosticLines,
                 },
-                'Тачскрин': {
-                    'img': 'touch',
-                    'panel': GlobalEnums.panel_deiagnosticTochscreen,
-                },
+                // 'Тачскрин': {
+                //     'img': 'touch',
+                //     'panel': GlobalEnums.panel_deiagnosticTochscreen,
+                // },
                 'Пинг': {
                     'img': 'ping',
                     'panel': GlobalEnums.panel_deiagnosticPing,
