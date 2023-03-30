@@ -3,7 +3,6 @@ import { Div } from "@vkontakte/vkui";
 import { Icon20ChevronRightOutline } from "@vkontakte/icons";
 
 export default function ModalPageCardDevice({
-    key,
     style,
     title,
     imageName,
@@ -16,8 +15,8 @@ export default function ModalPageCardDevice({
     setChooseDevice
 }) {
     return (
-        <Fragment>
-            <Div style={style} key={key}
+        <Fragment key={title}>
+            <Div style={style}
                 onClick={() => {
                     let device = `${title}  ${userData ? `(${userData?.first_name})` : ''}`;
                     setChooseDevice(device)

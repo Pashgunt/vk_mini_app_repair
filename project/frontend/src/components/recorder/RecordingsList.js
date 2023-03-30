@@ -14,13 +14,13 @@ export default function RecordingsList({ audio }) {
           </Title>
           <Spacing size={30} />
           <div>
-            {recordings.map((record) => (
+            {recordings.map((record, index) => (
               <>
                 <div style={{
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                }} key={record.key}>
+                }} key={index}>
                   <audio controls src={record.audio} />
                   <Icon24DeleteOutline onClick={() => deleteAudio(record.key)} width={32} height={32} fill="#999" />
                 </div>

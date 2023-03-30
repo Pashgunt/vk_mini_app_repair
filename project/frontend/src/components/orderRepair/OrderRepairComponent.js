@@ -80,6 +80,7 @@ export default function OrderRepairComponent(props) {
                 label: 'МОИ УСТРОЙСТВА',
                 disabled: true,
                 value: '',
+                key: 'default_my_devices'
             },
         ];
 
@@ -88,7 +89,8 @@ export default function OrderRepairComponent(props) {
             devices[deviceType].forEach(deviceName => {
                 let dataForPush = {
                     label: `${deviceName} (${userData.first_name})`,
-                    value: deviceName
+                    value: deviceName,
+                    key: deviceName
                 };
                 options.push(dataForPush);
             })
@@ -105,11 +107,13 @@ export default function OrderRepairComponent(props) {
             label: 'ОБЩАЯ ПОМОЩЬ',
             disabled: true,
             value: '',
+            key: 'default_devices'
         });
         Object.keys(cards.images).forEach(label => {
             let dataForPush = {
                 label: label,
-                value: label
+                value: label,
+                key: label
             };
             options.push(dataForPush);
         })
@@ -227,7 +231,6 @@ export default function OrderRepairComponent(props) {
     const platform = usePlatform();
 
     const back = () => {
-
         let toPanel = history?.at(-2);
         setHistory([...history, toPanel])
         changeShowActivePanel(toPanel, state)

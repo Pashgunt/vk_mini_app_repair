@@ -142,9 +142,11 @@ export default function MyDevicesComponents(props) {
                 <Spacing size={15} />
                 <CardScroll size={false}>
                     {
-                        Object.keys(state.components.addDeviceHeader.deviceCards.types).map((title) => {
+                        Object.keys(state.components.addDeviceHeader.deviceCards.types).map(title => {
                             return (
-                                <Card onClick={event => chooseCategory(event, state.components.addDeviceHeader.deviceCards.types[title]['img'])} key={state.components.addDeviceHeader.deviceCards.types[title]['img']}
+                                <Card
+                                    key={title}
+                                    onClick={event => chooseCategory(event, state.components.addDeviceHeader.deviceCards.types[title]['img'])}
                                     style={state.components.addDeviceHeader.deviceCards.types[title]['img'] === searchCategory ? {
                                         background: '#666',
                                         color: "white"
@@ -182,9 +184,9 @@ export default function MyDevicesComponents(props) {
                 <Div>
                     {searchDeviceList ?
                         searchCategory ?
-                            searchDeviceList[searchCategory]?.map((device, index) => {
-                                return (<>
-                                    <Card key={index} onClick={() => deciderForAddOrRemove(device, searchCategory)}>
+                            searchDeviceList[searchCategory]?.map(device => {
+                                return (<Fragment key={device}>
+                                    <Card onClick={() => deciderForAddOrRemove(device, searchCategory)}>
                                         <Div style={!myDeviceList[searchCategory]?.includes(device) ? {
                                             display: "flex",
                                             alignItems: "center",
@@ -205,7 +207,7 @@ export default function MyDevicesComponents(props) {
                                         </Div>
                                     </Card>
                                     <Spacing size={10} />
-                                </>
+                                </Fragment>
                                 );
                             })
                             : <Headline style={{

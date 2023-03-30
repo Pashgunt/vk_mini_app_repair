@@ -56,8 +56,8 @@ export default function MainRepairComponent({
                         (requestsForRepair?.current?.length ?
                             <>
                                 {requestsForRepair?.current?.slice(0, 3)?.map((item, index) => {
-                                    return (<>
-                                        <Card key={index}>
+                                    return (<div key={item + index}>
+                                        <Card>
                                             <Div style={{ padding: "0px" }} onClick={() => chooseDetailPageForRepairRequest(item)}>
                                                 <SimpleCell after={
                                                     <Icon20ChevronRightOutline />
@@ -71,7 +71,7 @@ export default function MainRepairComponent({
                                             </Div>
                                         </Card>
                                         {requestsForRepair?.current?.slice(0, 3).length - 1 !== index && <Spacing size={10} />}
-                                    </>
+                                    </div>
                                     );
                                 })}
                                 {
@@ -98,8 +98,8 @@ export default function MainRepairComponent({
                         (requestsForRepair?.all?.length ?
                             <>
                                 {requestsForRepair?.all?.slice(0, 3)?.map((item, index) => {
-                                    return (<>
-                                        <Card key={index}>
+                                    return (<div key={item + index}>
+                                        <Card>
                                             <Div style={{ padding: "0px" }} onClick={() => chooseDetailPageForRepairRequest(item)}>
                                                 <SimpleCell after={
                                                     <Icon20ChevronRightOutline />
@@ -113,7 +113,7 @@ export default function MainRepairComponent({
                                             </Div>
                                         </Card>
                                         {requestsForRepair?.current?.slice(0, 3).length - 1 !== index && <Spacing size={10} />}
-                                    </>
+                                    </div>
                                     );
                                 })}
                                 {

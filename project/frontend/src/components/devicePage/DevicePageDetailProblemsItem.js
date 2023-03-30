@@ -65,14 +65,13 @@ export default function DevicePageDetailProblemsItem(props) {
                 <Div>
                     <Group mode="card">
                         {state.detailProblemList['detail'].map((value, index) => {
-                            return (<>
+                            return (<Fragment key={index}>
                                 <Div
                                     onClick={() => {
                                         setProblem(value);
                                         changeShowActiveModal(state.panels.modal_sendRequestForRepair, state);
                                         changeShowActivePanel(state.panels.panel_mainScreen, state);
                                     }}
-                                    key={index}
                                     style={{
                                         display: "flex",
                                         alignItems: "center",
@@ -84,7 +83,7 @@ export default function DevicePageDetailProblemsItem(props) {
                                     <Icon20ChevronRightOutline />
                                 </Div>
                                 {index !== state.detailProblemList['detail'].length - 1 && <Separator />}
-                            </>
+                            </Fragment>
                             )
                         })}
                     </Group>

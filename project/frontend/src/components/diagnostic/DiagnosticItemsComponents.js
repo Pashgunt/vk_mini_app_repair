@@ -72,17 +72,19 @@ export default function DiagnosticItemsComponents(props) {
                     <CardGrid size="m">
                         {
                             Object.keys(cards).map((title, index) => {
-                                return <MainCardDiagnostic
-                                    title={title}
-                                    key={index}
-                                    state={state}
-                                    image={state.images}
-                                    imageName={cards[title]['img']}
-                                    panel={cards[title]['panel']}
-                                    changeShowActivePanel={changeShowActivePanel}
-                                    history={history}
-                                    setHistory={setHistory}
-                                />
+                                return (<Fragment key={index}>
+                                    <MainCardDiagnostic
+                                        title={title}
+                                        key={index}
+                                        state={state}
+                                        image={state.images}
+                                        imageName={cards[title]['img']}
+                                        panel={cards[title]['panel']}
+                                        changeShowActivePanel={changeShowActivePanel}
+                                        history={history}
+                                        setHistory={setHistory}
+                                    />
+                                </Fragment>);
                             })
                         }
                     </CardGrid>

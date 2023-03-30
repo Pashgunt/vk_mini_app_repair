@@ -97,7 +97,11 @@ export default function ModalRootComponent(props) {
                 size={"l"}
                 header={
                     <ModalPageHeader
-                        before={<PanelHeaderClose onClick={() => changeShowActiveModal(null, state)} />}
+                        before={
+                            <PanelHeaderButton onClick={() => changeShowActiveModal(null, state)}>
+                                Назад
+                            </PanelHeaderButton>
+                        }
                         after={<PanelHeaderButton onClick={() => {
                             isCorrectDataForProblem && changeShowActiveModal(state.panels.modal_chooseDevice, state)
                         }}>
@@ -143,9 +147,9 @@ export default function ModalRootComponent(props) {
                 size={"m"}
                 header={
                     <ModalPageHeader
-                        before={<div>
-                            <PanelHeaderClose onClick={() => changeShowActiveModal(null, state)} />
-                        </div>}
+                        before={<PanelHeaderButton onClick={() => changeShowActiveModal(null, state)}>
+                            Назад
+                        </PanelHeaderButton>}
                     >
                         Профиль
                     </ModalPageHeader>
@@ -193,7 +197,9 @@ export default function ModalRootComponent(props) {
                 size={"m"}
                 header={
                     <ModalPageHeader
-                        before={<PanelHeaderClose onClick={() => changeShowActiveModal(null, state)} />}
+                        before={<PanelHeaderButton onClick={() => changeShowActiveModal(null, state)}>
+                            Назад
+                        </PanelHeaderButton>}
                     >
                         Помощь
                     </ModalPageHeader>
@@ -214,7 +220,9 @@ export default function ModalRootComponent(props) {
                 size={"l"}
                 header={
                     <ModalPageHeader
-                        before={<PanelHeaderClose onClick={() => changeShowActiveModal(null, state)} />}
+                        before={<PanelHeaderButton onClick={() => changeShowActiveModal(null, state)}>
+                            Назад
+                        </PanelHeaderButton>}
                     >
                         Подарки
                     </ModalPageHeader>

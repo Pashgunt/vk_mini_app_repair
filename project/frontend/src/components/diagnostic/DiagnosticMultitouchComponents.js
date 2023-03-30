@@ -94,15 +94,15 @@ export default function DiagnosticMultitouchComponents(props) {
                     gap: "10px",
                     position: "absolute",
                     top: "0",
-                    gap:"15px",
+                    gap: "15px",
                     left: "0"
                 }}>
                     <Icon28ChevronBack fill="white" onClick={back} />
                 </Div>
                 {
-                    Object.values(pointerIDs).map(position => {
+                    Object.values(pointerIDs).map((position, index) => {
                         return <div
-                            key={position}
+                            key={index}
                             style={{
                                 width: "100px",
                                 height: "100px",

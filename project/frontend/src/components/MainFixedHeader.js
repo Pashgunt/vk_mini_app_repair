@@ -8,7 +8,7 @@ export default function MainFixedHeader({ state, title, changeShowActiveModal, s
 
     return (
         <FixedLayout vertical="top" style={{
-            paddingTop:  platform === 'ios' ? '50px' : '12px',
+            paddingTop: platform === 'ios' ? '50px' : '12px',
             background: state.setBgColor(),
             borderBottom: state.setBgColor()
         }}>
@@ -34,9 +34,12 @@ export default function MainFixedHeader({ state, title, changeShowActiveModal, s
                         textAlign: "center"
                     }} weight="3">
                         <Spacing size={5} />
-                        <Title level="3">
+                        <div style={{
+                            fontWeight: "bold",
+                            fontSize: "18px"
+                        }}>
                             {title}
-                        </Title>
+                        </div>
                         <Spacing size={5} />
                     </Headline>
                 </div>

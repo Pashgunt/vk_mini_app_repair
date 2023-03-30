@@ -134,10 +134,9 @@ export default function DevicePageComponent(props) {
                 <Div>
                     <Group mode="card">
                         {Object.entries(resultSearch).map(([index, theme]) => {
-                            return (<>
+                            return (<Fragment key={index}>
                                 <Div
                                     onClick={() => clickByProblemType(index, theme)}
-                                    key={index.toString()}
                                     style={{
                                         display: "flex",
                                         alignItems: "center",
@@ -149,7 +148,7 @@ export default function DevicePageComponent(props) {
                                     <Icon20ChevronRightOutline />
                                 </Div>
                                 {resultSearch[Object.keys(resultSearch)[Object.keys(resultSearch).length - 1]] !== theme && <Separator />}
-                            </>
+                            </Fragment>
                             )
                         })}
                     </Group>

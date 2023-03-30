@@ -108,9 +108,10 @@ export default function SupportNearestMastersComponent(props) {
                         center: [59.935243, 30.327481],
                         zoom: 10
                     }}>
-                        {state.servicePlacemarks.map(item => {
+                        {state.servicePlacemarks.map((item, index) => {
                             return (
                                 <Placemark
+                                    key={index}
                                     geometry={item.coords}
                                     properties={item.properties}
                                     options={item.options}
@@ -120,9 +121,10 @@ export default function SupportNearestMastersComponent(props) {
                                 />
                             );
                         })}
-                        {state.engineerPlacemarks.map(item => {
+                        {state.engineerPlacemarks.map((item, index) => {
                             return (
                                 <Placemark
+                                    key={index}
                                     geometry={item.coords}
                                     properties={item.properties}
                                     options={item.options}

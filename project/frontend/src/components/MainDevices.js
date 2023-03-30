@@ -29,10 +29,10 @@ export default function MainDevices({ state, userData, myDeviceList, changeShowA
                 <Spacing size={10} />
                 <CardScroll size={false}>
                     {
-                        myDeviceList && Object.keys(myDeviceList).map(deviceType => {
-                            return myDeviceList[deviceType].map(deviceName => {
+                        myDeviceList && Object.keys(myDeviceList).map((deviceType) => {
+                            return myDeviceList[deviceType].map((deviceName) => {
                                 return (
-                                    <Card key={deviceType} onClick={() => {
+                                    <Card key={deviceName} onClick={() => {
                                         setHistory([...history, state.panels.panel_deviceInnerPage])
                                         changeShowActivePanel(state.panels.panel_deviceInnerPage, state)
                                         setChooseDevice(`${deviceName} ${userData ? `(${userData.first_name})` : ''}`)

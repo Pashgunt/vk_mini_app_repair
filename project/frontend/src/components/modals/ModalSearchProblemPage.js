@@ -62,14 +62,15 @@ export default function ModalSearchProblemPage({ state, changeShowActiveModal, p
                 <Spacing size={12} />
                 {matchWordsList && <Group mode={"card"}>
                     {
-                        matchWordsList.map(function (match) {
-                            return (<Fragment>
-                                <Div style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "space-between",
-                                    color: "#aaa"
-                                }}
+                        matchWordsList.map(match => {
+                            return (<Fragment key={match}>
+                                <Div
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        color: "#aaa"
+                                    }}
                                     onClick={clickByFastTypeButton}>
                                     <div
                                         dangerouslySetInnerHTML={{ __html: match.replace(problem, `<span style="color: black">${problem}</span>`) }}>

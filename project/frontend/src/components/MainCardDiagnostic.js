@@ -2,10 +2,12 @@ import { Card, Div, Headline } from "@vkontakte/vkui";
 
 export default function MainCardDiagnostic(props) {
     return (
-        <Card style={{
-            display: "flex",
-            justifyContent: "center",
-        }}
+        <Card
+            key={props.title}
+            style={{
+                display: "flex",
+                justifyContent: "center",
+            }}
             onClick={() => {
                 props.setHistory([...props.history, props.panel])
                 props.changeShowActivePanel(props.panel, props.state)

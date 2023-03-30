@@ -141,7 +141,7 @@ export default function DiagnosticTouchScreenComponent(props) {
                     <Div
                         style={{
                             fontSize: "20px",
-                            textAlign:"center"
+                            textAlign: "center"
                         }}
                     >
                         Данный тест не доступен для Вашего экрана
@@ -166,7 +166,7 @@ export default function DiagnosticTouchScreenComponent(props) {
                     <div
                         style={{
                             position: "absolute",
-                            top:  platform === 'ios' ? '50px' : '12px',
+                            top: platform === 'ios' ? '50px' : '12px',
                             left: "10px",
                         }}
                     >

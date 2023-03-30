@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Div, Group, Header, Link, Spacing, Text, Title, Card, Separator } from "@vkontakte/vkui";
 import { Icon16Pen, Icon36Add } from "@vkontakte/icons";
 import ModalPageCardDevice from "./ModalPageCardDevice";
@@ -52,11 +52,10 @@ export default function ModalPageChooseDevice({
             {
                 Object.keys(devices).length ? <Div><Group mode="card">
                     {
-                        Object.keys(devices).map(deviceType => {
+                        Object.keys(devices).map((deviceType) => {
                             return devices[deviceType].map((deviceName, index) => {
-                                return <>
+                                return <Fragment key={deviceName}>
                                     <ModalPageCardDevice
-                                        key={index}
                                         style={cards.style}
                                         title={deviceName}
                                         imageName={deviceType}
@@ -68,8 +67,8 @@ export default function ModalPageChooseDevice({
                                         userData={userData}
                                         setChooseDevice={setChooseDevice}
                                     />
-                                    {Object.keys(devices).length - 1 !== index && <Separator />}
-                                </>
+                                    {devices[deviceType].length - 1 !== index && <Separator />}
+                                </Fragment>
                             })
                         })
                     }
@@ -102,9 +101,8 @@ export default function ModalPageChooseDevice({
                 <Group mode="card">
                     {
                         Object.keys(cards.images).map((title, index) => {
-                            return <>
+                            return <Fragment key={title}>
                                 <ModalPageCardDevice
-                                    key={index}
                                     style={cards.style}
                                     title={title}
                                     imageName={cards.images[title].image}
@@ -117,7 +115,7 @@ export default function ModalPageChooseDevice({
                                     setChooseDevice={setChooseDevice}
                                 />
                                 {Object.keys(cards.images).length - 1 !== index && <Separator />}
-                            </>
+                            </Fragment>
                         })
                     }
                 </Group>

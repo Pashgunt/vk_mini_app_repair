@@ -155,7 +155,7 @@ export default function SupportChatComponent(props) {
                             </IconButton>
                         }
                     />
-                    <IconButton onClick={sendMessage}>
+                    <IconButton onClick={sendMessage} aria-label="Отправить">
                         <Icon48WritebarSend fill="#2688eb" />
                     </IconButton>
                 </Div >
