@@ -23,15 +23,21 @@ export default function ModalRootComponent(props) {
         setUserPhone,
         requestsForRepair,
         history,
-        setHistory
+        setHistory,
+        activeModal
     ] = props.data;
 
     const [isCorrectDataForConnect, setIsCorrectDataForConnect] = useState(true);
     const [isCorrectDataForSendFeedback, setIsCorrectDataForSendFeedback] = useState(false);
     const [isCorrectDataForProblem, setIsCorrectDataForProblem] = useState(false);
 
+    console.log(state.activeModal);
+
     return (
-        <ModalRoot activeModal={state.activeModal}>
+        <ModalRoot
+            activeModal={activeModal}
+            onClose={() => changeShowActiveModal(null, state)}
+        >
             <ModalPage
                 id={state.panels.modal_formForCallback}
                 onClose={() => changeShowActiveModal(null, state)}

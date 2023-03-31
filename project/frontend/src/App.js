@@ -263,7 +263,8 @@ const App = () => {
         setUserPhone,
         requestsForRepair,
         history,
-        setHistory
+        setHistory,
+        activeModal
     ];
 
     const propsForPanel = [
