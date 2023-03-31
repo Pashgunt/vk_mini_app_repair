@@ -97,6 +97,14 @@ export default function MyDevicesComponents(props) {
         }
     })
 
+    const back = () => {
+        addActionLogItem("");
+        history.pop();
+        let toPanel = history?.at(-1);
+        setHistory([...history])
+        changeShowActivePanel(toPanel, state)
+    }
+
     const platform = usePlatform();
 
     return (
@@ -121,10 +129,7 @@ export default function MyDevicesComponents(props) {
                             ref={headerRef}
                         >
                             <div>
-                                <Icon28ChevronBack onClick={() => {
-                                    addActionLogItem("");
-                                    changeShowActivePanel(state.panels.panel_mainScreen, state)
-                                }} />
+                                <Icon28ChevronBack onClick={back} />
                             </div>
                             <Title>
                                 Добавить устройство

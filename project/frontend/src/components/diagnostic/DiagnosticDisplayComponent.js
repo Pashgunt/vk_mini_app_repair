@@ -114,9 +114,8 @@ export default function DiagnosticDisplayComponent(props) {
             setIsCancel(true);
         } else {
             if (isCancel || !isCrashed) {
-                let toPanel = history?.at(-2);
                 history.pop();
-                history.pop();
+                let toPanel = history?.at(-1);
                 setHistory([...history])
                 changeShowActivePanel(toPanel, state)
             }

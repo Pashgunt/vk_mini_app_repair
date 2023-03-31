@@ -104,9 +104,8 @@ export default function DiagnosticTouchScreenComponent(props) {
     const platform = usePlatform();
 
     const back = () => {
-        let toPanel = history?.at(-2);
         history.pop();
-        history.pop();
+        let toPanel = history?.at(-1);
         setHistory([...history])
         changeShowActivePanel(toPanel, state)
     }
@@ -172,7 +171,7 @@ export default function DiagnosticTouchScreenComponent(props) {
                     >
                         <Icon28ChevronBack onClick={() => {
                             document.body.style.overflow = "auto";
-                            changeShowActivePanel(state.panels.panel_mainScreen, state)
+                            back()
                         }} />
                     </div>
                     {countOfCell ? [...Array(countOfCell).keys()].map(item => blockForDraw(item)) : ''}

@@ -61,9 +61,9 @@ export default function SupportChatComponent(props) {
     }, [setMessages])
 
     const back = () => {
-
-        let toPanel = history?.at(-2);
-        setHistory([...history, toPanel])
+        history.pop();
+        let toPanel = history?.at(-1);
+        setHistory([...history])
         changeShowActivePanel(toPanel, state)
     }
 

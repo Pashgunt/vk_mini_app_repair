@@ -137,7 +137,6 @@ const App = () => {
                                     copyOfMyDeviceList[deviceType] = [device];
                                 }
                                 setMyDeviceList(copyOfMyDeviceList);
-                                setHistory([...history, state.panels.panel_mainScreen]);
                                 changeShowActivePanel(state.panels.panel_mainScreen, state);
                                 setShowLoader(false)
                                 document.body.style.overflow = "auto";
@@ -179,7 +178,6 @@ const App = () => {
                                 let copyOfMyDeviceList = Object.assign({}, myDeviceList);
                                 copyOfMyDeviceList[deviceType] = copyOfMyDeviceList[deviceType].filter(myDeviceItem => myDeviceItem !== device)
                                 setMyDeviceList(copyOfMyDeviceList);
-                                setHistory([...history, state.panels.panel_mainScreen]);
                                 changeShowActivePanel(state.panels.panel_mainScreen, state);
                                 setShowLoader(false)
                                 document.body.style.overflow = "auto";
@@ -221,7 +219,6 @@ const App = () => {
             .then(async response => {
                 const resMyDevice = await state.api.getAllDeviceListForUser(response.id);
                 if (Array.isArray(resMyDevice.data)) {
-                    setHistory([...history, state.panels.panel_mainScreen]);
                     changeShowActivePanel(state.panels.panel_deviceScreen, state)
                 }
                 setMyDeviceList(resMyDevice.data);

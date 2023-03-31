@@ -65,9 +65,8 @@ export default function DiagnosticMultitouchComponents(props) {
     }
 
     const back = () => {
-        let toPanel = history?.at(-2);
         history.pop();
-        history.pop();
+        let toPanel = history?.at(-1);
         setHistory([...history])
         changeShowActivePanel(toPanel, state)
     }
