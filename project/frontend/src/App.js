@@ -100,6 +100,7 @@ const App = () => {
                 </div>
                 <Spacing size={20} />
                 <Button size="l" appearance="positive" stretched onClick={() => {
+                    setHistory([...history, state.panels.panel_diagnosticItems])
                     setPopout(null);
                     changeShowActivePanel(state.panels.panel_diagnosticItems, state);
                     setShowPageDiagnostic(true);
@@ -197,50 +198,56 @@ const App = () => {
         );
     }
 
-    useEffect(async () => {
-        // REMOVE
-        const resMyDevice = await state.api.getAllDeviceListForUser(161450796);
-        if (Array.isArray(resMyDevice.data)) {
-            setHistory([...history, state.panels.panel_deviceScreen]);
-            changeShowActivePanel(state.panels.panel_deviceScreen, state)
-        }
-        setMyDeviceList(resMyDevice.data);
-        const resMyRequestsRepair = await state.api.getRequestsForRepairDevice(161450796);
-        setRequestsForRepair(resMyRequestsRepair.data);
-        setUserData({
-            id: 161450796,
-            first_name: "Pavel"
-        });
-
-        const myCrashedTests = await state.api.getCrashedTestsForUser(161450796);
-        setMyCrashedTests(myCrashedTests.data);
-
-        bridge.send('VKWebAppGetUserInfo')
-            .then(async response => {
-                const resMyDevice = await state.api.getAllDeviceListForUser(response.id);
-                if (Array.isArray(resMyDevice.data)) {
-                    changeShowActivePanel(state.panels.panel_deviceScreen, state)
-                }
-                setMyDeviceList(resMyDevice.data);
-                const resMyRequestsRepair = await state.api.getRequestsForRepairDevice(response.id);
-                setRequestsForRepair(resMyRequestsRepair.data);
-                setUserData(response);
-                const myCrashedtests = await state.api.getCrashedTestsForUser(response.id);
-                setMyCrashedTests(myCrashedtests.data);
-            })
-            .catch(error => error)
-
-        bridge.send('VKWebAppGetPhoneNumber')
-            .then((data) => {
-                if (data.phone_number) {
-                    setUserPhone(data.phone_number);
-                }
-            })
-            .catch((error) => {
-                if (error.error_type === 'client_error') {
-                    changeShowActiveModal(state.panels.modal_profile, state);
-                }
+    useEffect(() => {
+        const fetchData = async function () {
+            // REMOVE
+            const resMyDevice = await state.api.getAllDeviceListForUser(161450796);
+            if (Array.isArray(resMyDevice.data)) {
+                setHistory([...history, state.panels.panel_deviceScreen]);
+                changeShowActivePanel(state.panels.panel_deviceScreen, state)
+            }
+            setMyDeviceList(resMyDevice.data);
+            const resMyRequestsRepair = await state.api.getRequestsForRepairDevice(161450796);
+            setRequestsForRepair(resMyRequestsRepair.data);
+            setUserData({
+                id: 161450796,
+                first_name: "Pavel"
             });
+
+            const myCrashedTests = await state.api.getCrashedTestsForUser(161450796);
+            setMyCrashedTests(myCrashedTests.data);
+            //
+
+            bridge.send('VKWebAppGetUserInfo')
+                .then(async response => {
+                    const resMyDevice = await state.api.getAllDeviceListForUser(response.id);
+                    if (Array.isArray(resMyDevice.data)) {
+                        changeShowActivePanel(state.panels.panel_deviceScreen, state)
+                    }
+                    setMyDeviceList(resMyDevice.data);
+                    const resMyRequestsRepair = await state.api.getRequestsForRepairDevice(response.id);
+                    setRequestsForRepair(resMyRequestsRepair.data);
+                    setUserData(response);
+                    const myCrashedtests = await state.api.getCrashedTestsForUser(response.id);
+                    setMyCrashedTests(myCrashedtests.data);
+                })
+                .catch(error => error)
+
+            bridge.send('VKWebAppGetPhoneNumber')
+                .then((data) => {
+                    if (data.phone_number) {
+                        setUserPhone(data.phone_number);
+                    }
+                })
+                .catch((error) => {
+                    if (error.error_type === 'client_error') {
+                        changeShowActiveModal(state.panels.modal_profile, state);
+                    }
+                });
+        }
+
+        fetchData();
+
     }, [])
 
     const propsForModal = [
@@ -329,7 +336,7 @@ const App = () => {
                         </div>}
                         <View activePanel={activePanelView} style={{
                             background: state.setBgColor(),
-                            height: "max-content"
+                            height: "max-content",
                         }}>
                             <Panel id={state.panels.panel_mainScreen}>
                                 <MainPanel data={propsForPanel} />

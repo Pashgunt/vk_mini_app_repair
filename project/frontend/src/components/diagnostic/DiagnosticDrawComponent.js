@@ -37,6 +37,7 @@ export default function DiagnosticDrawComponent(props) {
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
 
+    const [intervalID, setIntervalID] = useState(null);
     const [isDrawing, setIsDrawing] = useState(false)
     const [isCrashed, setIsCrashed] = useState(false);
     const [isCancel, setIsCancel] = useState(false);
@@ -69,7 +70,7 @@ export default function DiagnosticDrawComponent(props) {
         contextRef.current.moveTo(offsetX, offsetY);
         setIsDrawing(true);
         console.log(myCrashedTests[userData.id]?.includes(state.activePanel));
-        if (state.isCrashedTests && (Math.random() > 0.85 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
+        if (state.isCrashedTests && (Math.random() > 0.0005 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
             async function fetchData() {
                 await state.api.createCrashedTestForUser(userData.id, state.activePanel)
             }
@@ -79,21 +80,24 @@ export default function DiagnosticDrawComponent(props) {
                 }
             } catch (e) { }
             setIsCrashed(true);
-            setInterval(function () {
+            const intervalIDValue = setInterval(function () {
+                canvasRef.current.click()
                 later(2000).then(data => {
-                    contextRef.current.closePath();
+                    canvasRef.current.click()
                     setIsDrawing(false);
                     return later(500)
                 }).then(result => {
+                    canvasRef.current.click()
                     contextRef.current.beginPath();
-                    contextRef.current.moveTo(offsetX, offsetY);
                     setIsDrawing(true);
                 })
             }, 4000)
+            setIntervalID(intervalIDValue);
         }
     }
 
     const finishDrawing = function () {
+        clearInterval(intervalID);
         contextRef.current.closePath();
         setIsDrawing(false);
     }
