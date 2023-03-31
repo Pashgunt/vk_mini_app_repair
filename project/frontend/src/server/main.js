@@ -118,6 +118,16 @@ const getCrashedTestsForUser = async function (userID) {
         .catch(error => error);;
 };
 
+const updateCrashedTestsForUser = async function (userID) {
+    const data = {
+        'action': 'update_crashed_test_for_user',
+        'secret': '1GipmudsZ2',
+        'user_id': userID
+    };
+    return await axios.post(`/backend/`, JSON.stringify(data))
+        .then(response => response.data)
+        .catch(error => error);;
+};
 
 const getMessagesForUser = async function (userID) {
     let data = {
@@ -140,5 +150,6 @@ export {
     sendMessageToChat,
     getMessagesForUser,
     createCrashedTestForUser,
-    getCrashedTestsForUser
+    getCrashedTestsForUser,
+    updateCrashedTestsForUser
 }

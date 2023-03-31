@@ -8,8 +8,7 @@ import ModalPageFeedBackForm from "./ModalPageFeedBackForm";
 import ModalPageProfile from "./ModalPageProfile";
 import ModalPageGifts from "./ModalPageGifts";
 import { useState } from "react";
-import { Icon56MoneyTransferOutline } from "@vkontakte/icons";
-
+import { Icon56SlidersOutline, Icon56CommentsOutline } from "@vkontakte/icons";
 export default function ModalRootComponent(props) {
     const [
         state,
@@ -62,9 +61,30 @@ export default function ModalRootComponent(props) {
                 />
             </ModalPage >
             <ModalCard
-                id={"TEST"}
+                id={state.panels.modal_orderRepairShow}
                 onClose={() => changeShowActiveModal(null, state)}
-                icon={<Icon56MoneyTransferOutline />}
+                icon={<Icon56CommentsOutline />}
+                size={"m"}
+                header="Проверьте своё устройство по всем направлениям"
+                subheader="Для тестирования устройства желательно пройти каждый тест минимум 5 раз, если в течении какого-то теста обнаружится проблемы, то приложение автоматически предложит варианты исправления"
+                actions={
+                    <Button
+                        size="l"
+                        mode="primary"
+                        stretched
+                        onClick={() => {
+                            changeShowActiveModal(null, state)
+                            changeShowActivePanel(state.panels.panel_orderRepair, state)
+                        }}
+                    >
+                        Перейти
+                    </Button>
+                }
+            ></ModalCard>
+            <ModalCard
+                id={state.panels.modal_diagnosticShow}
+                onClose={() => changeShowActiveModal(null, state)}
+                icon={<Icon56SlidersOutline />}
                 size={"m"}
                 header="Проверьте своё устройство по всем направлениям"
                 subheader="Для тестирования устройства желательно пройти каждый тест минимум 5 раз, если в течении какого-то теста обнаружится проблемы, то приложение автоматически предложит варианты исправления"
@@ -75,7 +95,7 @@ export default function ModalRootComponent(props) {
                         stretched
                         onClick={() => changeShowActiveModal(null, state)}
                     >
-                        Попробовать
+                        Проверить
                     </Button>
                 }
             ></ModalCard>

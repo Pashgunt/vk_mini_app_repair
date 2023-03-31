@@ -38,6 +38,9 @@ switch ($postData['action']) {
     case "create_crashed_test_for_user":
         echo createCrashedTestForUser($postData);
         break;
+    case "update_crashed_test_for_user":
+        echo updateCrashedTestsForUser($postData);
+        break;
     default:
         echo json_encode(['result' => 'error']);
         break;

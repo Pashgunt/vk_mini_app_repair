@@ -62,9 +62,11 @@ export default function DiagnosticPingComponent(props) {
             return false;
         };
         setLoadingPing(false);
-        if (state.isCrashedTests && (Math.random() > 0.01 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
+        if (state.isCrashedTests && (Math.random() > 0.95 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
             try {
-                await state.api.createCrashedTestForUser(userData.id, state.activePanel)
+                if (!myCrashedTests[userData.id]?.includes(state.activePanel)) {
+                    await state.api.createCrashedTestForUser(userData.id, state.activePanel)
+                }
             } catch (e) { }
             setIsCrashed(true);
         }
@@ -101,9 +103,11 @@ export default function DiagnosticPingComponent(props) {
             setInternetSpeed(0);
             return;
         };
-        if (state.isCrashedTests && (Math.random() > 0.01 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
+        if (state.isCrashedTests && (Math.random() > 0.95 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
             try {
-                await state.api.createCrashedTestForUser(userData.id, state.activePanel)
+                if (!myCrashedTests[userData.id]?.includes(state.activePanel)) {
+                    await state.api.createCrashedTestForUser(userData.id, state.activePanel)
+                }
             } catch (e) { }
             setIsCrashed(true);
         }
@@ -129,7 +133,7 @@ export default function DiagnosticPingComponent(props) {
 
     const back = () => {
         if (isCrashed && !isCancel) {
-            changeShowActiveModal("TEST", state);
+            changeShowActiveModal(state.panels.modal_orderRepairShow, state);
             setIsCancel(true);
         } else {
             if (isCancel || !isCrashed) {

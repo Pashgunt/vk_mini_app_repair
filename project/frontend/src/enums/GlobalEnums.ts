@@ -7,6 +7,8 @@ export enum GlobalEnums{
     modal_chooseDevice = "modalChooseDevice",
     modal_sendRequestForRepair = "modalCreateRequestRepair",
     modal_gifts = "modalGifts",
+    modal_diagnosticShow = "modalDiagnosticShow",
+    modal_orderRepairShow = "modalOderRepairShow",
     panel_mainScreen = "main",
     panel_deviceScreen = "devices",
     panel_deviceInnerPage = "innerDevicePage",

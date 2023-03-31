@@ -125,7 +125,8 @@ const App = () => {
                         mode: 'destructive',
                         autoClose: true,
                         action: async () => {
-                            setShowLoader(true)
+                            setShowLoader(true);
+                            document.body.style.overflow = "hidden";
                             let result = await state.api.addDeviceForUser(userID, device);
                             if (result.data === "success") {
                                 setShowSuccessAddedDevice(deviceType, device);
@@ -139,9 +140,11 @@ const App = () => {
                                 setHistory([...history, state.panels.panel_mainScreen]);
                                 changeShowActivePanel(state.panels.panel_mainScreen, state);
                                 setShowLoader(false)
+                                document.body.style.overflow = "auto";
                             } else {
                                 addActionLogItem(`При добавлении устройства ${device} в Ваш список произошла ошибка`);
-                                setShowLoader(false)
+                                setShowLoader(false);
+                                document.body.style.overflow = "auto";
                             }
                         },
                     },
@@ -169,6 +172,7 @@ const App = () => {
                         autoClose: true,
                         mode: 'destructive',
                         action: async () => {
+                            document.body.style.overflow = "hidden";
                             setShowLoader(true)
                             let result = await state.api.removeDeviceForUser(userID, device);
                             if (result.data === "success") {
@@ -178,9 +182,11 @@ const App = () => {
                                 setHistory([...history, state.panels.panel_mainScreen]);
                                 changeShowActivePanel(state.panels.panel_mainScreen, state);
                                 setShowLoader(false)
+                                document.body.style.overflow = "auto";
                             } else {
                                 addActionLogItem(`При удалении устройства ${device} из Вашего списка произошла ошибка`);
                                 setShowLoader(false)
+                                document.body.style.overflow = "auto";
                             }
                         },
                     },
@@ -288,7 +294,7 @@ const App = () => {
     ];
 
     if (showPageDiagnostic) {
-        changeShowActiveModal("TEST", state);
+        changeShowActiveModal(state.panels.modal_diagnosticShow, state);
         setShowPageDiagnostic(false);
     }
 
@@ -306,7 +312,7 @@ const App = () => {
                             height: "max-content"
                         }}>
                         {showLoader && <div style={{
-                            position: "absolute",
+                            position: "fixed",
                             top: 0,
                             left: 0,
                             width: "100vw",

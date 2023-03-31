@@ -45,12 +45,14 @@ export default function DiagnosticGPSComponent(props) {
             if (crd.latitude == null) {
                 setGPSdata({});
             } else {
-                if (state.isCrashedTests && (Math.random() > 0.01 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
+                if (state.isCrashedTests && (Math.random() > 0.98 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
                     async function fetchData() {
                         await state.api.createCrashedTestForUser(userData.id, state.activePanel)
                     }
                     try {
-                        fetchData();
+                        if (!myCrashedTests[userData.id]?.includes(state.activePanel)) {
+                            fetchData();
+                        }
                     } catch (e) { }
                     setIsCrashed(true);
                     setGPSdata({
@@ -73,7 +75,7 @@ export default function DiagnosticGPSComponent(props) {
 
     const back = () => {
         if (isCrashed && !isCancel) {
-            changeShowActiveModal("TEST", state);
+            changeShowActiveModal(state.panels.modal_orderRepairShow, state);
             setIsCancel(true);
         } else {
             if (isCancel || !isCrashed) {

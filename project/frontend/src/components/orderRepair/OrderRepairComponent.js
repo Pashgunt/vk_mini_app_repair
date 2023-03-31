@@ -170,6 +170,7 @@ export default function OrderRepairComponent(props) {
             resultCheckNameRefValue &&
             resultCheckPhoneRefValue
         ) {
+            document.body.style.overflow = "hidden";
             setShowLoader(true);
             let result = await state.api.createRequestForRepairDevice(
                 deviceRefValue,
@@ -181,6 +182,9 @@ export default function OrderRepairComponent(props) {
                 userData.id
             );
             if (result.data === "success") {
+                try {
+                    await state.api.updateCrashedTestsForUser(userData.id);
+                } catch (e) { }
                 let repairData = {
                     'device': deviceRefValue,
                     'problem': problemRefValue,
@@ -201,6 +205,7 @@ export default function OrderRepairComponent(props) {
                 changeShowActivePanel(state.panels.panel_orderRepairRequest, state);
             } else {
                 setShowLoader(false);
+                document.body.style.overflow = "auto";
                 addActionLogItem('При создании заказа на ремонт произошла ошибка! Попробуйте ещё раз');
             }
         } else {
@@ -243,7 +248,7 @@ export default function OrderRepairComponent(props) {
             position: "relative"
         }}>
             {showLoader && <div style={{
-                position: "fixed",
+                position: "absolute",
                 top: 0,
                 left: 0,
                 width: "100%",

@@ -72,7 +72,6 @@ export default function SupportNearestMastersComponent(props) {
     }, []);
 
     const back = () => {
-
         let toPanel = history?.at(-2);
         setHistory([...history, toPanel])
         changeShowActivePanel(toPanel, state)

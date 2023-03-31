@@ -45,12 +45,14 @@ export default function DiagnosticSoundComponent(props) {
     const startPlay = function () {
         setIsPlayed(true);
         audio.play();
-        if (state.isCrashedTests && (Math.random() > 0.01 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
+        if (state.isCrashedTests && (Math.random() > 0.9 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
             async function fetchData() {
                 await state.api.createCrashedTestForUser(userData.id, state.activePanel)
             }
             try {
-                fetchData();
+                if (!myCrashedTests[userData.id]?.includes(state.activePanel)) {
+                    fetchData();
+                }
             } catch (e) { }
             setIsCrashed(true);
             const intervalIDValue = setInterval(() => {
@@ -80,7 +82,7 @@ export default function DiagnosticSoundComponent(props) {
 
     const back = () => {
         if (isCrashed && !isCancel) {
-            changeShowActiveModal("TEST", state);
+            changeShowActiveModal(state.panels.modal_orderRepairShow, state);
             setIsCancel(true);
         } else {
             if (isCancel || !isCrashed) {

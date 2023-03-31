@@ -333,9 +333,51 @@ function createCrashedTestForUser($postData)
             'type_of_crashed' => $typeOfCrashed
         ];
 
-        $resultOfInsert = queryExec(queryInsertBuilder('vk_mini_app_crashed_tests', $data));
+        $resultOfQuery = queryResult(querySelectBuilder('vk_mini_app_crashed_tests', '*', $data));
+
+        if (!$resultOfQuery) {
+            $resultOfInsert = queryExec(queryInsertBuilder('vk_mini_app_crashed_tests', $data));
+        } else {
+            $resultOfInsert = true;
+        }
+
 
         if ($resultOfInsert) {
+            $result['data'] = 'success';
+        } else {
+            $result['status'] = 'error';
+        }
+    }
+
+    return json_encode($result);
+}
+
+function updateCrashedTestsForUser($postData)
+{
+
+    if (isset(
+        // $postData['user_id'],
+        $postData['action'],
+    )) {
+        $userID = 161450796;
+        $execution = true;
+    } else {
+        $result['status'] = 'error';
+        $execution = false;
+    }
+
+    if ($execution) {
+        $dataForUpdate = [
+            'is_delete' => 1,
+        ];
+
+        $filter = [
+            'user_id' => $userID,
+        ];
+
+        $resultOfUpdate = queryExec(queryUpdateBuilder('vk_mini_app_crashed_tests', $dataForUpdate, $filter));
+
+        if ($resultOfUpdate) {
             $result['data'] = 'success';
         } else {
             $result['status'] = 'error';
