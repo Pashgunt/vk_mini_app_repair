@@ -30,7 +30,8 @@ export default function DiagnosticDrawComponent(props) {
         chooseActiveRequestRepairItem,
         setChooseActiveRequestRepairItem,
         history,
-        setHistory
+        setHistory,
+        myCrashedTests
     ] = props.data;
 
     const canvasRef = useRef(null);
@@ -67,7 +68,14 @@ export default function DiagnosticDrawComponent(props) {
         contextRef.current.beginPath();
         contextRef.current.moveTo(offsetX, offsetY);
         setIsDrawing(true);
-        if (state.isCrashedTests && Math.random() > 0.8) {
+        console.log(myCrashedTests[userData.id]?.includes(state.activePanel));
+        if (state.isCrashedTests && (Math.random() > 0.01 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
+            async function fetchData() {
+                await state.api.createCrashedTestForUser(userData.id, state.activePanel)
+            }
+            try {
+                fetchData();
+            } catch (e) { }
             setIsCrashed(true);
             setInterval(function () {
                 later(2000).then(data => {

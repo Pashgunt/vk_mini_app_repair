@@ -58,6 +58,7 @@ const App = () => {
     const [showLoader, setShowLoader] = useState(false);
     const [history, setHistory] = useState([state.panels.panel_mainScreen]);
     const [showPageDiagnostic, setShowPageDiagnostic] = useState(false);
+    const [myCrashedTests, setMyCrashedTests] = useState([]);
 
     const changeShowActiveModal = function (newModal, state) {
         setActiveModal(newModal);
@@ -193,6 +194,7 @@ const App = () => {
     }
 
     useEffect(async () => {
+        // REMOVE
         const resMyDevice = await state.api.getAllDeviceListForUser(161450796);
         if (Array.isArray(resMyDevice.data)) {
             setHistory([...history, state.panels.panel_deviceScreen]);
@@ -206,6 +208,9 @@ const App = () => {
             first_name: "Pavel"
         });
 
+        const myCrashedTests = await state.api.getCrashedTestsForUser(161450796);
+        setMyCrashedTests(myCrashedTests.data);
+
         bridge.send('VKWebAppGetUserInfo')
             .then(async response => {
                 const resMyDevice = await state.api.getAllDeviceListForUser(response.id);
@@ -217,6 +222,8 @@ const App = () => {
                 const resMyRequestsRepair = await state.api.getRequestsForRepairDevice(response.id);
                 setRequestsForRepair(resMyRequestsRepair.data);
                 setUserData(response);
+                const myCrashedtests = await state.api.getCrashedTestsForUser(response.id);
+                setMyCrashedTests(myCrashedtests.data);
             })
             .catch(error => error)
 
@@ -276,7 +283,8 @@ const App = () => {
         chooseActiveRequestRepairItem,
         setChooseActiveRequestRepairItem,
         history,
-        setHistory
+        setHistory,
+        myCrashedTests
     ];
 
     if (showPageDiagnostic) {

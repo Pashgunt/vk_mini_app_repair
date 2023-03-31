@@ -288,7 +288,78 @@ function getMessagesForUser($postData)
     return json_encode($result);
 }
 
+function getCrashedTestsForUser($postData)
+{
+    if (isset($postData['action'])) {
+        $userID = 161450796;
+        $execution = true;
+    } else {
+        $result['status'] = 'error';
+        $execution = false;
+    }
+
+    if ($execution) {
+        $data = [
+            'user_id' => $userID
+        ];
+        $result['status'] = 'ok';
+        $resultOfQuery = queryResult(querySelectBuilder('vk_mini_app_crashed_tests', '*', $data));
+
+        $result['data'] = [
+            $userID => array_column($resultOfQuery, 'type_of_crashed')
+        ];
+    }
+
+    return json_encode($result);
+}
+
+function createCrashedTestForUser($postData)
+{
+    if (isset(
+        // $postData['user_id'],
+        $postData['type_of_crashed'],
+    )) {
+        $userID = 161450796;
+        $typeOfCrashed = $postData['type_of_crashed'];
+        $execution = true;
+    } else {
+        $result['status'] = 'error';
+        $execution = false;
+    }
+
+    if ($execution) {
+        $data = [
+            'user_id' => $userID,
+            'type_of_crashed' => $typeOfCrashed
+        ];
+
+        $resultOfInsert = queryExec(queryInsertBuilder('vk_mini_app_crashed_tests', $data));
+
+        if ($resultOfInsert) {
+            $result['data'] = 'success';
+        } else {
+            $result['status'] = 'error';
+        }
+    }
+
+    return json_encode($result);
+}
+
 function makeCurlRequest($action, $data)
+{
+    $myCurl = curl_init();
+    curl_setopt_array($myCurl, array(
+        CURLOPT_URL            => "url",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => http_build_query($data)
+    ));
+    $response = curl_exec($myCurl);
+    curl_close($myCurl);
+    return json_decode($response, true);
+}
+
+function makeCurlRequestForCreateLead($data)
 {
     $myCurl = curl_init();
     curl_setopt_array($myCurl, array(

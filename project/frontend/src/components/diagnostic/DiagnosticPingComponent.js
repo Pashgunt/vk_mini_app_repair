@@ -31,7 +31,8 @@ export default function DiagnosticPingComponent(props) {
         chooseActiveRequestRepairItem,
         setChooseActiveRequestRepairItem,
         history,
-        setHistory
+        setHistory,
+        myCrashedTests
     ] = props.data;
 
     const [loadingPing, setLoadingPing] = useState(false);
@@ -61,7 +62,10 @@ export default function DiagnosticPingComponent(props) {
             return false;
         };
         setLoadingPing(false);
-        if (state.isCrashedTests && Math.random() > 0.95) {
+        if (state.isCrashedTests && (Math.random() > 0.01 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
+            try {
+                await state.api.createCrashedTestForUser(userData.id, state.activePanel)
+            } catch (e) { }
             setIsCrashed(true);
         }
     }
@@ -97,7 +101,10 @@ export default function DiagnosticPingComponent(props) {
             setInternetSpeed(0);
             return;
         };
-        if (state.isCrashedTests && Math.random() > 0.95) {
+        if (state.isCrashedTests && (Math.random() > 0.01 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
+            try {
+                await state.api.createCrashedTestForUser(userData.id, state.activePanel)
+            } catch (e) { }
             setIsCrashed(true);
         }
     }

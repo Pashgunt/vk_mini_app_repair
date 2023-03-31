@@ -31,7 +31,8 @@ export default function DiagnosticGPSComponent(props) {
         chooseActiveRequestRepairItem,
         setChooseActiveRequestRepairItem,
         history,
-        setHistory
+        setHistory,
+        myCrashedTests
     ] = props.data;
 
     const [GPSdata, setGPSdata] = useState('');
@@ -44,7 +45,13 @@ export default function DiagnosticGPSComponent(props) {
             if (crd.latitude == null) {
                 setGPSdata({});
             } else {
-                if (state.isCrashedTests && Math.random() > 0.98) {
+                if (state.isCrashedTests && (Math.random() > 0.01 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
+                    async function fetchData() {
+                        await state.api.createCrashedTestForUser(userData.id, state.activePanel)
+                    }
+                    try {
+                        fetchData();
+                    } catch (e) { }
                     setIsCrashed(true);
                     setGPSdata({
                         "latitude": Math.floor(crd.latitude) + 10,

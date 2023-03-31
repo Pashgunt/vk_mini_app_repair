@@ -32,6 +32,12 @@ switch ($postData['action']) {
     case "get_messages_for_user":
         echo getMessagesForUser($postData);
         break;
+    case "get_crashed_tests_for_user":
+        echo getCrashedTestsForUser($postData);
+        break;
+    case "create_crashed_test_for_user":
+        echo createCrashedTestForUser($postData);
+        break;
     default:
         echo json_encode(['result' => 'error']);
         break;

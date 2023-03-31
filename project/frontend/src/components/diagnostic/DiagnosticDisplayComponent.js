@@ -30,7 +30,8 @@ export default function DiagnosticDisplayComponent(props) {
         chooseActiveRequestRepairItem,
         setChooseActiveRequestRepairItem,
         history,
-        setHistory
+        setHistory,
+        myCrashedTests
     ] = props.data;
 
     const [intervalID, setIntervalID] = useState(null);
@@ -72,7 +73,13 @@ export default function DiagnosticDisplayComponent(props) {
     }
 
     useEffect(() => {
-        if (state.isCrashedTests && Math.random() > 0.8) {
+        if (state.isCrashedTests && (Math.random() > 0.01 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
+            async function fetchData() {
+                await state.api.createCrashedTestForUser(userData.id, state.activePanel)
+            }
+            try {
+                fetchData();
+            } catch (e) { }
             setIsCrashed(true);
             generateCrached();
         }

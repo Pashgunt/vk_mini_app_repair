@@ -95,6 +95,30 @@ const sendMessageToChat = async function (userID, textMessage, name, phone) {
         .catch(error => error);
 }
 
+const createCrashedTestForUser = async function (userID, typeOfCrashed) {
+    let data = {
+        'user_id': userID,
+        'type_of_crashed': typeOfCrashed,
+        'action': 'create_crashed_test_for_user',
+        'secret': '1GipmudsZ2',
+    }
+    return await axios.post('/backend/', JSON.stringify(data))
+        .then(response => response.data)
+        .catch(error => error);
+}
+
+const getCrashedTestsForUser = async function (userID) {
+    const data = {
+        'action': 'get_crashed_tests_for_user',
+        'secret': '1GipmudsZ2',
+        'user_id': userID
+    };
+    return await axios.post(`/backend/`, JSON.stringify(data))
+        .then(response => response.data)
+        .catch(error => error);;
+};
+
+
 const getMessagesForUser = async function (userID) {
     let data = {
         'action': 'get_messages_for_user',
@@ -114,5 +138,7 @@ export {
     createRequestForRepairDevice,
     getRequestsForRepairDevice,
     sendMessageToChat,
-    getMessagesForUser
+    getMessagesForUser,
+    createCrashedTestForUser,
+    getCrashedTestsForUser
 }

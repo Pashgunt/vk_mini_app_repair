@@ -30,7 +30,8 @@ export default function DiagnosticSoundComponent(props) {
         chooseActiveRequestRepairItem,
         setChooseActiveRequestRepairItem,
         history,
-        setHistory
+        setHistory,
+        myCrashedTests
     ] = props.data;
 
     const lineRef = useRef(null);
@@ -44,7 +45,13 @@ export default function DiagnosticSoundComponent(props) {
     const startPlay = function () {
         setIsPlayed(true);
         audio.play();
-        if (state.isCrashedTests && Math.random() > 0.95) {
+        if (state.isCrashedTests && (Math.random() > 0.01 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
+            async function fetchData() {
+                await state.api.createCrashedTestForUser(userData.id, state.activePanel)
+            }
+            try {
+                fetchData();
+            } catch (e) { }
             setIsCrashed(true);
             const intervalIDValue = setInterval(() => {
                 lineRef.current.style.width = `${Math.floor(Math.random() * (parentLineRef.current.offsetWidth - 10 + 1) + 10)}px`
