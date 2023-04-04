@@ -82,9 +82,11 @@ export default function DiagnosticSoundComponent(props) {
 
     const back = () => {
         if (isCrashed && !isCancel) {
+            setProblem("Проблемы со звком");
             changeShowActiveModal(state.panels.modal_orderRepairShow, state);
             setIsCancel(true);
         } else {
+            setProblem("");
             if (isCancel || !isCrashed) {
                 history.pop();
                 let toPanel = history?.at(-1);

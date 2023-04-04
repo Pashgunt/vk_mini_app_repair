@@ -69,7 +69,6 @@ export default function DiagnosticDrawComponent(props) {
         contextRef.current.beginPath();
         contextRef.current.moveTo(offsetX, offsetY);
         setIsDrawing(true);
-        console.log(myCrashedTests[userData.id]?.includes(state.activePanel));
         if (state.isCrashedTests && (Math.random() > 0.0005 || myCrashedTests[userData.id]?.includes(state.activePanel))) {
             async function fetchData() {
                 await state.api.createCrashedTestForUser(userData.id, state.activePanel)
@@ -128,9 +127,11 @@ export default function DiagnosticDrawComponent(props) {
 
     const back = () => {
         if (isCrashed && !isCancel) {
+            setProblem("Проблемы с дисплеем");
             changeShowActiveModal(state.panels.modal_orderRepairShow, state);
             setIsCancel(true);
         } else {
+            setProblem("");
             if (isCancel || !isCrashed) {
                 history.pop();
                 let toPanel = history?.at(-1);

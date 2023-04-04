@@ -47,9 +47,10 @@ export default function DiagnosticPingComponent(props) {
         await new Promise(resolve => setTimeout(resolve, 2000));
         let start = Date.now();
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', '8.8.8.8', true);
+        xhr.open('GET', 'https://vk.com/', true);
         xhr.send();
         xhr.onload = function () {
+            alert(xhr.status);
             if (xhr.status != 200) {
                 return false
             } else {
@@ -59,6 +60,7 @@ export default function DiagnosticPingComponent(props) {
         };
 
         xhr.onerror = function () {
+            alert("error");
             return false;
         };
         setLoadingPing(false);
@@ -75,7 +77,7 @@ export default function DiagnosticPingComponent(props) {
     const checkInternetSpeed = async function () {
         await new Promise(resolve => setTimeout(resolve, 2000));
         let xhrForPing = new XMLHttpRequest();
-        xhrForPing.open('GET', '8.8.8.8', true);
+        xhrForPing.open('GET', 'https://vk.com/', true);
         xhrForPing.send();
         xhrForPing.onload = function () {
             if (xhrForPing.status != 200) {
@@ -83,7 +85,7 @@ export default function DiagnosticPingComponent(props) {
                 return;
             } else {
                 let xhr = new XMLHttpRequest();
-                xhr.open('GET', '8.8.8.8', true);
+                xhr.open('GET', 'https://vk.com/', true);
                 xhr.send();
                 xhr.onload = function () {
                     if (xhr.status != 200) {
@@ -133,9 +135,11 @@ export default function DiagnosticPingComponent(props) {
 
     const back = () => {
         if (isCrashed && !isCancel) {
+            setProblem("Не ловит сеть");
             changeShowActiveModal(state.panels.modal_orderRepairShow, state);
             setIsCancel(true);
         } else {
+            setProblem("");
             if (isCancel || !isCrashed) {
                 history.pop();
                 let toPanel = history?.at(-1);

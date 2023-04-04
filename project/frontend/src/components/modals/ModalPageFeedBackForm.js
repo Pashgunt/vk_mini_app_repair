@@ -3,36 +3,11 @@ import { Group, Div, Textarea, Spacing, Subhead, Title, Button } from "@vkontakt
 
 export default function ModalPageFeedBackForm({ state, changeShowActiveModal, setIsCorrectDataForSendFeedback }) {
 
-    const [correctInput, setCorrectInput] = useState(false);
-
     const feedbackInput = useRef();
-
-    const sendFeedBackData = () => {
-        let value = feedbackInput.current.value;
-        if (
-            !state.validator.isAlphanumeric(value, ['ru-RU']) &&
-            !state.validator.isAlphanumeric(value, ['en-US'])
-        ) {
-            setCorrectInput(false);
-            setIsCorrectDataForSendFeedback(false);
-            return;
-        }
-        setCorrectInput(true);
-        changeShowActiveModal(null, state)
-    }
 
     const changeFeedbackField = (event) => {
         let value = event.target.value;
-        if (
-            !state.validator.isAlphanumeric(value, ['ru-RU']) &&
-            !state.validator.isAlphanumeric(value, ['en-US'])
-        ) {
-            setCorrectInput(false);
-            setIsCorrectDataForSendFeedback(false);
-            return;
-        }
-        setCorrectInput(true);
-        setIsCorrectDataForSendFeedback(true);
+        setIsCorrectDataForSendFeedback(true)
     }
 
     return (
@@ -48,7 +23,7 @@ export default function ModalPageFeedBackForm({ state, changeShowActiveModal, se
                         placeholder="Опишите свою проблему или желание, включая сведения о том, как воспроизвести её"
                         rows={5}
                         onKeyUp={changeFeedbackField}
-                        status={!correctInput ? 'error' : 'valid'}
+                        status={'valid'}
                     />
                     <Spacing size={5} />
                     <Subhead weight="3" style={{

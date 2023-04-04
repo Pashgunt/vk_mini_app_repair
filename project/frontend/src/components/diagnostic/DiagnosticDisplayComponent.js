@@ -110,9 +110,11 @@ export default function DiagnosticDisplayComponent(props) {
 
     const back = () => {
         if (isCrashed && !isCancel) {
+            setProblem("Проблемы с дисплеем");
             changeShowActiveModal(state.panels.modal_orderRepairShow, state);
             setIsCancel(true);
         } else {
+            setProblem("");
             if (isCancel || !isCrashed) {
                 history.pop();
                 let toPanel = history?.at(-1);

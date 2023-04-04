@@ -200,28 +200,11 @@ const App = () => {
 
     useEffect(() => {
         const fetchData = async function () {
-            // REMOVE
-            const resMyDevice = await state.api.getAllDeviceListForUser(161450796);
-            if (Array.isArray(resMyDevice.data)) {
-                setHistory([...history, state.panels.panel_deviceScreen]);
-                changeShowActivePanel(state.panels.panel_deviceScreen, state)
-            }
-            setMyDeviceList(resMyDevice.data);
-            const resMyRequestsRepair = await state.api.getRequestsForRepairDevice(161450796);
-            setRequestsForRepair(resMyRequestsRepair.data);
-            setUserData({
-                id: 161450796,
-                first_name: "Pavel"
-            });
-
-            const myCrashedTests = await state.api.getCrashedTestsForUser(161450796);
-            setMyCrashedTests(myCrashedTests.data);
-            //
-
             bridge.send('VKWebAppGetUserInfo')
                 .then(async response => {
                     const resMyDevice = await state.api.getAllDeviceListForUser(response.id);
                     if (Array.isArray(resMyDevice.data)) {
+                        setHistory([...history, state.panels.panel_deviceScreen]);
                         changeShowActivePanel(state.panels.panel_deviceScreen, state)
                     }
                     setMyDeviceList(resMyDevice.data);

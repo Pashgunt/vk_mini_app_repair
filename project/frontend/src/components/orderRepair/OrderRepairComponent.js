@@ -36,15 +36,11 @@ export default function OrderRepairComponent(props) {
         setHistory
     ] = props.data;
 
+    console.log(problem);
     const headerRef = useRef(null);
 
     const problemRef = useRef(null);
     const problemRefDescription = useRef(null);
-    const fullAdressRef = useRef(null);
-    const flatRef = useRef(null);
-    const floorRef = useRef(null);
-    const entranceRef = useRef(null);
-    const intercomRef = useRef(null);
     const nameRef = useRef(null);
     const phoneRef = useRef(null);
 
@@ -157,7 +153,7 @@ export default function OrderRepairComponent(props) {
             problemRefDescriptionValue = problemRefDescription.current.value,
             nameRefValue = nameRef.current.value,
             phoneRefValue = phoneRef.current.value,
-            resultCheckProblemRefValue = true,
+            resultCheckProblemRefValue = !!problemRef.current.value?.trim(),
             resultCheckNameRefValue = true,
             resultCheckPhoneRefValue = true;
 
@@ -182,6 +178,7 @@ export default function OrderRepairComponent(props) {
                 userData.id
             );
             if (result.data === "success") {
+                addActionLogItem("");
                 try {
                     await state.api.updateCrashedTestsForUser(userData.id);
                 } catch (e) { }
@@ -334,6 +331,7 @@ export default function OrderRepairComponent(props) {
                         <Div>
                             <FormItem top="Укажите проблему">
                                 <Input
+                                    required
                                     type="text"
                                     placeholder="Укажите проблему"
                                     onKeyUp={state.throttle(onChangeTextareaProblem, 300)}

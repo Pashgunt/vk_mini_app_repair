@@ -622,21 +622,9 @@ const state = {
                     'img': 'display',
                     'panel': GlobalEnums.panel_deiagnosticDisplay,
                 },
-                // 'Мультитач': {
-                //     'img': 'multiTouch',
-                //     'panel': GlobalEnums.panel_deiagnosticMultitouch,
-                // },
                 'Линии': {
                     'img': 'lines',
                     'panel': GlobalEnums.panel_deiagnosticLines,
-                },
-                // 'Тачскрин': {
-                //     'img': 'touch',
-                //     'panel': GlobalEnums.panel_deiagnosticTochscreen,
-                // },
-                'Пинг': {
-                    'img': 'ping',
-                    'panel': GlobalEnums.panel_deiagnosticPing,
                 },
                 'GPS': {
                     'img': 'gps',
@@ -646,14 +634,10 @@ const state = {
                     'img': 'sound',
                     'panel': GlobalEnums.panel_deiagnosticSound,
                 },
-                'Микрофон': {
+                'Микро': {
                     'img': 'micro',
                     'panel': GlobalEnums.panel_deiagnosticMicro,
                 },
-                'Камера': {
-                    'img': 'camera',
-                    'panel': GlobalEnums.panel_deiagnosticCamera,
-                }
             }
         },
         mainAnotherProducts: {

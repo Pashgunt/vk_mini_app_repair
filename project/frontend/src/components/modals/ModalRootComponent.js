@@ -30,9 +30,7 @@ export default function ModalRootComponent(props) {
     const [isCorrectDataForConnect, setIsCorrectDataForConnect] = useState(true);
     const [isCorrectDataForSendFeedback, setIsCorrectDataForSendFeedback] = useState(false);
     const [isCorrectDataForProblem, setIsCorrectDataForProblem] = useState(false);
-
-    console.log(state.activeModal);
-
+    
     return (
         <ModalRoot
             activeModal={activeModal}
@@ -71,8 +69,8 @@ export default function ModalRootComponent(props) {
                 onClose={() => changeShowActiveModal(null, state)}
                 icon={<Icon56CommentsOutline />}
                 size={"m"}
-                header="Проверьте своё устройство по всем направлениям"
-                subheader="Для тестирования устройства желательно пройти каждый тест минимум 5 раз, если в течении какого-то теста обнаружится проблемы, то приложение автоматически предложит варианты исправления"
+                header="На Вашем устройстве, возможно, были обнаружены неполадки"
+                subheader="Для точного определения неполадок или консультации со специалистом, оставьте заявку и с Вами свяжутся в ближайшее время"
                 actions={
                     <Button
                         size="l"
